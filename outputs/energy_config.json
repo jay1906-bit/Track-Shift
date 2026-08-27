@@ -1,0 +1,26 @@
+{
+  "NOT_F1_CONSTANTS": true,
+  "comment": "alpha and beta are simulation scale parameters. They are not battery capacity, MGU-K limits, ERS limits, electrical efficiency, or actual SOC parameters.",
+  "target_median_abs_net": 0.03,
+  "d_min_ms2": 1.0,
+  "a_clip_ms2": [
+    -20.0,
+    15.0
+  ],
+  "dt_gap_seconds": 1.0,
+  "yellow_factor": 0.3,
+  "winsor_quantile": 0.995,
+  "e0": 1.0,
+  "calibration_set": {
+    "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
+    "n_laps": 829,
+    "median_D_lap": 3835.1116555555554,
+    "median_H_lap": 8131.1117283950625
+  },
+  "alpha": 7.822458038879233e-06,
+  "beta": 3.689532379100818e-06,
+  "alpha_reduced": false,
+  "beta_scale_applied": 1.0,
+  "clip_lap_fraction": 0.34472361809045227,
+  "n_scale_reductions": 0
+}

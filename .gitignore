@@ -16,3 +16,7 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+
+# Optional large sample-level cache (reproducible via scripts/run_energy_system.py)
+outputs/sample_proxies.csv
+outputs/sample_proxies.parquet
