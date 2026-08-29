@@ -1,0 +1,226 @@
+{
+  "task": "cum_distance_m defect fix (v3)",
+  "ml_trained": false,
+  "ml_model_selected": false,
+  "additional_races_processed": false,
+  "strategy_engine_implemented": false,
+  "energy_model_modified": false,
+  "energy_files_untouched": true,
+  "v2_speed_features_unchanged": {
+    "target_speed_at_attacker_position_kmh": true,
+    "relative_speed_same_position_kmh": true,
+    "spatial_time_gap_s": true,
+    "spatial_alignment_ok": true,
+    "closing_speed_at_start_kmh": false,
+    "closing_speed_available": true
+  },
+  "v2_closing_speed_delta": {
+    "events_differing": 85,
+    "events_total": 565,
+    "max_abs_diff_kmh": 91.01012893919882,
+    "explanation": "The stored v2 file was produced before the missing-lap bug in the lap-offset builder was found. 85 of its closing-speed values used an offset that had silently dropped a lap for one of the two cars. v3 carries the corrected values; the v2 file is left on disk unchanged as the historical artifact, as instructed."
+  },
+  "evidence_agreement_by_window": {
+    "(0, 45]": {
+      "n": 238,
+      "uncertain": 13,
+      "uncertain_rate": 0.0546218487394958,
+      "on_track_pass": 41
+    },
+    "(45, 60]": {
+      "n": 65,
+      "uncertain": 4,
+      "uncertain_rate": 0.06153846153846154,
+      "on_track_pass": 15
+    },
+    "(60, 120]": {
+      "n": 78,
+      "uncertain": 7,
+      "uncertain_rate": 0.08974358974358974,
+      "on_track_pass": 32
+    },
+    "(120, 600]": {
+      "n": 17,
+      "uncertain": 6,
+      "uncertain_rate": 0.35294117647058826,
+      "on_track_pass": 2
+    }
+  },
+  "swap_delay": {
+    "v1_pass_swap_delay_max_s": 393.2,
+    "v3_pass_swap_delay_max_s": 85.8,
+    "v3_pass_swap_delay_median_s": 16.119999999999997
+  },
+  "diagnosis_correction": "The brief assumed the constant-lap-length coordinate was simply wrong. Measurement shows it is right for one job and wrong for the other. For an absolute comparison of two cars at one instant it is the better coordinate, because the synthetic lap length is identical for every driver so the lap-count term cancels exactly; it reproduces the FastF1 gap to a median of 0.11 m, whereas measured-length accumulation lands at 158 m because each car's integrated lap differs by tens of metres and compounds. It is wrong only for distance differenced over time, where it injects ~232 m of phantom gain per line crossing. v3 therefore keeps cum_distance_m for the lapped test and uses measured race_distance_m, anchored at t0, for the swap evidence.",
+  "manual_validation": {
+    "all_changes_involve_line_crossing": "31 of 31",
+    "on_track_pass_to_uncertain": "7 events. v1 evidence was distance+DriverAhead agreeing; v3 removes the distance half. Their v1 swap delays were 13, 65, 65, 64, 91, 393 and 3.6 s. At those delays the attacker had crossed the line one or more times, and the phantom 232 m per crossing on its own exceeds the 10-46 m starting gaps, so v1 manufactured the swap. Removing them is correct. Maximum pass swap delay falls from 393 s to 86 s.",
+    "close_no_pass_to_uncertain": "20 events. The distance evidence now fires where v1 suppressed it, because when the TARGET crosses the line v1 credits the target with 232 m it did not travel and hides a real gain. DriverAhead does not corroborate, so UNCERTAIN rather than a pass is the honest label.",
+    "gained_a_label": "2 events. COL vs SAI lap 4 moves UNCERTAIN -> ON_TRACK_PASS with both signals now agreeing, and OCO vs GAS lap 4 moves UNCERTAIN -> CLOSE_INTERACTION_NO_PASS with both signals now declining.",
+    "verdict": "The corrected detector is more physically defensible: it removes swaps that only existed because of phantom distance, and it stops hiding gains behind phantom distance credited to the target."
+  },
+  "remaining_limitations": [
+    "Evidence disagreement is concentrated in long outcome windows: the UNCERTAIN rate is 5.5% for windows up to 45 s but 35.3% beyond 120 s. Over several laps both the distance test and the DriverAhead test degrade, the former through cross-driver integration divergence of roughly 60 m per lap and the latter because a DriverAhead relation minutes later need not belong to this battle. The variable-length outcome window is the next thing to address, and it is an event-definition change that was out of scope here.",
+    "Two laps are truncated in the source telemetry (COL lap 1 at 5119 m, RUS lap 32 at 5055 m) and eight driver-laps are absent from the DriverAhead extract and are gap-filled with the driver's median lap length.",
+    "The stored v2 dataset retains 85 closing-speed values computed before the lap-offset bugfix. Use v3, which supersedes both v1 and v2."
+  ],
+  "frozen_parameters": {
+    "gap_max_m": 100.0,
+    "gap_min_m": 10.0,
+    "min_persist_s": 3.0,
+    "horizon_s": 30.0
+  },
+  "defect": "cum_distance_m = (LapNumber - 1) * 5465.5 m assumed every lap was the full circuit length taken from the maximum observed Distance. Real integrated laps average 5234.8 m, so the coordinate gained ~231 m of phantom distance at each line crossing.",
+  "fix": "race_distance_m accumulates each lap's own measured length (existing add_race_distance, already used by the v2 speed features, so no new distance model was introduced). The swap evidence additionally measures ground gained by each car against its own position at t0, so constant per-driver integration offsets cancel; two laps in this session are truncated by up to 180 m and would otherwise bias that car's swap test permanently.",
+  "continuity": {
+    "n_lap_boundaries": 975,
+    "boundary_step_old_m": {
+      "median": 267.82888888889465,
+      "max": 5791.808055555557,
+      "min": 12.933333333333394
+    },
+    "boundary_step_new_m": {
+      "median": 33.77749999999651,
+      "max": 5309.142500000016,
+      "min": 3.7555555555591127
+    },
+    "within_lap_step_max_m": {
+      "old": 146.08111111111066,
+      "new": 146.08111111111066,
+      "note": "identical by construction; these are telemetry dropouts in the source car data, not a distance-model artifact"
+    },
+    "lap_length_m": {
+      "n_laps": 995,
+      "min": 5054.811666666665,
+      "median": 5233.2886111111175,
+      "mean": 5234.814191513121,
+      "max": 5465.505555555557,
+      "assumed_by_v1": 5465.505555555557
+    },
+    "truncated_laps": {
+      "COL_lap1": 5118.725277777778,
+      "RUS_lap32": 5054.811666666665
+    },
+    "negative_steps_new": 0,
+    "lap_offset_gap_fill": {
+      "laps_gap_filled": {
+        "ALB": [
+          16
+        ],
+        "ALO": [
+          13
+        ],
+        "BOR": [
+          6
+        ],
+        "BOT": [
+          12
+        ],
+        "GAS": [
+          5
+        ],
+        "LAW": [
+          16
+        ],
+        "SAI": [
+          53
+        ],
+        "STR": [
+          34
+        ]
+      },
+      "n_laps_gap_filled": 8
+    },
+    "sanity_race_distance_diff_vs_fastf1_gap_m": {
+      "n": 565,
+      "median_abs_residual": 158.8388888889067,
+      "p95_abs_residual": 5514.534722222228,
+      "n_residuals_over_1000m": 56
+    }
+  },
+  "variant_counts": {
+    "v1_reproduction": {
+      "ON_TRACK_PASS": 96,
+      "CLOSE_INTERACTION_NO_PASS": 297,
+      "PIT_RELATED": 84,
+      "RETIREMENT_RELATED": 2,
+      "LAPPED_UNLAPPED": 40,
+      "UNCERTAIN": 3,
+      "INVALID": 43
+    },
+    "displacement_swap_on_v1_coordinate": {
+      "ON_TRACK_PASS": 96,
+      "CLOSE_INTERACTION_NO_PASS": 297,
+      "PIT_RELATED": 84,
+      "RETIREMENT_RELATED": 2,
+      "LAPPED_UNLAPPED": 40,
+      "UNCERTAIN": 3,
+      "INVALID": 43
+    },
+    "v3_displacement_swap_on_measured_distance": {
+      "ON_TRACK_PASS": 90,
+      "CLOSE_INTERACTION_NO_PASS": 278,
+      "PIT_RELATED": 82,
+      "RETIREMENT_RELATED": 2,
+      "LAPPED_UNLAPPED": 40,
+      "UNCERTAIN": 30,
+      "INVALID": 43
+    }
+  },
+  "baseline_reproduction_verified": true,
+  "event_impact": {
+    "events_v1": 565,
+    "events_v3": 565,
+    "newly_created": 0,
+    "removed": 0,
+    "type_changed": 31,
+    "label_changed": 29,
+    "boundary_changed": 0,
+    "label_1_to_0": 0,
+    "label_0_to_1": 0,
+    "labelled_to_unlabelled": 27,
+    "unlabelled_to_labelled": 2,
+    "changed_involving_line_crossing": 31,
+    "transitions": {
+      "CLOSE_INTERACTION_NO_PASS -> UNCERTAIN": 20,
+      "ON_TRACK_PASS -> UNCERTAIN": 7,
+      "PIT_RELATED -> UNCERTAIN": 2,
+      "UNCERTAIN -> CLOSE_INTERACTION_NO_PASS": 1,
+      "UNCERTAIN -> ON_TRACK_PASS": 1
+    }
+  },
+  "counts": {
+    "on_track_pass_v1": 96,
+    "on_track_pass_v3": 90,
+    "close_no_pass_v1": 297,
+    "close_no_pass_v3": 278
+  },
+  "files_created": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v3.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_audit_v3.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_changed_v1_to_v3.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\event_detection_v3_report.json"
+  ],
+  "files_preserved": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v1.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v2.csv"
+  ],
+  "energy_hashes_before": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+  },
+  "energy_hashes_after": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+  }
+}

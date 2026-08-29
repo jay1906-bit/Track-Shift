@@ -1,0 +1,522 @@
+[
+  {
+    "column": "event_id",
+    "role": "identifier",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "row name"
+  },
+  {
+    "column": "attacker",
+    "role": "identifier",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "driver identity is kept for audit; making it a feature would let the model memorise driver-specific passing tendencies rather than learn the situation"
+  },
+  {
+    "column": "target",
+    "role": "identifier",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "as attacker"
+  },
+  {
+    "column": "target_number",
+    "role": "identifier",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "car number of the target"
+  },
+  {
+    "column": "reciprocal_event_id",
+    "role": "identifier",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "links the opposite-direction event describing the same racing situation; resolved using both events' horizons"
+  },
+  {
+    "column": "race_id",
+    "role": "group_key",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "immutable grouping variable for race-based evaluation"
+  },
+  {
+    "column": "circuit",
+    "role": "group_key",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "circuit is a group, never a feature"
+  },
+  {
+    "column": "year",
+    "role": "group_key",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "season"
+  },
+  {
+    "column": "pair_id",
+    "role": "group_key",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "unordered attacker/target pair within a race"
+  },
+  {
+    "column": "cluster_id",
+    "role": "group_key",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "race + lap + pair, the tightest correlation cluster"
+  },
+  {
+    "column": "event_start_lap",
+    "role": "group_key",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "lap on which t0 falls"
+  },
+  {
+    "column": "gap_at_start_m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "separation at t0"
+  },
+  {
+    "column": "attacker_speed_at_start_kmh",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "attacker telemetry at t0"
+  },
+  {
+    "column": "target_speed_at_attacker_position_kmh",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "target speed sampled where it last crossed the attacker's t0 track position, at or before t0"
+  },
+  {
+    "column": "relative_speed_same_position_kmh",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "spatially aligned speed difference; the wall-clock version compared two cars at different points on the track and is retained only as audit"
+  },
+  {
+    "column": "closing_speed_at_start_kmh",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "least-squares slope of pair separation over a pre-t0 window; never uses the pass interval"
+  },
+  {
+    "column": "spatial_time_gap_s",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "time for the attacker to reach where the target was, measured backwards from t0"
+  },
+  {
+    "column": "spatial_alignment_ok",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "alignment quality flag, known at t0; an explicit indicator instead of a silent imputation"
+  },
+  {
+    "column": "closing_speed_available",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "missingness indicator, known at t0"
+  },
+  {
+    "column": "track_distance_at_start_m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "CIRCUIT_SPECIFIC",
+    "constant_within_race": false,
+    "reason": "absolute metres into the lap; the same number means a different place on every circuit, use track_position_frac for cross-circuit work"
+  },
+  {
+    "column": "track_position_frac",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "track_distance_at_start_m / circuit_length_m, comparable across circuits"
+  },
+  {
+    "column": "zone_type",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "straight / brake / corner; the portable replacement for zone_id"
+  },
+  {
+    "column": "distance_to_next_corner_m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "structurally missing when no corner remains before the line; missingness is preserved"
+  },
+  {
+    "column": "distance_to_next_straight_m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "structurally missing when no straight remains before the line; missingness is preserved"
+  },
+  {
+    "column": "compound",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "tyre compound at t0"
+  },
+  {
+    "column": "tyre_age",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "laps on the tyre at t0"
+  },
+  {
+    "column": "stint",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "stint index at t0"
+  },
+  {
+    "column": "EstimatedEnergyIndex",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "sample-level energy state at t0, not the end-of-lap aggregate"
+  },
+  {
+    "column": "LookaheadDeployProxy",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "computed from the attacker's track position at t0 over the next 400 m"
+  },
+  {
+    "column": "LookaheadHarvestProxy",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "as LookaheadDeployProxy"
+  },
+  {
+    "column": "LookaheadCoveredM",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "metres of the 400 m horizon that lie before the line"
+  },
+  {
+    "column": "lookahead_truncated",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "the 400 m horizon ran past the line and was not wrapped"
+  },
+  {
+    "column": "circuit_length_m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "exogenous circuit geometry"
+  },
+  {
+    "column": "corner_count",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "exogenous circuit geometry"
+  },
+  {
+    "column": "longest_straight_m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "exogenous circuit geometry"
+  },
+  {
+    "column": "n_long_straights_over_500m",
+    "role": "feature_t0",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "exogenous circuit geometry"
+  },
+  {
+    "column": "event_end_time",
+    "role": "episode_level",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "the engagement's end, which is not known at t0"
+  },
+  {
+    "column": "event_duration_s",
+    "role": "episode_level",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "how long the pair stayed in the band, measurable only after the fact"
+  },
+  {
+    "column": "in_band_duration_s",
+    "role": "episode_level",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "as event_duration_s"
+  },
+  {
+    "column": "gap_min_in_episode_m",
+    "role": "episode_level",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "minimum over the whole episode, so it reads samples after t0"
+  },
+  {
+    "column": "n_samples_in_episode",
+    "role": "episode_level",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "counts samples after t0"
+  },
+  {
+    "column": "event_start_time",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "t0 itself; timestamps are not model inputs"
+  },
+  {
+    "column": "horizon_end_time",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "t0 + horizon_s, definitional"
+  },
+  {
+    "column": "horizon_s_effective",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "constant 30 s by construction"
+  },
+  {
+    "column": "event_type",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "the taxonomy decision that produces the label"
+  },
+  {
+    "column": "actual_swap_delay_s",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "measured after t0; derived from the outcome"
+  },
+  {
+    "column": "pass_after_horizon",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "derived from the outcome"
+  },
+  {
+    "column": "window_crosses_start_finish",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "evaluated over the whole horizon window"
+  },
+  {
+    "column": "attacker_PositionChange_audit",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "lap-over-lap classified position change; a future quantity and never used to build the label"
+  },
+  {
+    "column": "attacker_position",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "the lap spine's Position is the classification at the END of the lap, so on a lap where the pass happens it already reflects the pass; measured on Australia v4 the spine places the attacker ahead in 41% of passes against 3% of no-passes, which is the outcome leaking"
+  },
+  {
+    "column": "target_position",
+    "role": "audit",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "as attacker_position"
+  },
+  {
+    "column": "zone_id",
+    "role": "audit",
+    "causal": true,
+    "portability": "CIRCUIT_SPECIFIC",
+    "constant_within_race": false,
+    "reason": "kept for visualisation and error analysis; brake_T11 exists on one circuit only"
+  },
+  {
+    "column": "gap_at_start_s_crude_audit",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "gap divided by attacker speed; superseded by spatial_time_gap_s"
+  },
+  {
+    "column": "target_speed_same_time_kmh_audit",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "wall-clock aligned target speed, superseded by the spatially aligned version"
+  },
+  {
+    "column": "relative_speed_same_time_kmh_audit",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "superseded"
+  },
+  {
+    "column": "closing_speed_v1_kmh_audit",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "superseded by the v3/v4 implementation"
+  },
+  {
+    "column": "closing_speed_v1_window_s_audit",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "superseded"
+  },
+  {
+    "column": "closing_speed_v1_available_audit",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "superseded"
+  },
+  {
+    "column": "spatial_alignment_lag_raw_s",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "uncensored alignment lag"
+  },
+  {
+    "column": "closing_speed_n_samples",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "diagnostic for the closing-speed fit"
+  },
+  {
+    "column": "closing_speed_window_s",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "constant by construction"
+  },
+  {
+    "column": "TrackStatus",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "green by construction on the scoreable set, so non-predictive there"
+  },
+  {
+    "column": "freeze_flag",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "false by construction on the scoreable set"
+  },
+  {
+    "column": "detector_version",
+    "role": "audit",
+    "causal": true,
+    "portability": "PORTABLE",
+    "constant_within_race": true,
+    "reason": "provenance; the single version column for this dataset, replacing v4's separate feature_version"
+  },
+  {
+    "column": "overtake_success",
+    "role": "label",
+    "causal": false,
+    "portability": "PORTABLE",
+    "constant_within_race": false,
+    "reason": "1 when a corroborated on-track pairwise pass completes within 30 s of t0, 0 when the interaction is valid and observable and no such pass occurs, null otherwise"
+  }
+]

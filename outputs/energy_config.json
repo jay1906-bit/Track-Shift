@@ -1,0 +1,34 @@
+{
+  "NOT_F1_CONSTANTS": true,
+  "comment": "alpha and beta are simulation scale parameters. They are not battery capacity, MGU-K limits, ERS limits, electrical efficiency, or actual SOC parameters. The previous formula scaled each flow to 0.03 individually. The corrected formula scales the median absolute NET imbalance to approximately 0.03, matching the stated design objective.",
+  "target_median_abs_net": 0.03,
+  "flow_scale_T": 0.26220096842030605,
+  "median_abs_imbalance": 0.11441605338356431,
+  "calibration_method": "T = 0.03 / median_cal(|H_lap/median(H_lap) - D_lap/median(D_lap)|); alpha = T / median(D_lap); beta = T / median(H_lap)",
+  "d_min_ms2": 1.0,
+  "a_clip_ms2": [
+    -20.0,
+    15.0
+  ],
+  "dt_gap_seconds": 1.0,
+  "yellow_factor": 0.3,
+  "winsor_quantile": 0.995,
+  "e0": 1.0,
+  "calibration_set": {
+    "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
+    "n_laps": 829,
+    "median_D_lap": 3835.111655555555,
+    "median_H_lap": 8131.1117283950625,
+    "median_abs_imbalance": 0.11441605338356431,
+    "mean_imbalance": 0.0020954733018544816,
+    "median_imbalance": -0.002496062666276
+  },
+  "alpha": 6.836853577404478e-05,
+  "beta": 3.224663209394368e-05,
+  "alpha_reduced": false,
+  "beta_scale_applied": 1.0,
+  "floor_reduction_reason": null,
+  "clip_lap_fraction": 0.42512562814070354,
+  "n_scale_reductions": 0,
+  "floor_touch_lap_fraction": 0.08040201005025126
+}

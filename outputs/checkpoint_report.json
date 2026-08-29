@@ -1,0 +1,226 @@
+{
+  "raw_sha256_before": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+  "clean_sha256_before": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913",
+  "cp1": {
+    "driver": "NOR",
+    "lap": 5,
+    "n_in_window": 328,
+    "median_dt": 0.24,
+    "throttle_104": 0,
+    "brake_dtype": "bool"
+  },
+  "cp2": {
+    "distance_min": 7.045833333333336,
+    "distance_max": 5246.158611111108,
+    "monotonic": true
+  },
+  "cp3": {
+    "deploy_mean": 39.42995426829269,
+    "harvest_mean": 97.5027737742985,
+    "harvest_if_no_brake_max": 0.0
+  },
+  "cp4": {
+    "n_freeze_status_laps": 121,
+    "n_box_laps": 61
+  },
+  "cp5": {
+    "n_rows": 995,
+    "n_duplicates": 0,
+    "n_thin": 0,
+    "winsorize": {
+      "DeployProxy": {
+        "p995": 90.27777777777777,
+        "n_clipped": 1544
+      },
+      "HarvestProxy": {
+        "p995": 1383.3333333333335,
+        "n_clipped": 1579
+      }
+    },
+    "n_samples": 326048
+  },
+  "cp6_initial": {
+    "alpha": 6.836853577404478e-05,
+    "beta": 3.224663209394368e-05,
+    "flow_scale_T": 0.26220096842030605,
+    "median_abs_imbalance": 0.11441605338356431,
+    "calibration_set": {
+      "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
+      "n_laps": 829,
+      "median_D_lap": 3835.111655555555,
+      "median_H_lap": 8131.1117283950625,
+      "median_abs_imbalance": 0.11441605338356431,
+      "mean_imbalance": 0.0020954733018544816,
+      "median_imbalance": -0.002496062666276
+    }
+  },
+  "cp7": {
+    "alpha": 6.836853577404478e-05,
+    "beta": 3.224663209394368e-05,
+    "flow_scale_T": 0.26220096842030605,
+    "clip_lap_fraction": 0.42512562814070354,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.08040201005025126,
+    "floor_reduction_reason": null,
+    "e_min": 0.0,
+    "e_max": 0.9833044225552383,
+    "occupancy": {
+      "sample_frac_in_0p05_0p95": 0.6107873687309844,
+      "sample_frac_ge_0p95": 0.32570664442045344,
+      "sample_frac_le_0p05": 0.06350598684856218,
+      "end_frac_in_0p05_0p95": 0.6572864321608041,
+      "end_frac_ge_0p95": 0.24321608040201004,
+      "end_frac_le_0p05": 0.09949748743718594,
+      "end_min": 0.0,
+      "end_max": 0.9833044225552383,
+      "end_mean": 0.7232057782301631,
+      "end_median": 0.9030479791971445,
+      "sample_min": 0.0,
+      "sample_max": 1.0,
+      "floor_touch_lap_fraction": 0.08040201005025126,
+      "ceiling_recover_lap_fraction": 0.34472361809045227,
+      "median_abs_dE": 0.011970529186755341,
+      "median_dE": -0.001446566199221011
+    }
+  },
+  "cp8": {
+    "passed": true,
+    "n_passed": 14,
+    "n_checks": 14,
+    "checks": [
+      {
+        "name": "spatial_deploy_harvest",
+        "passed": true,
+        "detail": "mean DeployProxy on ends=42.1533; mean HarvestProxy mid=109.2398 vs ends=70.3536"
+      },
+      {
+        "name": "harvest_brake_gate",
+        "passed": true,
+        "detail": "max HarvestProxy when Brake=False: 0.0"
+      },
+      {
+        "name": "pit_sc_vsc_freeze",
+        "passed": true,
+        "detail": "n freeze laps with previous E=145; max |dE|=0.0"
+      },
+      {
+        "name": "max_dt_used_le_1s",
+        "passed": true,
+        "detail": "max_dt_used=1.0"
+      },
+      {
+        "name": "energy_bounds",
+        "passed": true,
+        "detail": "min=0.0 max=0.9833044225552383"
+      },
+      {
+        "name": "energy_not_mostly_pegged",
+        "passed": true,
+        "detail": "sample in (0.05,0.95)=0.611; end-of-lap in (0.05,0.95)=0.657; end >=0.95=0.243; end <=0.05=0.099; end min=0.00000 max=0.98330 mean=0.72321 median=0.90305; floor-touch laps=0.080; ceiling-recover laps=0.345; median |dE|=0.01197"
+      },
+      {
+        "name": "throttle_vs_D_lap",
+        "passed": true,
+        "detail": "mean per-driver corr(mean_throttle, D_lap) on calibration laps=0.7840303977871392"
+      },
+      {
+        "name": "clean_laps_995",
+        "passed": true,
+        "detail": "lap_table rows=995"
+      },
+      {
+        "name": "output_rows_995",
+        "passed": true,
+        "detail": "energy_laps rows=995"
+      },
+      {
+        "name": "zero_duplicate_driver_lap",
+        "passed": true,
+        "detail": "duplicates=0"
+      },
+      {
+        "name": "label_estimated_energy_index",
+        "passed": true,
+        "detail": "column is EstimatedEnergyIndex_end (end-of-lap simulated state, not SOC)"
+      },
+      {
+        "name": "raw_unchanged",
+        "passed": true,
+        "detail": "raw sha256=63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35"
+      },
+      {
+        "name": "clean_unchanged",
+        "passed": true,
+        "detail": "clean sha256=6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+      },
+      {
+        "name": "freeze_proxies_near_zero",
+        "passed": true,
+        "detail": "max |D_lap| freeze=0.0; max |H_lap| freeze=0.0"
+      }
+    ],
+    "occupancy": {
+      "sample_frac_in_0p05_0p95": 0.6107873687309844,
+      "sample_frac_ge_0p95": 0.32570664442045344,
+      "sample_frac_le_0p05": 0.06350598684856218,
+      "end_frac_in_0p05_0p95": 0.6572864321608041,
+      "end_frac_ge_0p95": 0.24321608040201004,
+      "end_frac_le_0p05": 0.09949748743718594,
+      "end_min": 0.0,
+      "end_max": 0.9833044225552383,
+      "end_mean": 0.7232057782301631,
+      "end_median": 0.9030479791971445,
+      "sample_min": 0.0,
+      "sample_max": 1.0,
+      "floor_touch_lap_fraction": 0.08040201005025126,
+      "ceiling_recover_lap_fraction": 0.34472361809045227,
+      "median_abs_dE": 0.011970529186755341,
+      "median_dE": -0.001446566199221011
+    }
+  },
+  "cp8_figures": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp8_reference_deploy_harvest.png",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp8_two_driver_energy.png",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp8_freeze_energy.png",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp8_throttle_vs_dlap.png"
+  ],
+  "cp9": {
+    "n_zones": 37,
+    "track_length_m": 5465.505555555557,
+    "covered_m": 5465.505555555557,
+    "zone_types": {
+      "brake": 14,
+      "corner": 14,
+      "straight": 9
+    }
+  },
+  "cp10_lookahead_check": {
+    "longest_straight": "straight_05",
+    "length_m": 941.9556898886449,
+    "before": {
+      "LookaheadDeployProxy": 33051.70735272215,
+      "LookaheadHarvestProxy": 491.0824692556567,
+      "LookaheadCoveredM": 400.0
+    },
+    "at_start": {
+      "LookaheadDeployProxy": 33375.17958748221,
+      "LookaheadHarvestProxy": 561.2371077207505,
+      "LookaheadCoveredM": 400.0
+    }
+  },
+  "cp10": {
+    "n_zones_with_stats": 37
+  },
+  "cp11_figures": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp11_track_map_deploy.png",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp11_track_map_zones.png",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp11_energy_lookahead.png"
+  ],
+  "cp12": {
+    "strategy_implemented": false,
+    "second_energy_state": false,
+    "boundary": "stop after track-aware lookahead foundation"
+  },
+  "raw_unchanged": true,
+  "clean_unchanged": true
+}

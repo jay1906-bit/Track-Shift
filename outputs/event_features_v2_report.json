@@ -1,0 +1,372 @@
+{
+  "task": "competitor-speed feature correction (v2)",
+  "detection_rerun": false,
+  "ml_trained": false,
+  "ml_model_selected": false,
+  "additional_races_processed": false,
+  "strategy_engine_implemented": false,
+  "energy_model_modified": false,
+  "energy_files_untouched": true,
+  "root_cause": {
+    "relative_speed": "v1 read the target's speed at the attacker's wall-clock t0. Attacker and target are 10-100 m apart on track, so at the median no-pass gap of ~93 m one car can be accelerating down a straight while the other is already braking. The difference measured where the cars were on the circuit, not how fast they were going relative to each other, which is why no-pass events showed +80 km/h and passes -3 km/h.",
+    "closing_speed": "v1 required the attacker's DriverAhead field to equal the target across the whole pre-t0 window. Every single missing case had samples available (mean 7.9 in a 2 s window); the field simply flickered between the target, blank, and other car numbers. Missingness was therefore an artifact of FastF1's identity assignment, and it correlated with the label because passes more often follow a fresh engagement.",
+    "cumulative_distance": "cum_distance_m uses (LapNumber-1) * 5465.5 m, but real integrated laps average 5234.8 m, so the column steps by a median of 232 m (max 411 m) at each line crossing. Any separation differenced over time across a line crossing was corrupted."
+  },
+  "method": {
+    "relative_speed_same_position_kmh": "attacker_speed(t0) minus the target's speed the last time it crossed the attacker's t0 track distance, linearly interpolated between the two bracketing samples.",
+    "spatial_time_gap_s": "t0 minus the time of that crossing; a genuine spatial time gap, not an FIA timing gap.",
+    "closing_speed_at_start_kmh": "least-squares slope of (target race distance - attacker race distance) over [t0 - 3.0s, t0], sign-flipped so positive means closing. Uses each car's own telemetry and never consults DriverAhead.",
+    "race_distance_m": "per-driver cumulative distance built from each lap's own measured length, continuous across the line."
+  },
+  "causality": {
+    "spatial_alignment": "The target is ahead, so it crossed the attacker's current track position in the past. Both interpolation endpoints are at or before t0 by construction.",
+    "closing_speed": "The attacker window is trimmed to the target's last sample at or before t0, so the interpolation of the target track never reaches beyond t0.",
+    "no_future_features": "No feature reads any sample after t0. Only the label may look forward."
+  },
+  "parameters": {
+    "spatial_lookback_s": 30.0,
+    "closing_window_s": 3.0,
+    "closing_window_s_v1": 2.0,
+    "max_alignment_lag_s": 10.0,
+    "detection_parameters_unchanged": {
+      "gap_max_m": 100.0,
+      "gap_min_m": 10.0,
+      "min_persist_s": 3.0,
+      "horizon_s": 30.0
+    }
+  },
+  "event_integrity": {
+    "frozen_columns_unchanged": {
+      "event_id": true,
+      "attacker": true,
+      "target": true,
+      "event_start_time": true,
+      "event_end_time": true,
+      "event_start_lap": true,
+      "event_type": true,
+      "overtake_success": true
+    },
+    "events_total": 565,
+    "events_affected_by_feature_change": 565,
+    "labels_changed": 0,
+    "boundaries_changed": 0,
+    "on_track_pass": 96,
+    "close_interaction_no_pass": 297
+  },
+  "old_vs_new": {
+    "relative_speed_same_time_kmh_audit_OLD": {
+      "pass": {
+        "n": 96,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": -2.5,
+        "p25": -26.5,
+        "p75": 21.25,
+        "mean": -0.8958333333333334,
+        "min": -121.0,
+        "max": 144.0
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": 80.0,
+        "p25": 12.0,
+        "p75": 120.0,
+        "mean": 70.75084175084174,
+        "min": -104.0,
+        "max": 188.0
+      }
+    },
+    "relative_speed_same_position_kmh_NEW": {
+      "pass": {
+        "n": 96,
+        "n_missing": 2,
+        "missing_rate": 0.020833333333333332,
+        "median": 0.8239690721649424,
+        "p25": -28.837635192384454,
+        "p75": 16.341112115440716,
+        "mean": -7.679027458447646,
+        "min": -121.0,
+        "max": 108.59218749999997
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 1,
+        "missing_rate": 0.003367003367003367,
+        "median": 4.2300341296921715,
+        "p25": -7.584144036223947,
+        "p75": 16.844339129129963,
+        "mean": 4.286617053842545,
+        "min": -93.60191326530926,
+        "max": 118.55308176100613
+      }
+    },
+    "closing_speed_v1_kmh_audit_OLD": {
+      "pass": {
+        "n": 96,
+        "n_missing": 46,
+        "missing_rate": 0.4791666666666667,
+        "median": -25.728003306392587,
+        "p25": -49.64159688995373,
+        "p75": -11.085121951219769,
+        "mean": -25.266024183147334,
+        "min": -123.75000000000256,
+        "max": 117.34090909090936
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 73,
+        "missing_rate": 0.24579124579124578,
+        "median": 76.64177725327389,
+        "p25": 22.55833067602103,
+        "p75": 116.8010670731707,
+        "mean": 68.69692610189955,
+        "min": -238.14705882354968,
+        "max": 173.3871517907892
+      }
+    },
+    "closing_speed_at_start_kmh_NEW": {
+      "pass": {
+        "n": 96,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": -6.032895838413456,
+        "p25": -18.229939117709325,
+        "p75": 15.051866007041932,
+        "mean": 1.1152820250667872,
+        "min": -130.7627508422602,
+        "max": 106.01507401511691
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 2,
+        "missing_rate": 0.006734006734006734,
+        "median": 35.54619128183096,
+        "p25": 0.9699769315136939,
+        "p75": 79.27968763947072,
+        "mean": 41.41183321571906,
+        "min": -57.632700492424355,
+        "max": 174.46506907278254
+      }
+    },
+    "target_speed_same_time_kmh_audit_OLD": {
+      "pass": {
+        "n": 96,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": 215.5,
+        "p25": 165.0,
+        "p75": 289.75,
+        "mean": 221.17708333333334,
+        "min": 89.0,
+        "max": 334.0
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": 160.0,
+        "p25": 113.0,
+        "p75": 230.0,
+        "mean": 177.68686868686868,
+        "min": 83.0,
+        "max": 332.0
+      }
+    },
+    "target_speed_at_attacker_position_kmh_NEW": {
+      "pass": {
+        "n": 96,
+        "n_missing": 2,
+        "missing_rate": 0.020833333333333332,
+        "median": 229.69544331246,
+        "p25": 175.90532818880732,
+        "p75": 291.9836833855799,
+        "mean": 226.07264447972426,
+        "min": 83.31158536585494,
+        "max": 334.0
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 1,
+        "missing_rate": 0.003367003367003367,
+        "median": 259.7042207792223,
+        "p25": 206.35094884852788,
+        "p75": 289.25,
+        "mean": 244.06811267588716,
+        "min": 89.75396634615457,
+        "max": 332.0
+      }
+    },
+    "spatial_time_gap_s_NEW": {
+      "pass": {
+        "n": 96,
+        "n_missing": 2,
+        "missing_rate": 0.020833333333333332,
+        "median": 0.44207799999999997,
+        "p25": 0.22528375,
+        "p75": 0.9829785,
+        "mean": 0.6477581276595744,
+        "min": 0.108964,
+        "max": 2.105926
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 1,
+        "missing_rate": 0.003367003367003367,
+        "median": 1.510538,
+        "p25": 0.9973482499999999,
+        "p75": 2.0771984999999997,
+        "mean": 1.5079641993243245,
+        "min": 0.115022,
+        "max": 3.063019
+      }
+    },
+    "gap_at_start_m_unchanged": {
+      "pass": {
+        "n": 96,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": 28.66888888888874,
+        "p25": 12.157916666668484,
+        "p75": 57.222430555555206,
+        "mean": 37.61911747685152,
+        "min": 10.007222222225664,
+        "max": 99.80694444444448
+      },
+      "no_pass": {
+        "n": 297,
+        "n_missing": 0,
+        "missing_rate": 0.0,
+        "median": 93.45083333333332,
+        "p25": 60.05555555555555,
+        "p75": 96.93972222221964,
+        "mean": 75.92434717545832,
+        "min": 10.04472222222222,
+        "max": 99.9938888888896
+      }
+    }
+  },
+  "gap_conditioned_comparison": {
+    "closing_speed_at_start_kmh": {
+      "(10, 25]": {
+        "no_pass_median": -16.476241500420024,
+        "pass_median": -18.362023206440902,
+        "n_no_pass": 39,
+        "n_pass": 46
+      },
+      "(25, 50]": {
+        "no_pass_median": 25.739338381824137,
+        "pass_median": 13.941621931474861,
+        "n_no_pass": 27,
+        "n_pass": 24
+      },
+      "(50, 75]": {
+        "no_pass_median": 6.243125462558482,
+        "pass_median": 9.034605283919412,
+        "n_no_pass": 25,
+        "n_pass": 10
+      },
+      "(75, 100]": {
+        "no_pass_median": 50.41380245412078,
+        "pass_median": 10.006466315041603,
+        "n_no_pass": 204,
+        "n_pass": 16
+      }
+    },
+    "relative_speed_same_position_kmh": {
+      "(10, 25]": {
+        "no_pass_median": -18.103233590733623,
+        "pass_median": -28.36398094465106,
+        "n_no_pass": 39,
+        "n_pass": 46
+      },
+      "(25, 50]": {
+        "no_pass_median": 8.12232620320863,
+        "pass_median": 11.9975915819347,
+        "n_no_pass": 28,
+        "n_pass": 22
+      },
+      "(50, 75]": {
+        "no_pass_median": 3.2146801346801226,
+        "pass_median": 16.102238667347052,
+        "n_no_pass": 26,
+        "n_pass": 10
+      },
+      "(75, 100]": {
+        "no_pass_median": 7.216716932356405,
+        "pass_median": 13.650413962683672,
+        "n_no_pass": 203,
+        "n_pass": 16
+      }
+    }
+  },
+  "gap_conditioned_interpretation": "The headline class difference in closing speed (-6 km/h for passes vs +36 km/h for no-pass) is not a feature defect. It comes from where t0 sits: median gap at start is 29 m for passes and 93 m for no-pass events. Inside the same gap band the two classes agree closely (10-25 m: -16.5 vs -18.4 km/h), so closing speed is now measuring approach behaviour rather than track phase. relative_speed_same_position_kmh is higher for passes in the 25-50, 50-75 and 75-100 m bands, which is the physically expected direction; it reverses only in the 10-25 m band, where the attacker is directly behind in dirty air.",
+  "sanity_checks": [
+    {
+      "name": "new_relative_speed_spread_reduced",
+      "passed": true,
+      "detail": "std 32.2 km/h vs old 68.1 km/h"
+    },
+    {
+      "name": "no_pass_relative_speed_artifact_removed",
+      "passed": true,
+      "detail": "no-pass median 4.2 km/h vs old 80.0 km/h (old was a track-phase artifact)"
+    },
+    {
+      "name": "closing_speed_missingness_no_longer_label_correlated",
+      "passed": true,
+      "detail": "availability gap between classes 0.007 vs old 0.233"
+    },
+    {
+      "name": "spatial_alignment_lag_plausible",
+      "passed": true,
+      "detail": "max lag 8.48 s (cap 10.0 s)"
+    },
+    {
+      "name": "spatial_time_gap_tracks_distance_gap",
+      "passed": true,
+      "detail": "corr(spatial_time_gap_s, gap_at_start_m) = 0.703; a real time gap must grow with distance"
+    },
+    {
+      "name": "race_distance_is_continuous",
+      "passed": true,
+      "detail": "max per-sample step 146.1 m vs 5791.8 m for cum_distance_m"
+    }
+  ],
+  "distance_continuity": {
+    "cum_distance_m_max_step_m": 5791.808055555557,
+    "race_distance_m_max_step_m": 146.08111111111066,
+    "median_line_crossing_jump_m": 232.2
+  },
+  "remaining_limitations": [
+    "gap_at_start_m and the motion features remain entangled through t0 placement. Any model must include gap_at_start_m so the motion features are read conditionally rather than marginally.",
+    "16 of 565 events (2.8%) still lack a spatial alignment: 12 are INVALID events with no usable target stream, plus 2 passes, 1 no-pass and 1 pit event where the attacker's t0 distance exceeds the target's most recent measured lap length. This missingness is now essentially uncorrelated with the label (availability gap 0.007 versus 0.233 in v1).",
+    "spatial_time_gap_s is a distance-derived time gap from FastF1 speed integration, not FIA timing. It correlates 0.925 with the crude gap/speed estimate but is systematically larger (mean 1.30 s versus 0.985 s) because the crude version divides by instantaneous straight-line speed.",
+    "The target's speed at the attacker's position was recorded 0.4-1.5 s earlier on median, so the comparison is same-place-different-time. That is the causally defensible half of the tradeoff; a same-place-same-time comparison is physically impossible for two separated cars."
+  ],
+  "detector_bug_reported_not_fixed": "cum_distance_m still uses the constant track length and is still what the frozen detector uses for LAPPED_UNLAPPED classification and for the distance half of the swap evidence. Because the +232 m step only appears when a line crossing falls inside the comparison, it can misclassify pairs straddling the line. This was deliberately NOT changed, since it would move event labels. Recommend fixing it as a separate, reviewed detector change before multi-race collection.",
+  "files_created": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v2.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\event_features_v2_report.json"
+  ],
+  "v1_preserved": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v1.csv",
+  "energy_hashes_before": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+  },
+  "energy_hashes_after": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+  }
+}

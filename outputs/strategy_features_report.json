@@ -1,0 +1,189 @@
+{
+  "step": "strategy_feature_integration",
+  "attack_save_defend_implemented": false,
+  "energy_model_modified": false,
+  "get_telemetry_used": false,
+  "ahead_source": "lap.get_car_data(pad=1, pad_side='both').iloc[1:-1].add_driver_ahead()",
+  "ahead_note": "DistanceToDriverAhead is a FastF1-derived, speed-integrated on-track distance in metres (Telemetry.add_driver_ahead / calculate_driver_ahead). It is not an official FIA timing gap, Interval, or GapToLeader. DriverAhead is the car-number string of the nearest car with a positive integrated-distance delta. Empty DriverAhead means no car ahead. Cars in the pit lane are not excluded (FastF1 documented limitation). Computed per lap on original get_car_data() timestamps; get_telemetry() is not used.",
+  "lap_summary_note": "Lap-level ahead columns are aggregations of the same per-lap car-data DriverAhead / DistanceToDriverAhead series. They are not a second gap model. DriverAhead_end / DistanceToDriverAhead_end are the last in-lap car-data sample. DistanceToDriverAhead_median is the median of finite in-lap DistanceToDriverAhead values.",
+  "files_created": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_laps_derived_v1.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_car_driver_ahead_samples_v1.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_laps_strategy_features_v1.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\strategy_features_report.json"
+  ],
+  "n_derived_rows": 995,
+  "n_strategy_rows": 995,
+  "n_ahead_samples": 325053,
+  "n_laps_with_driver_ahead_any_sample": 946,
+  "n_laps_with_no_driver_ahead": 49,
+  "n_laps_with_driver_ahead_end": 929,
+  "n_laps_missing_ahead_extract": 0,
+  "distance_to_driver_ahead": {
+    "n_present": 305371,
+    "n_missing": 19682,
+    "min": 0.0,
+    "median": 198.3536111111107,
+    "mean": 339.64623059964583,
+    "max": 5336.835277777776
+  },
+  "position_change": {
+    "n_nan": 20,
+    "min": -4.0,
+    "median": 0.0,
+    "mean": -0.01641025641025641,
+    "max": 5.0,
+    "n_gained": 81,
+    "n_lost": 60,
+    "n_unchanged": 834
+  },
+  "join_coverage": {
+    "strategy_rows": 995,
+    "energy_non_null": 995,
+    "lookahead_deploy_non_null": 995,
+    "lookahead_harvest_non_null": 995,
+    "position_change_non_null": 975,
+    "driver_ahead_end_non_empty": 929
+  },
+  "missing_values": {
+    "Driver": 0,
+    "DriverNumber": 0,
+    "LapNumber": 0,
+    "Position": 0,
+    "PositionChange": 20,
+    "LapTimeSeconds": 0,
+    "LapTimeDelta": 20,
+    "EstimatedEnergyIndex": 0,
+    "LookaheadDeployProxy": 0,
+    "LookaheadHarvestProxy": 0,
+    "LookaheadCoveredM": 0,
+    "DriverAhead_end": 0,
+    "DistanceToDriverAhead_end": 66,
+    "DistanceToDriverAhead_median": 49,
+    "n_samples_with_car_ahead": 0,
+    "n_car_samples_ahead_extract": 0
+  },
+  "energy_hashes_before": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4"
+  },
+  "energy_hashes_after": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4"
+  },
+  "raw_unchanged": true,
+  "clean_unchanged": true,
+  "validation": {
+    "passed": true,
+    "n_passed": 20,
+    "n_checks": 20,
+    "checks": [
+      {
+        "name": "position_change_matches_diff",
+        "passed": true,
+        "detail": "PositionChange = current Position - previous Position per driver"
+      },
+      {
+        "name": "first_lap_position_change_nan",
+        "passed": true,
+        "detail": "n first laps=20"
+      },
+      {
+        "name": "derived_driver_lap_unique",
+        "passed": true,
+        "detail": "duplicates=0"
+      },
+      {
+        "name": "strategy_driver_lap_unique",
+        "passed": true,
+        "detail": "duplicates=0"
+      },
+      {
+        "name": "clean_driver_lap_unique",
+        "passed": true,
+        "detail": "duplicates=0"
+      },
+      {
+        "name": "derived_995",
+        "passed": true,
+        "detail": "derived rows=995"
+      },
+      {
+        "name": "strategy_995",
+        "passed": true,
+        "detail": "strategy rows=995"
+      },
+      {
+        "name": "clean_995",
+        "passed": true,
+        "detail": "clean rows=995"
+      },
+      {
+        "name": "raw_unchanged",
+        "passed": true,
+        "detail": "raw sha256=63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35"
+      },
+      {
+        "name": "clean_unchanged",
+        "passed": true,
+        "detail": "clean sha256=6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+      },
+      {
+        "name": "driver_ahead_car_number_or_empty",
+        "passed": true,
+        "detail": "n_invalid=0; unique_ahead=['1', '10', '11', '12', '14', '16', '18', '23', '3', '30', '31', '41', '43', '44', '5', '55', '6', '63', '77', '87']"
+      },
+      {
+        "name": "distance_to_ahead_non_negative",
+        "passed": true,
+        "detail": "n_negative=0; n_present=305371"
+      },
+      {
+        "name": "no_impossible_negative_gaps",
+        "passed": true,
+        "detail": "n_negative=0"
+      },
+      {
+        "name": "sample_ahead_on_car_data_timestamps",
+        "passed": true,
+        "detail": "n_dates=325053; n_null=0; NOR lap 5 dates not in get_car_data=0"
+      },
+      {
+        "name": "energy_files_untouched",
+        "passed": true,
+        "detail": "before={'energy_v1': '00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e', 'trackaware': '213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04', 'zones': '87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3', 'lap_proxies': '563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020', 'energy_config': 'be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4'}; after={'energy_v1': '00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e', 'trackaware': '213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04', 'zones': '87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3', 'lap_proxies': '563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020', 'energy_config': 'be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4'}"
+      },
+      {
+        "name": "energy_values_identical",
+        "passed": true,
+        "detail": "compared trackaware columns"
+      },
+      {
+        "name": "energy_v1_identical",
+        "passed": true,
+        "detail": "energy_v1 rows=995"
+      },
+      {
+        "name": "joined_energy_lookahead_identical_to_source",
+        "passed": true,
+        "detail": "join copies match trackaware"
+      },
+      {
+        "name": "lookahead_values_identical",
+        "passed": true,
+        "detail": "compared trackaware columns"
+      },
+      {
+        "name": "no_attack_save_defend_columns",
+        "passed": true,
+        "detail": "columns=['Driver', 'DriverNumber', 'LapNumber', 'Position', 'PositionChange', 'LapTimeSeconds', 'LapTimeDelta', 'EstimatedEnergyIndex', 'LookaheadDeployProxy', 'LookaheadHarvestProxy', 'LookaheadCoveredM', 'DriverAhead_end', 'DistanceToDriverAhead_end', 'DistanceToDriverAhead_median', 'n_samples_with_car_ahead', 'n_car_samples_ahead_extract']"
+      }
+    ]
+  }
+}

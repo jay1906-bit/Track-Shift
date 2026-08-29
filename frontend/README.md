@@ -1,50 +1,37 @@
-# TrackShift Frontend
+# ApexIQ frontend
 
-Energy & Overtake Intelligence dashboard — React + Vite, glassmorphism UI.
+Historical replay dashboard for the frozen TrackShift pipeline.
+
+**Product name:** ApexIQ  
+**Mode:** historical replay, not live inference.
+
+The UI reads `public/replay.json`. It does not retrain the GBDT or call a live model.
 
 ## Setup
+
+From `frontend/`:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open the printed local URL (defaults to http://localhost:5173).
+Open the printed local URL (defaults to http://localhost:5173).
 
-## Build for production
+If `public/replay.json` is missing:
 
 ```bash
-npm run build
-npm run preview
+python scripts/build_frontend_replay.py
 ```
 
-## Project structure
+That script only copies frozen outputs. It does not change scientific CSVs.
 
-```
-trackshift-frontend/
-├── src/
-│   ├── App.jsx                          # Renders the dashboard
-│   ├── main.jsx                         # React entry point
-│   ├── index.css                        # Base reset / background color
-│   └── components/
-│       └── TrackShiftGlassDashboard.jsx # Main dashboard component
-├── index.html
-├── package.json
-└── vite.config.js
-```
+## What the screen shows
 
-## Swapping in real data
+- P(overtake within 30s) — frozen GBDT `p_hat`
+- Simulated Energy Index — not battery %
+- Along-track schematic — not GPS
+- Immediate 400m track context
+- ATTACK / SAVE and the actual `strategy_reason`
 
-All race/energy data lives in the `RACE_DATA` object near the top of
-`src/components/TrackShiftGlassDashboard.jsx`. Replace it with your live
-API response (same shape) to wire this up to your backend — no other
-changes needed, since every section only renders whatever is in that object.
-
-## Notes
-
-- The background photo is currently embedded as a base64 string directly in
-  the component file (`RACE_BG_IMAGE` constant). Swap that string for your
-  own licensed image, or point it at a hosted image URL instead, whenever
-  you're ready to replace it.
-- Charts use `recharts`; icons use `lucide-react`. Both are declared in
-  `package.json`.
+DEFEND is not implemented.

@@ -1,0 +1,169 @@
+{
+  "race_id": "canada_2026_R",
+  "event_name": "Canadian Grand Prix",
+  "lap_cleaning": {
+    "raw_rows": 1211,
+    "deleted_removed": 35,
+    "missing_laptime_removed": 5,
+    "clean_rows": 1171
+  },
+  "n_drivers": 21,
+  "winsorize": {
+    "DeployProxy": {
+      "p995": 90.0,
+      "n_clipped": 1581
+    },
+    "HarvestProxy": {
+      "p995": 1377.7777777777778,
+      "n_clipped": 1717
+    }
+  },
+  "n_samples": 350523,
+  "n_lap_rows": 1171,
+  "n_thin_laps": 0,
+  "n_lap_errors": 0,
+  "energy": {
+    "alpha": 0.0001280986887767792,
+    "beta": 3.953611441883325e-05,
+    "flow_scale_T": 0.4121519001344263,
+    "n_calibration_laps": 908,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.07173356105892399,
+    "clip_lap_fraction": 0.3706233988044407,
+    "sample_energy_missing": 0,
+    "sample_energy_min": 0.0,
+    "sample_energy_max": 1.0
+  },
+  "circuit": {
+    "circuit_length_m": 4543.174444444448,
+    "corner_count": 14,
+    "n_zones": 36,
+    "longest_straight_m": 605.6481508931993,
+    "n_long_straights_over_500m": 3,
+    "mean_straight_m": 291.02140188509435
+  },
+  "n_unassigned_zone_samples": 0,
+  "n_ahead_samples": 349352,
+  "join": {
+    "n_ahead_rows": 349352,
+    "n_energy_rows": 350523,
+    "ahead_duplicate_keys": 0,
+    "energy_duplicate_keys": 0,
+    "exact_sample_matches": 349352,
+    "unmatched_samples_before_asof": 0,
+    "exact_match_rate": 1.0,
+    "asof_backward_matches": 0,
+    "unmatched_samples_final": 0,
+    "lap_join_match_rate": 1.0
+  },
+  "race_distance_negative_steps": 0,
+  "lap_length_m": {
+    "min": 4194.768055555556,
+    "median": 4333.601111111113,
+    "max": 4543.174444444448
+  },
+  "n_episodes": 730,
+  "target_mapping": {
+    "n_car_numbers": 21,
+    "n_events_with_unmapped_target": 0
+  },
+  "event_type_counts": {
+    "ON_TRACK_PASS": 19,
+    "CLOSE_INTERACTION_NO_PASS": 344,
+    "PIT_RELATED": 93,
+    "RETIREMENT_RELATED": 0,
+    "LAPPED_UNLAPPED": 152,
+    "UNCERTAIN": 11,
+    "INVALID": 111
+  },
+  "n_events": 730,
+  "n_labelled": 363,
+  "n_positive": 19,
+  "n_negative": 344,
+  "positive_rate": 0.05234159779614325,
+  "horizon_s_effective": {
+    "min": 30.0,
+    "max": 30.0,
+    "all_equal_to_horizon": true
+  },
+  "event_duration_s": {
+    "min": 3.0,
+    "median": 6.08,
+    "p75": 16.02,
+    "max": 530.281
+  },
+  "cross_start_finish": {
+    "n": 288,
+    "fraction": 0.39452054794520547
+  },
+  "min_same_pair_separation_s": 30.0,
+  "closing_speed_missing_rate": 0.04246575342465753,
+  "closing_speed_missing_by_class": {
+    "positive": {
+      "n": 19,
+      "closing_speed_missing_rate": 0.0,
+      "spatial_alignment_ok_rate": 1.0
+    },
+    "negative": {
+      "n": 344,
+      "closing_speed_missing_rate": 0.014534883720930232,
+      "spatial_alignment_ok_rate": 0.9912790697674418
+    }
+  },
+  "lookahead_truncated_rate": 0.01780821917808219,
+  "energy_missing": 0,
+  "in_horizon_pass_delay_s": {
+    "median": 13.36,
+    "max": 25.16
+  },
+  "pass_after_horizon": 38,
+  "frozen_parameters": {
+    "gap_max_m": 100.0,
+    "gap_min_m": 10.0,
+    "min_persist_s": 3.0,
+    "merge_gap_s": 2.0,
+    "horizon_s": 30.0,
+    "horizon_anchor": "t0"
+  },
+  "timings_s": {
+    "load_session_s": 32.0,
+    "telemetry_s": 40.9,
+    "energy_s": 4.6,
+    "driver_ahead_s": 302.4
+  },
+  "elapsed_s": 412.1,
+  "energy_config": {
+    "NOT_F1_CONSTANTS": true,
+    "comment": "alpha and beta are simulation scale parameters. They are not battery capacity, MGU-K limits, ERS limits, electrical efficiency, or actual SOC parameters. The previous formula scaled each flow to 0.03 individually. The corrected formula scales the median absolute NET imbalance to approximately 0.03, matching the stated design objective.",
+    "target_median_abs_net": 0.03,
+    "flow_scale_T": 0.4121519001344263,
+    "median_abs_imbalance": 0.07278869754140471,
+    "calibration_method": "T = 0.03 / median_cal(|H_lap/median(H_lap) - D_lap/median(D_lap)|); alpha = T / median(D_lap); beta = T / median(H_lap)",
+    "d_min_ms2": 1.0,
+    "a_clip_ms2": [
+      -20.0,
+      15.0
+    ],
+    "dt_gap_seconds": 1.0,
+    "yellow_factor": 0.3,
+    "winsor_quantile": 0.995,
+    "e0": 1.0,
+    "calibration_set": {
+      "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
+      "n_laps": 908,
+      "median_D_lap": 3217.456041666667,
+      "median_H_lap": 10424.694135802467,
+      "median_abs_imbalance": 0.07278869754140471,
+      "mean_imbalance": 0.000647588998099277,
+      "median_imbalance": 0.00017546160302228664
+    },
+    "alpha": 0.0001280986887767792,
+    "beta": 3.953611441883325e-05,
+    "alpha_reduced": false,
+    "beta_scale_applied": 1.0,
+    "floor_reduction_reason": null,
+    "clip_lap_fraction": 0.3706233988044407,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.07173356105892399
+  }
+}

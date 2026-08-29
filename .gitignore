@@ -4,15 +4,44 @@ cache/
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
+.pytest_cache/
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Environment
+# Virtual environments
 .venv/
 venv/
 env/
 
-# OS
+# Secrets / local env
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/
+
+# Frontend
+node_modules/
+dist/
+build/
+frontend/node_modules/
+frontend/dist/
+
+# Vercel
+.vercel/
+
+# Local logs
+*.log
+outputs/_*.log
+
+# Optional large sample-level cache (reproducible via scripts)
+outputs/sample_proxies.csv
+outputs/sample_proxies.parquet
+
+# Large sample-level driver-ahead dump (reproducible via scripts/run_strategy_features.py)
+data/processed/australian_gp_2026_car_driver_ahead_samples_v1.csv

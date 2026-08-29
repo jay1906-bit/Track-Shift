@@ -1,0 +1,758 @@
+{
+  "version": "strategy_v1",
+  "frozen_ml": "outputs/ml_selection_v1 GBDT OOF + locked_test_predictions",
+  "defend_implemented": false,
+  "config": {
+    "p_hat_min": 0.45,
+    "energy_floor": 0.1,
+    "energy_adequate_if_lookahead_unusable": 0.5,
+    "deploy_share_min": 0.4,
+    "straight_is_spend_window": true,
+    "covered_min_m": 50.0,
+    "version": "strategy_v1",
+    "selection_rule": "Precommitted middle opportunity gate (0.45), low-tail energy floor (0.10), and row-local deploy share 0.40. Not maximised against overtake_success.",
+    "belgium_miami_used_for_thresholds": false
+  },
+  "development_distributions": {
+    "n": 5473,
+    "p_hat_quantiles": {
+      "0.05": 0.01289563142446472,
+      "0.1": 0.01743704568535676,
+      "0.25": 0.0352937959580268,
+      "0.5": 0.1232317389094788,
+      "0.75": 0.3843483030908002,
+      "0.8": 0.4841558675674664,
+      "0.9": 0.7102490220128053
+    },
+    "p_hat_mean": 0.24592753876674078,
+    "p_hat_median": 0.1232317389094788,
+    "energy_quantiles": {
+      "0.05": 0.07665565312628238,
+      "0.1": 0.2896881386322623,
+      "0.25": 0.719900132840838,
+      "0.5": 0.9131364358803318,
+      "0.75": 0.9582715648568412,
+      "0.8": 0.9666130039563212,
+      "0.9": 0.9856614557532929
+    },
+    "energy_frac_le_0_05": 0.035812168828795905,
+    "energy_frac_le_0_10": 0.058286131920336194,
+    "energy_frac_le_0_20": 0.07911565868810524,
+    "deploy_share_quantiles": {
+      "0.05": 0.06851351677954495,
+      "0.1": 0.0909699017824454,
+      "0.25": 0.12897221678965004,
+      "0.5": 0.21022993923929592,
+      "0.75": 0.5805447650111295,
+      "0.8": 0.7728658845580698,
+      "0.9": 0.9226294091963602
+    },
+    "zone_counts": {
+      "brake": 2538,
+      "straight": 2092,
+      "corner": 843
+    },
+    "truncated_rate": 0.0023752969121140144,
+    "truncated_n": 13,
+    "p_gate_coverage": [
+      {
+        "p_hat_min": 0.35,
+        "n": 1478,
+        "share_of_events": 0.2700529873926549,
+        "observed_pass_rate_analysis_only": 0.6407307171853857
+      },
+      {
+        "p_hat_min": 0.45,
+        "n": 1190,
+        "share_of_events": 0.21743102503197514,
+        "observed_pass_rate_analysis_only": 0.6781512605042017
+      },
+      {
+        "p_hat_min": 0.55,
+        "n": 905,
+        "share_of_events": 0.16535720811255253,
+        "observed_pass_rate_analysis_only": 0.7138121546961326
+      }
+    ]
+  },
+  "development": {
+    "split": "development_oof",
+    "n": 5473,
+    "n_attack": 858,
+    "n_save": 4615,
+    "n_invalid": 0,
+    "attack_rate": 0.15676959619952494,
+    "save_rate": 0.8432304038004751,
+    "reason_counts": {
+      "p_hat_below_gate": 3997,
+      "attack": 858,
+      "energy_floor": 319,
+      "spend_context": 298,
+      "lookahead_unusable": 1
+    },
+    "energy_floor_vetoes": 319,
+    "energy_missing_vetoes": 0,
+    "lookahead_unusable_vetoes": 1,
+    "p_hat_below_vetoes": 3997,
+    "spend_context_vetoes": 298,
+    "n_p_gate_passers": 1190,
+    "energy_floor_vetoes_among_p_passers": 33,
+    "spend_context_vetoes_among_p_passers": 298,
+    "mean_p_hat_by_action": {
+      "ATTACK": 0.6882159650209948,
+      "SAVE": 0.16369926797017528
+    },
+    "median_p_hat_by_action": {
+      "ATTACK": 0.6769780791547182,
+      "SAVE": 0.0802811869838577
+    },
+    "mean_energy_by_action": {
+      "ATTACK": 0.8455506837481486,
+      "SAVE": 0.7737606222672224
+    },
+    "median_energy_by_action": {
+      "ATTACK": 0.9459513934720065,
+      "SAVE": 0.9077256484015424
+    },
+    "median_deploy_share_by_action": {
+      "ATTACK": 0.7876292995451475,
+      "SAVE": 0.18751091726892788
+    },
+    "median_energy_of_energy_vetoes": 0.0382044106123137,
+    "median_energy_of_attacks": 0.9459513934720065,
+    "attack_p_hat_gt_save": true,
+    "zone_share_by_action": {
+      "ATTACK": {
+        "straight": 0.5921,
+        "brake": 0.2284,
+        "corner": 0.1795
+      },
+      "SAVE": {
+        "brake": 0.5075,
+        "straight": 0.3432,
+        "corner": 0.1493
+      }
+    },
+    "per_race": [
+      {
+        "race_id": "australia_2026_R",
+        "circuit": "Australian Grand Prix",
+        "n": 453,
+        "n_attack": 56,
+        "n_save": 397,
+        "attack_rate": 0.12362030905077263,
+        "median_p_hat_attack": 0.588513551327229,
+        "median_p_hat_save": 0.0952070113969338,
+        "median_energy_attack": 0.9386124689896366
+      },
+      {
+        "race_id": "austria_2026_R",
+        "circuit": "Austrian Grand Prix",
+        "n": 538,
+        "n_attack": 23,
+        "n_save": 515,
+        "attack_rate": 0.04275092936802974,
+        "median_p_hat_attack": 0.5334197077565567,
+        "median_p_hat_save": 0.0387872108659784,
+        "median_energy_attack": 0.8720665194544553
+      },
+      {
+        "race_id": "canada_2026_R",
+        "circuit": "Canadian Grand Prix",
+        "n": 363,
+        "n_attack": 17,
+        "n_save": 346,
+        "attack_rate": 0.046831955922865015,
+        "median_p_hat_attack": 0.5350533000935221,
+        "median_p_hat_save": 0.025556990878938403,
+        "median_energy_attack": 0.8676361846765269
+      },
+      {
+        "race_id": "china_2026_R",
+        "circuit": "Chinese Grand Prix",
+        "n": 1213,
+        "n_attack": 283,
+        "n_save": 930,
+        "attack_rate": 0.2333058532563891,
+        "median_p_hat_attack": 0.7154817162945989,
+        "median_p_hat_save": 0.1483719868734631,
+        "median_energy_attack": 0.87038184332848
+      },
+      {
+        "race_id": "japan_2026_R",
+        "circuit": "Japanese Grand Prix",
+        "n": 1492,
+        "n_attack": 393,
+        "n_save": 1099,
+        "attack_rate": 0.2634048257372654,
+        "median_p_hat_attack": 0.707155853033458,
+        "median_p_hat_save": 0.150726539455081,
+        "median_energy_attack": 0.9545118739106782
+      },
+      {
+        "race_id": "monaco_2026_R",
+        "circuit": "Monaco Grand Prix",
+        "n": 665,
+        "n_attack": 8,
+        "n_save": 657,
+        "attack_rate": 0.012030075187969926,
+        "median_p_hat_attack": 0.4964393024927085,
+        "median_p_hat_save": 0.0612463423761659,
+        "median_energy_attack": 0.42202672028384647
+      },
+      {
+        "race_id": "netherlands_2026_R",
+        "circuit": "Dutch Grand Prix",
+        "n": 749,
+        "n_attack": 78,
+        "n_save": 671,
+        "attack_rate": 0.1041388518024032,
+        "median_p_hat_attack": 0.6148125927309678,
+        "median_p_hat_save": 0.0817006778985088,
+        "median_energy_attack": 0.9705926872569481
+      }
+    ],
+    "analysis_only_pass_rate_by_action": {
+      "ATTACK": 0.6515151515151515,
+      "SAVE": 0.18353196099674973
+    }
+  },
+  "locked_test": {
+    "split": "locked_test",
+    "n": 1312,
+    "n_attack": 95,
+    "n_save": 1217,
+    "n_invalid": 0,
+    "attack_rate": 0.07240853658536585,
+    "save_rate": 0.9275914634146342,
+    "reason_counts": {
+      "p_hat_below_gate": 1112,
+      "attack": 95,
+      "energy_floor": 77,
+      "spend_context": 26,
+      "lookahead_unusable": 2
+    },
+    "energy_floor_vetoes": 77,
+    "energy_missing_vetoes": 0,
+    "lookahead_unusable_vetoes": 2,
+    "p_hat_below_vetoes": 1112,
+    "spend_context_vetoes": 26,
+    "n_p_gate_passers": 124,
+    "energy_floor_vetoes_among_p_passers": 1,
+    "spend_context_vetoes_among_p_passers": 26,
+    "mean_p_hat_by_action": {
+      "ATTACK": 0.5595567182025336,
+      "SAVE": 0.12529853512647798
+    },
+    "median_p_hat_by_action": {
+      "ATTACK": 0.5427440259825329,
+      "SAVE": 0.0601741773097115
+    },
+    "mean_energy_by_action": {
+      "ATTACK": 0.8837021230418215,
+      "SAVE": 0.7643837329077265
+    },
+    "median_energy_by_action": {
+      "ATTACK": 0.9416891626903818,
+      "SAVE": 0.8826059809473237
+    },
+    "median_deploy_share_by_action": {
+      "ATTACK": 0.9424354800564081,
+      "SAVE": 0.1822348293145615
+    },
+    "median_energy_of_energy_vetoes": 0.0400391059170471,
+    "median_energy_of_attacks": 0.9416891626903818,
+    "attack_p_hat_gt_save": true,
+    "zone_share_by_action": {
+      "ATTACK": {
+        "straight": 0.7368,
+        "brake": 0.1579,
+        "corner": 0.1053
+      },
+      "SAVE": {
+        "brake": 0.6089,
+        "straight": 0.2662,
+        "corner": 0.1249
+      }
+    },
+    "per_race": [
+      {
+        "race_id": "belgium_2026_R",
+        "circuit": "Belgian Grand Prix",
+        "n": 675,
+        "n_attack": 43,
+        "n_save": 632,
+        "attack_rate": 0.0637037037037037,
+        "median_p_hat_attack": 0.5365449583108559,
+        "median_p_hat_save": 0.0658750924414928,
+        "median_energy_attack": 0.9598633810520578
+      },
+      {
+        "race_id": "miami_2026_R",
+        "circuit": "Miami Grand Prix",
+        "n": 637,
+        "n_attack": 52,
+        "n_save": 585,
+        "attack_rate": 0.08163265306122448,
+        "median_p_hat_attack": 0.5643938060948059,
+        "median_p_hat_save": 0.0561283066775412,
+        "median_energy_attack": 0.9259450349613617
+      }
+    ],
+    "analysis_only_pass_rate_by_action": {
+      "ATTACK": 0.5789473684210527,
+      "SAVE": 0.05505341002465078
+    }
+  },
+  "ablation": {
+    "A": {
+      "split": "dev_ablation_A",
+      "n": 5473,
+      "n_attack": 1190,
+      "n_save": 4283,
+      "n_invalid": 0,
+      "attack_rate": 0.21743102503197514,
+      "save_rate": 0.7825689749680248,
+      "reason_counts": {
+        "p_hat_below_gate": 4283,
+        "attack": 1190
+      },
+      "energy_floor_vetoes": 0,
+      "energy_missing_vetoes": 0,
+      "lookahead_unusable_vetoes": 0,
+      "p_hat_below_vetoes": 4283,
+      "spend_context_vetoes": 0,
+      "n_p_gate_passers": 1190,
+      "energy_floor_vetoes_among_p_passers": 0,
+      "spend_context_vetoes_among_p_passers": 0,
+      "mean_p_hat_by_action": {
+        "ATTACK": 0.6980965810883668,
+        "SAVE": 0.12029570118496752
+      },
+      "median_p_hat_by_action": {
+        "ATTACK": 0.6856009326726751,
+        "SAVE": 0.0674167993405358
+      },
+      "mean_energy_by_action": {
+        "ATTACK": 0.8199659300588381,
+        "SAVE": 0.7753042964392075
+      },
+      "median_energy_by_action": {
+        "ATTACK": 0.9423827634871333,
+        "SAVE": 0.9069596581400337
+      },
+      "median_deploy_share_by_action": {
+        "ATTACK": 0.5541158496190307,
+        "SAVE": 0.183736699334921
+      },
+      "median_energy_of_energy_vetoes": NaN,
+      "median_energy_of_attacks": 0.9423827634871333,
+      "attack_p_hat_gt_save": true,
+      "zone_share_by_action": {
+        "ATTACK": {
+          "straight": 0.442,
+          "brake": 0.3445,
+          "corner": 0.2134
+        },
+        "SAVE": {
+          "brake": 0.4968,
+          "straight": 0.3656,
+          "corner": 0.1375
+        }
+      },
+      "per_race": [
+        {
+          "race_id": "australia_2026_R",
+          "circuit": "Australian Grand Prix",
+          "n": 453,
+          "n_attack": 78,
+          "n_save": 375,
+          "attack_rate": 0.17218543046357615,
+          "median_p_hat_attack": 0.5877618745830753,
+          "median_p_hat_save": 0.080117204371421,
+          "median_energy_attack": 0.937192237964491
+        },
+        {
+          "race_id": "austria_2026_R",
+          "circuit": "Austrian Grand Prix",
+          "n": 538,
+          "n_attack": 31,
+          "n_save": 507,
+          "attack_rate": 0.05762081784386617,
+          "median_p_hat_attack": 0.5334197077565567,
+          "median_p_hat_save": 0.0382712967257494,
+          "median_energy_attack": 0.8720665194544553
+        },
+        {
+          "race_id": "canada_2026_R",
+          "circuit": "Canadian Grand Prix",
+          "n": 363,
+          "n_attack": 21,
+          "n_save": 342,
+          "attack_rate": 0.05785123966942149,
+          "median_p_hat_attack": 0.5350533000935221,
+          "median_p_hat_save": 0.025292101082284198,
+          "median_energy_attack": 0.8676361846765269
+        },
+        {
+          "race_id": "china_2026_R",
+          "circuit": "Chinese Grand Prix",
+          "n": 1213,
+          "n_attack": 410,
+          "n_save": 803,
+          "attack_rate": 0.33800494641385,
+          "median_p_hat_attack": 0.7315305177447377,
+          "median_p_hat_save": 0.1156970535282127,
+          "median_energy_attack": 0.8729092258695514
+        },
+        {
+          "race_id": "japan_2026_R",
+          "circuit": "Japanese Grand Prix",
+          "n": 1492,
+          "n_attack": 509,
+          "n_save": 983,
+          "attack_rate": 0.34115281501340483,
+          "median_p_hat_attack": 0.7344347485363973,
+          "median_p_hat_save": 0.1196902393046277,
+          "median_energy_attack": 0.9522222298394998
+        },
+        {
+          "race_id": "monaco_2026_R",
+          "circuit": "Monaco Grand Prix",
+          "n": 665,
+          "n_attack": 14,
+          "n_save": 651,
+          "attack_rate": 0.021052631578947368,
+          "median_p_hat_attack": 0.4964393024927085,
+          "median_p_hat_save": 0.0611781326367682,
+          "median_energy_attack": 0.4145739179348328
+        },
+        {
+          "race_id": "netherlands_2026_R",
+          "circuit": "Dutch Grand Prix",
+          "n": 749,
+          "n_attack": 127,
+          "n_save": 622,
+          "attack_rate": 0.16955941255006676,
+          "median_p_hat_attack": 0.6042100837023138,
+          "median_p_hat_save": 0.06357490623109449,
+          "median_energy_attack": 0.9727235073801312
+        }
+      ],
+      "analysis_only_pass_rate_by_action": {
+        "ATTACK": 0.6781512605042017,
+        "SAVE": 0.13985524165304694
+      }
+    },
+    "B": {
+      "split": "dev_ablation_B",
+      "n": 5473,
+      "n_attack": 1156,
+      "n_save": 4317,
+      "n_invalid": 0,
+      "attack_rate": 0.21121871003106157,
+      "save_rate": 0.7887812899689384,
+      "reason_counts": {
+        "p_hat_below_gate": 3997,
+        "attack": 1156,
+        "energy_floor": 319,
+        "lookahead_unusable": 1
+      },
+      "energy_floor_vetoes": 319,
+      "energy_missing_vetoes": 0,
+      "lookahead_unusable_vetoes": 1,
+      "p_hat_below_vetoes": 3997,
+      "spend_context_vetoes": 0,
+      "n_p_gate_passers": 1190,
+      "energy_floor_vetoes_among_p_passers": 33,
+      "spend_context_vetoes_among_p_passers": 0,
+      "mean_p_hat_by_action": {
+        "ATTACK": 0.6994530831796929,
+        "SAVE": 0.12448312613264934
+      },
+      "median_p_hat_by_action": {
+        "ATTACK": 0.6879994555698834,
+        "SAVE": 0.0684538745929227
+      },
+      "mean_energy_by_action": {
+        "ATTACK": 0.8422146589899773,
+        "SAVE": 0.7696983119357723
+      },
+      "median_energy_by_action": {
+        "ATTACK": 0.9455265196529654,
+        "SAVE": 0.9058018614617496
+      },
+      "median_deploy_share_by_action": {
+        "ATTACK": 0.5503721935810781,
+        "SAVE": 0.1844692180608185
+      },
+      "median_energy_of_energy_vetoes": 0.0382044106123137,
+      "median_energy_of_attacks": 0.9455265196529654,
+      "attack_p_hat_gt_save": true,
+      "zone_share_by_action": {
+        "ATTACK": {
+          "straight": 0.4394,
+          "brake": 0.346,
+          "corner": 0.2145
+        },
+        "SAVE": {
+          "brake": 0.4953,
+          "straight": 0.3669,
+          "corner": 0.1378
+        }
+      },
+      "per_race": [
+        {
+          "race_id": "australia_2026_R",
+          "circuit": "Australian Grand Prix",
+          "n": 453,
+          "n_attack": 77,
+          "n_save": 376,
+          "attack_rate": 0.16997792494481237,
+          "median_p_hat_attack": 0.5874866284495027,
+          "median_p_hat_save": 0.080489412643601,
+          "median_energy_attack": 0.9384084427592082
+        },
+        {
+          "race_id": "austria_2026_R",
+          "circuit": "Austrian Grand Prix",
+          "n": 538,
+          "n_attack": 27,
+          "n_save": 511,
+          "attack_rate": 0.05018587360594796,
+          "median_p_hat_attack": 0.5326996436398035,
+          "median_p_hat_save": 0.0386320085390893,
+          "median_energy_attack": 0.9676400158654432
+        },
+        {
+          "race_id": "canada_2026_R",
+          "circuit": "Canadian Grand Prix",
+          "n": 363,
+          "n_attack": 19,
+          "n_save": 344,
+          "attack_rate": 0.05234159779614325,
+          "median_p_hat_attack": 0.5408116322606191,
+          "median_p_hat_save": 0.02540674651222935,
+          "median_energy_attack": 0.9198368405820672
+        },
+        {
+          "race_id": "china_2026_R",
+          "circuit": "Chinese Grand Prix",
+          "n": 1213,
+          "n_attack": 395,
+          "n_save": 818,
+          "attack_rate": 0.325638911788953,
+          "median_p_hat_attack": 0.7367813006501387,
+          "median_p_hat_save": 0.11961692903472851,
+          "median_energy_attack": 0.8842799073378412
+        },
+        {
+          "race_id": "japan_2026_R",
+          "circuit": "Japanese Grand Prix",
+          "n": 1492,
+          "n_attack": 500,
+          "n_save": 992,
+          "attack_rate": 0.3351206434316354,
+          "median_p_hat_attack": 0.7342125030852072,
+          "median_p_hat_save": 0.12229982162715006,
+          "median_energy_attack": 0.9529855685284674
+        },
+        {
+          "race_id": "monaco_2026_R",
+          "circuit": "Monaco Grand Prix",
+          "n": 665,
+          "n_attack": 12,
+          "n_save": 653,
+          "attack_rate": 0.01804511278195489,
+          "median_p_hat_attack": 0.5057468620942285,
+          "median_p_hat_save": 0.0611781326367682,
+          "median_energy_attack": 0.42202672028384647
+        },
+        {
+          "race_id": "netherlands_2026_R",
+          "circuit": "Dutch Grand Prix",
+          "n": 749,
+          "n_attack": 126,
+          "n_save": 623,
+          "attack_rate": 0.16822429906542055,
+          "median_p_hat_attack": 0.6051229885395522,
+          "median_p_hat_save": 0.0640222190984474,
+          "median_energy_attack": 0.9728711683762744
+        }
+      ],
+      "analysis_only_pass_rate_by_action": {
+        "ATTACK": 0.6807958477508651,
+        "SAVE": 0.14338661107250406
+      }
+    },
+    "C": {
+      "split": "dev_ablation_C",
+      "n": 5473,
+      "n_attack": 858,
+      "n_save": 4615,
+      "n_invalid": 0,
+      "attack_rate": 0.15676959619952494,
+      "save_rate": 0.8432304038004751,
+      "reason_counts": {
+        "p_hat_below_gate": 3997,
+        "attack": 858,
+        "energy_floor": 319,
+        "spend_context": 298,
+        "lookahead_unusable": 1
+      },
+      "energy_floor_vetoes": 319,
+      "energy_missing_vetoes": 0,
+      "lookahead_unusable_vetoes": 1,
+      "p_hat_below_vetoes": 3997,
+      "spend_context_vetoes": 298,
+      "n_p_gate_passers": 1190,
+      "energy_floor_vetoes_among_p_passers": 33,
+      "spend_context_vetoes_among_p_passers": 298,
+      "mean_p_hat_by_action": {
+        "ATTACK": 0.6882159650209948,
+        "SAVE": 0.16369926797017528
+      },
+      "median_p_hat_by_action": {
+        "ATTACK": 0.6769780791547182,
+        "SAVE": 0.0802811869838577
+      },
+      "mean_energy_by_action": {
+        "ATTACK": 0.8455506837481486,
+        "SAVE": 0.7737606222672224
+      },
+      "median_energy_by_action": {
+        "ATTACK": 0.9459513934720065,
+        "SAVE": 0.9077256484015424
+      },
+      "median_deploy_share_by_action": {
+        "ATTACK": 0.7876292995451475,
+        "SAVE": 0.18751091726892788
+      },
+      "median_energy_of_energy_vetoes": 0.0382044106123137,
+      "median_energy_of_attacks": 0.9459513934720065,
+      "attack_p_hat_gt_save": true,
+      "zone_share_by_action": {
+        "ATTACK": {
+          "straight": 0.5921,
+          "brake": 0.2284,
+          "corner": 0.1795
+        },
+        "SAVE": {
+          "brake": 0.5075,
+          "straight": 0.3432,
+          "corner": 0.1493
+        }
+      },
+      "per_race": [
+        {
+          "race_id": "australia_2026_R",
+          "circuit": "Australian Grand Prix",
+          "n": 453,
+          "n_attack": 56,
+          "n_save": 397,
+          "attack_rate": 0.12362030905077263,
+          "median_p_hat_attack": 0.588513551327229,
+          "median_p_hat_save": 0.0952070113969338,
+          "median_energy_attack": 0.9386124689896366
+        },
+        {
+          "race_id": "austria_2026_R",
+          "circuit": "Austrian Grand Prix",
+          "n": 538,
+          "n_attack": 23,
+          "n_save": 515,
+          "attack_rate": 0.04275092936802974,
+          "median_p_hat_attack": 0.5334197077565567,
+          "median_p_hat_save": 0.0387872108659784,
+          "median_energy_attack": 0.8720665194544553
+        },
+        {
+          "race_id": "canada_2026_R",
+          "circuit": "Canadian Grand Prix",
+          "n": 363,
+          "n_attack": 17,
+          "n_save": 346,
+          "attack_rate": 0.046831955922865015,
+          "median_p_hat_attack": 0.5350533000935221,
+          "median_p_hat_save": 0.025556990878938403,
+          "median_energy_attack": 0.8676361846765269
+        },
+        {
+          "race_id": "china_2026_R",
+          "circuit": "Chinese Grand Prix",
+          "n": 1213,
+          "n_attack": 283,
+          "n_save": 930,
+          "attack_rate": 0.2333058532563891,
+          "median_p_hat_attack": 0.7154817162945989,
+          "median_p_hat_save": 0.1483719868734631,
+          "median_energy_attack": 0.87038184332848
+        },
+        {
+          "race_id": "japan_2026_R",
+          "circuit": "Japanese Grand Prix",
+          "n": 1492,
+          "n_attack": 393,
+          "n_save": 1099,
+          "attack_rate": 0.2634048257372654,
+          "median_p_hat_attack": 0.707155853033458,
+          "median_p_hat_save": 0.150726539455081,
+          "median_energy_attack": 0.9545118739106782
+        },
+        {
+          "race_id": "monaco_2026_R",
+          "circuit": "Monaco Grand Prix",
+          "n": 665,
+          "n_attack": 8,
+          "n_save": 657,
+          "attack_rate": 0.012030075187969926,
+          "median_p_hat_attack": 0.4964393024927085,
+          "median_p_hat_save": 0.0612463423761659,
+          "median_energy_attack": 0.42202672028384647
+        },
+        {
+          "race_id": "netherlands_2026_R",
+          "circuit": "Dutch Grand Prix",
+          "n": 749,
+          "n_attack": 78,
+          "n_save": 671,
+          "attack_rate": 0.1041388518024032,
+          "median_p_hat_attack": 0.6148125927309678,
+          "median_p_hat_save": 0.0817006778985088,
+          "median_energy_attack": 0.9705926872569481
+        }
+      ],
+      "analysis_only_pass_rate_by_action": {
+        "ATTACK": 0.6515151515151515,
+        "SAVE": 0.18353196099674973
+      }
+    }
+  },
+  "integrity": {
+    "before": {
+      "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+      "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+      "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+      "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+      "events_v4": "056327e1b729639049fbab32208a90c19cd4ec94981fe4501ce178137e99b9fb",
+      "ml_safe": "6d0fc7e0106b2eba6d0e1a43829547a856c72b5a85b434c2a2bd0d93a3855760",
+      "pooled": "9be556431bb59480db5b49ccb9928b641078c54475908735d0b4a8913421b709",
+      "oof": "85a6979803179c16a7bec703cf1db9fac86314838e734946da2eb842e5e0834d",
+      "locked_test": "5d9767dc23e13b851ca6aea91dd583377d10c360fe060ae18caf88ae711065d2"
+    },
+    "after": {
+      "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+      "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+      "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+      "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+      "events_v4": "056327e1b729639049fbab32208a90c19cd4ec94981fe4501ce178137e99b9fb",
+      "ml_safe": "6d0fc7e0106b2eba6d0e1a43829547a856c72b5a85b434c2a2bd0d93a3855760",
+      "pooled": "9be556431bb59480db5b49ccb9928b641078c54475908735d0b4a8913421b709",
+      "oof": "85a6979803179c16a7bec703cf1db9fac86314838e734946da2eb842e5e0834d",
+      "locked_test": "5d9767dc23e13b851ca6aea91dd583377d10c360fe060ae18caf88ae711065d2"
+    },
+    "unchanged": true
+  },
+  "unit_tests_passed": true,
+  "elapsed_s": 2.9092776775360107
+}

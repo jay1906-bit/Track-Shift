@@ -1,0 +1,66 @@
+column,role,causal,portability,constant_within_race,reason
+event_id,identifier,True,PORTABLE,False,row name
+attacker,identifier,True,PORTABLE,False,driver identity is kept for audit; making it a feature would let the model memorise driver-specific passing tendencies rather than learn the situation
+target,identifier,True,PORTABLE,False,as attacker
+target_number,identifier,True,PORTABLE,False,car number of the target
+reciprocal_event_id,identifier,False,PORTABLE,False,links the opposite-direction event describing the same racing situation; resolved using both events' horizons
+race_id,group_key,True,PORTABLE,True,immutable grouping variable for race-based evaluation
+circuit,group_key,True,PORTABLE,True,"circuit is a group, never a feature"
+year,group_key,True,PORTABLE,True,season
+pair_id,group_key,True,PORTABLE,False,unordered attacker/target pair within a race
+cluster_id,group_key,True,PORTABLE,False,"race + lap + pair, the tightest correlation cluster"
+event_start_lap,group_key,True,PORTABLE,False,lap on which t0 falls
+gap_at_start_m,feature_t0,True,PORTABLE,False,separation at t0
+attacker_speed_at_start_kmh,feature_t0,True,PORTABLE,False,attacker telemetry at t0
+target_speed_at_attacker_position_kmh,feature_t0,True,PORTABLE,False,"target speed sampled where it last crossed the attacker's t0 track position, at or before t0"
+relative_speed_same_position_kmh,feature_t0,True,PORTABLE,False,spatially aligned speed difference; the wall-clock version compared two cars at different points on the track and is retained only as audit
+closing_speed_at_start_kmh,feature_t0,True,PORTABLE,False,least-squares slope of pair separation over a pre-t0 window; never uses the pass interval
+spatial_time_gap_s,feature_t0,True,PORTABLE,False,"time for the attacker to reach where the target was, measured backwards from t0"
+spatial_alignment_ok,feature_t0,True,PORTABLE,False,"alignment quality flag, known at t0; an explicit indicator instead of a silent imputation"
+closing_speed_available,feature_t0,True,PORTABLE,False,"missingness indicator, known at t0"
+track_distance_at_start_m,feature_t0,True,CIRCUIT_SPECIFIC,False,"absolute metres into the lap; the same number means a different place on every circuit, use track_position_frac for cross-circuit work"
+track_position_frac,feature_t0,True,PORTABLE,False,"track_distance_at_start_m / circuit_length_m, comparable across circuits"
+zone_type,feature_t0,True,PORTABLE,False,straight / brake / corner; the portable replacement for zone_id
+distance_to_next_corner_m,feature_t0,True,PORTABLE,False,structurally missing when no corner remains before the line; missingness is preserved
+distance_to_next_straight_m,feature_t0,True,PORTABLE,False,structurally missing when no straight remains before the line; missingness is preserved
+compound,feature_t0,True,PORTABLE,False,tyre compound at t0
+tyre_age,feature_t0,True,PORTABLE,False,laps on the tyre at t0
+stint,feature_t0,True,PORTABLE,False,stint index at t0
+EstimatedEnergyIndex,feature_t0,True,PORTABLE,False,"sample-level energy state at t0, not the end-of-lap aggregate"
+LookaheadDeployProxy,feature_t0,True,PORTABLE,False,computed from the attacker's track position at t0 over the next 400 m
+LookaheadHarvestProxy,feature_t0,True,PORTABLE,False,as LookaheadDeployProxy
+LookaheadCoveredM,feature_t0,True,PORTABLE,False,metres of the 400 m horizon that lie before the line
+lookahead_truncated,feature_t0,True,PORTABLE,False,the 400 m horizon ran past the line and was not wrapped
+circuit_length_m,feature_t0,True,PORTABLE,True,exogenous circuit geometry
+corner_count,feature_t0,True,PORTABLE,True,exogenous circuit geometry
+longest_straight_m,feature_t0,True,PORTABLE,True,exogenous circuit geometry
+n_long_straights_over_500m,feature_t0,True,PORTABLE,True,exogenous circuit geometry
+event_end_time,episode_level,False,PORTABLE,False,"the engagement's end, which is not known at t0"
+event_duration_s,episode_level,False,PORTABLE,False,"how long the pair stayed in the band, measurable only after the fact"
+in_band_duration_s,episode_level,False,PORTABLE,False,as event_duration_s
+gap_min_in_episode_m,episode_level,False,PORTABLE,False,"minimum over the whole episode, so it reads samples after t0"
+n_samples_in_episode,episode_level,False,PORTABLE,False,counts samples after t0
+event_start_time,audit,True,PORTABLE,False,t0 itself; timestamps are not model inputs
+horizon_end_time,audit,True,PORTABLE,False,"t0 + horizon_s, definitional"
+horizon_s_effective,audit,True,PORTABLE,True,constant 30 s by construction
+event_type,audit,False,PORTABLE,False,the taxonomy decision that produces the label
+actual_swap_delay_s,audit,False,PORTABLE,False,measured after t0; derived from the outcome
+pass_after_horizon,audit,False,PORTABLE,False,derived from the outcome
+window_crosses_start_finish,audit,False,PORTABLE,False,evaluated over the whole horizon window
+attacker_PositionChange_audit,audit,False,PORTABLE,False,lap-over-lap classified position change; a future quantity and never used to build the label
+attacker_position,audit,False,PORTABLE,False,"the lap spine's Position is the classification at the END of the lap, so on a lap where the pass happens it already reflects the pass; measured on Australia v4 the spine places the attacker ahead in 41% of passes against 3% of no-passes, which is the outcome leaking"
+target_position,audit,False,PORTABLE,False,as attacker_position
+zone_id,audit,True,CIRCUIT_SPECIFIC,False,kept for visualisation and error analysis; brake_T11 exists on one circuit only
+gap_at_start_s_crude_audit,audit,True,PORTABLE,False,gap divided by attacker speed; superseded by spatial_time_gap_s
+target_speed_same_time_kmh_audit,audit,True,PORTABLE,False,"wall-clock aligned target speed, superseded by the spatially aligned version"
+relative_speed_same_time_kmh_audit,audit,True,PORTABLE,False,superseded
+closing_speed_v1_kmh_audit,audit,True,PORTABLE,False,superseded by the v3/v4 implementation
+closing_speed_v1_window_s_audit,audit,True,PORTABLE,False,superseded
+closing_speed_v1_available_audit,audit,True,PORTABLE,False,superseded
+spatial_alignment_lag_raw_s,audit,True,PORTABLE,False,uncensored alignment lag
+closing_speed_n_samples,audit,True,PORTABLE,False,diagnostic for the closing-speed fit
+closing_speed_window_s,audit,True,PORTABLE,True,constant by construction
+TrackStatus,audit,True,PORTABLE,False,"green by construction on the scoreable set, so non-predictive there"
+freeze_flag,audit,True,PORTABLE,False,false by construction on the scoreable set
+detector_version,audit,True,PORTABLE,True,"provenance; the single version column for this dataset, replacing v4's separate feature_version"
+overtake_success,label,False,PORTABLE,False,"1 when a corroborated on-track pairwise pass completes within 30 s of t0, 0 when the interaction is valid and observable and no such pass occurs, null otherwise"

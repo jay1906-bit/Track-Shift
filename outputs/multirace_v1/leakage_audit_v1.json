@@ -1,0 +1,483 @@
+{
+  "result": "PASS",
+  "n_columns_audited": 65,
+  "feature_t0_columns_depending_on_the_future": [],
+  "non_causal_columns_marked_feature_t0": [],
+  "excluded_future_or_episode_columns": [
+    "actual_swap_delay_s",
+    "attacker_PositionChange_audit",
+    "attacker_position",
+    "event_duration_s",
+    "event_end_time",
+    "event_type",
+    "gap_min_in_episode_m",
+    "in_band_duration_s",
+    "n_samples_in_episode",
+    "pass_after_horizon",
+    "target_position",
+    "window_crosses_start_finish"
+  ],
+  "position_field_evidence": {
+    "n_checked": 6785,
+    "spine_places_attacker_ahead_rate_positives": 0.4273560209424084,
+    "spine_places_attacker_ahead_rate_negatives": 0.04660452729693742,
+    "interpretation": "At t0 the attacker is behind the target by construction, so a genuine at-t0 position must never place the attacker ahead. It does so far more often on positives than on negatives, which confirms the lap spine's Position is the end-of-lap classification and already contains the outcome."
+  },
+  "columns": [
+    {
+      "column": "event_id",
+      "role": "identifier",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "row name"
+    },
+    {
+      "column": "attacker",
+      "role": "identifier",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "driver identity is kept for audit; making it a feature would let the model memorise driver-specific passing tendencies rather than learn the situation"
+    },
+    {
+      "column": "target",
+      "role": "identifier",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "as attacker"
+    },
+    {
+      "column": "target_number",
+      "role": "identifier",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "car number of the target"
+    },
+    {
+      "column": "reciprocal_event_id",
+      "role": "identifier",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "links the opposite-direction event describing the same racing situation; resolved using both events' horizons"
+    },
+    {
+      "column": "race_id",
+      "role": "group_key",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "immutable grouping variable for race-based evaluation"
+    },
+    {
+      "column": "circuit",
+      "role": "group_key",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "circuit is a group, never a feature"
+    },
+    {
+      "column": "year",
+      "role": "group_key",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "season"
+    },
+    {
+      "column": "pair_id",
+      "role": "group_key",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "unordered attacker/target pair within a race"
+    },
+    {
+      "column": "cluster_id",
+      "role": "group_key",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "race + lap + pair, the tightest correlation cluster"
+    },
+    {
+      "column": "event_start_lap",
+      "role": "group_key",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "lap on which t0 falls"
+    },
+    {
+      "column": "gap_at_start_m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "separation at t0"
+    },
+    {
+      "column": "attacker_speed_at_start_kmh",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "attacker telemetry at t0"
+    },
+    {
+      "column": "target_speed_at_attacker_position_kmh",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "target speed sampled where it last crossed the attacker's t0 track position, at or before t0"
+    },
+    {
+      "column": "relative_speed_same_position_kmh",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "spatially aligned speed difference; the wall-clock version compared two cars at different points on the track and is retained only as audit"
+    },
+    {
+      "column": "closing_speed_at_start_kmh",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "least-squares slope of pair separation over a pre-t0 window; never uses the pass interval"
+    },
+    {
+      "column": "spatial_time_gap_s",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "time for the attacker to reach where the target was, measured backwards from t0"
+    },
+    {
+      "column": "spatial_alignment_ok",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "alignment quality flag, known at t0; an explicit indicator instead of a silent imputation"
+    },
+    {
+      "column": "closing_speed_available",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "missingness indicator, known at t0"
+    },
+    {
+      "column": "track_distance_at_start_m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "absolute metres into the lap; the same number means a different place on every circuit, use track_position_frac for cross-circuit work"
+    },
+    {
+      "column": "track_position_frac",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "track_distance_at_start_m / circuit_length_m, comparable across circuits"
+    },
+    {
+      "column": "zone_type",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "straight / brake / corner; the portable replacement for zone_id"
+    },
+    {
+      "column": "distance_to_next_corner_m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "structurally missing when no corner remains before the line; missingness is preserved"
+    },
+    {
+      "column": "distance_to_next_straight_m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "structurally missing when no straight remains before the line; missingness is preserved"
+    },
+    {
+      "column": "compound",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "tyre compound at t0"
+    },
+    {
+      "column": "tyre_age",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "laps on the tyre at t0"
+    },
+    {
+      "column": "stint",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "stint index at t0"
+    },
+    {
+      "column": "EstimatedEnergyIndex",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "sample-level energy state at t0, not the end-of-lap aggregate"
+    },
+    {
+      "column": "LookaheadDeployProxy",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "computed from the attacker's track position at t0 over the next 400 m"
+    },
+    {
+      "column": "LookaheadHarvestProxy",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "as LookaheadDeployProxy"
+    },
+    {
+      "column": "LookaheadCoveredM",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "metres of the 400 m horizon that lie before the line"
+    },
+    {
+      "column": "lookahead_truncated",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "the 400 m horizon ran past the line and was not wrapped"
+    },
+    {
+      "column": "circuit_length_m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "exogenous circuit geometry"
+    },
+    {
+      "column": "corner_count",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "exogenous circuit geometry"
+    },
+    {
+      "column": "longest_straight_m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "exogenous circuit geometry"
+    },
+    {
+      "column": "n_long_straights_over_500m",
+      "role": "feature_t0",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "exogenous circuit geometry"
+    },
+    {
+      "column": "event_end_time",
+      "role": "episode_level",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "the engagement's end, which is not known at t0"
+    },
+    {
+      "column": "event_duration_s",
+      "role": "episode_level",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "how long the pair stayed in the band, measurable only after the fact"
+    },
+    {
+      "column": "in_band_duration_s",
+      "role": "episode_level",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "as event_duration_s"
+    },
+    {
+      "column": "gap_min_in_episode_m",
+      "role": "episode_level",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "minimum over the whole episode, so it reads samples after t0"
+    },
+    {
+      "column": "n_samples_in_episode",
+      "role": "episode_level",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "counts samples after t0"
+    },
+    {
+      "column": "event_start_time",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "t0 itself; timestamps are not model inputs"
+    },
+    {
+      "column": "horizon_end_time",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "t0 + horizon_s, definitional"
+    },
+    {
+      "column": "horizon_s_effective",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "constant 30 s by construction"
+    },
+    {
+      "column": "event_type",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "the taxonomy decision that produces the label"
+    },
+    {
+      "column": "actual_swap_delay_s",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "measured after t0; derived from the outcome"
+    },
+    {
+      "column": "pass_after_horizon",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "derived from the outcome"
+    },
+    {
+      "column": "window_crosses_start_finish",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "evaluated over the whole horizon window"
+    },
+    {
+      "column": "attacker_PositionChange_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "lap-over-lap classified position change; a future quantity and never used to build the label"
+    },
+    {
+      "column": "attacker_position",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "the lap spine's Position is the classification at the END of the lap, so on a lap where the pass happens it already reflects the pass; measured on Australia v4 the spine places the attacker ahead in 41% of passes against 3% of no-passes, which is the outcome leaking"
+    },
+    {
+      "column": "target_position",
+      "role": "audit",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "as attacker_position"
+    },
+    {
+      "column": "zone_id",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "kept for visualisation and error analysis; brake_T11 exists on one circuit only"
+    },
+    {
+      "column": "gap_at_start_s_crude_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "gap divided by attacker speed; superseded by spatial_time_gap_s"
+    },
+    {
+      "column": "target_speed_same_time_kmh_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "wall-clock aligned target speed, superseded by the spatially aligned version"
+    },
+    {
+      "column": "relative_speed_same_time_kmh_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "superseded"
+    },
+    {
+      "column": "closing_speed_v1_kmh_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "superseded by the v3/v4 implementation"
+    },
+    {
+      "column": "closing_speed_v1_window_s_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "superseded"
+    },
+    {
+      "column": "closing_speed_v1_available_audit",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "superseded"
+    },
+    {
+      "column": "spatial_alignment_lag_raw_s",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "uncensored alignment lag"
+    },
+    {
+      "column": "closing_speed_n_samples",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "diagnostic for the closing-speed fit"
+    },
+    {
+      "column": "closing_speed_window_s",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "constant by construction"
+    },
+    {
+      "column": "TrackStatus",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "green by construction on the scoreable set, so non-predictive there"
+    },
+    {
+      "column": "freeze_flag",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "false by construction on the scoreable set"
+    },
+    {
+      "column": "detector_version",
+      "role": "audit",
+      "depends_on_information_after_t0": false,
+      "eligible_as_feature_t0": true,
+      "reason": "provenance; the single version column for this dataset, replacing v4's separate feature_version"
+    },
+    {
+      "column": "overtake_success",
+      "role": "label",
+      "depends_on_information_after_t0": true,
+      "eligible_as_feature_t0": false,
+      "reason": "1 when a corroborated on-track pairwise pass completes within 30 s of t0, 0 when the interaction is valid and observable and no such pass occurs, null otherwise"
+    }
+  ]
+}

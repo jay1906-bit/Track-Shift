@@ -1,0 +1,202 @@
+{
+  "task": "final 30 s prediction horizon anchored at t0 (v4)",
+  "ml_trained": false,
+  "ml_model_selected": false,
+  "additional_races_processed": false,
+  "strategy_engine_implemented": false,
+  "ui_built": false,
+  "energy_model_modified": false,
+  "energy_files_untouched": true,
+  "race": {
+    "race_id": "australian_gp_2026_R",
+    "circuit": "Albert Park",
+    "year": 2026
+  },
+  "final_event_definition": "An overtake opportunity begins at t0, the first instant at which attacker A is running within 100 m of target B directly ahead, is at least 10 m behind so the pass has not already begun, sustains that proximity for at least 3 s, and the race is green with neither car on a box lap. overtake_success = 1 when A completes an on-track pairwise pass of B within 30 s of t0, corroborated independently by race-distance ordering and by B's own DriverAhead naming A. overtake_success = 0 when the interaction is valid and observable and no corroborated pass occurs inside those 30 s. Ambiguous, corrupted or quarantined interactions keep their event_type and are left unlabelled.",
+  "frozen_parameters": {
+    "gap_max_m": 100.0,
+    "gap_min_m": 10.0,
+    "min_persist_s": 3.0,
+    "merge_gap_s": 2.0,
+    "horizon_s": 30.0,
+    "horizon_anchor": "t0",
+    "audit_horizon_s": 120.0
+  },
+  "implementation_change": "horizon_end(t0, event_end, params) now returns t0 + horizon_s. It replaces the event_end + horizon_s expression in three places: the outcome window in build_events, the swap-evidence window (both the race-distance test and the target DriverAhead test read the same censored window), and the pair de-duplication window in _dedupe_pair_episodes. Swap evidence is additionally located over [t0, t0 + audit_horizon_s] and then censored at the horizon, so a late pass is reported through actual_swap_delay_s and pass_after_horizon without ever reaching the label.",
+  "counts_v3": {
+    "ON_TRACK_PASS": 90,
+    "CLOSE_INTERACTION_NO_PASS": 278,
+    "PIT_RELATED": 82,
+    "RETIREMENT_RELATED": 2,
+    "LAPPED_UNLAPPED": 40,
+    "UNCERTAIN": 30,
+    "INVALID": 43
+  },
+  "counts_v4": {
+    "ON_TRACK_PASS": 61,
+    "CLOSE_INTERACTION_NO_PASS": 392,
+    "PIT_RELATED": 92,
+    "RETIREMENT_RELATED": 1,
+    "LAPPED_UNLAPPED": 43,
+    "UNCERTAIN": 28,
+    "INVALID": 56
+  },
+  "totals": {
+    "events_v3": 565,
+    "events_v4": 673
+  },
+  "label_summary": {
+    "on_track_pass": 61,
+    "close_interaction_no_pass": 392,
+    "scoreable": 453,
+    "positive_rate": 0.1346578366445916,
+    "unlabelled": 220
+  },
+  "event_impact": {
+    "events_created": 153,
+    "events_removed": 45,
+    "events_matched": 520,
+    "boundary_changed": 0,
+    "type_changed": 45,
+    "label_changed": 45,
+    "label_1_to_0": 26,
+    "label_0_to_1": 0,
+    "labelled_to_unlabelled": 4,
+    "unlabelled_to_labelled": 15,
+    "passes_moved_outside_horizon": 30,
+    "v3_events_longer_than_horizon": 107,
+    "v3_long_events_changed_type": 37,
+    "new_events_from_shorter_dedup_window": 108,
+    "transitions": {
+      "ON_TRACK_PASS -> CLOSE_INTERACTION_NO_PASS": 26,
+      "UNCERTAIN -> CLOSE_INTERACTION_NO_PASS": 14,
+      "ON_TRACK_PASS -> UNCERTAIN": 4,
+      "PIT_RELATED -> CLOSE_INTERACTION_NO_PASS": 1
+    }
+  },
+  "in_horizon_pass_delay_s": {
+    "n": 61,
+    "min": 0.64,
+    "p25": 7.839,
+    "median": 11.679,
+    "mean": 12.644606557377049,
+    "p75": 16.319,
+    "max": 25.24
+  },
+  "deduplication": {
+    "anchor": "t0 + horizon_s",
+    "min_separation_between_same_pair_events_s": 30.241,
+    "events_recovered_vs_event_end_anchor": 108,
+    "rule": "A re-engagement whose t0 falls inside a previous event's own 30 s horizon is suppressed, because any pass there is already attributed to that event. A pair that comes back more than 30 s after the previous t0 is a new opportunity with a new decision point and is kept. Under the old event_end anchor a 393 s battle suppressed every re-engagement for over six minutes."
+  },
+  "long_delay_passes": {
+    "events_with_pass_after_horizon": 81,
+    "outside_horizon_swap_delay_s": {
+      "n": 81,
+      "median": 62.4,
+      "max": 119.36
+    },
+    "v3_passes_demoted": 30,
+    "v3_passes_demoted_to_zero": 26,
+    "v3_passes_demoted_to_uncertain": 4,
+    "v3_passes_demoted_without_measurable_delay": 1,
+    "v3_passes_demoted_without_measurable_delay_note": "One event, BOR vs car 41 starting lap 54, was a 156 s v3 engagement scored over 186 s. Its distance signal fires at 55.8 s but the target DriverAhead corroboration lands beyond the 120 s audit window, so no corroborated delay is measurable from t0. v3 called it a pass on evidence more than two minutes after the decision point; that attribution is exactly what the fixed window removes.",
+    "all_labelled_zero_or_unlabelled": true,
+    "representation": "overtake_success = 0 with pass_after_horizon = true and the measured actual_swap_delay_s retained. The swap is real but lands outside the window the question asks about.",
+    "audit_only_caveat": "actual_swap_delay_s is measured over a 120 s audit window. Beyond roughly one lap the displacement test accumulates cross-driver integration divergence and a DriverAhead relation need not belong to this battle, so treat long values as indicative. Nothing in the label depends on them."
+  },
+  "cross_lap": {
+    "windows_crossing_start_finish": 239,
+    "fraction": 0.3551263001485884,
+    "note": "Cross-line windows are kept, not rejected. The corrected v3 race-distance coordinate anchored at t0 is what makes them safe."
+  },
+  "sanity_checks": {
+    "1_no_window_beyond_t0_plus_30s": true,
+    "2_no_pass_with_swap_delay_over_30s": true,
+    "3_every_success_inside_horizon": true,
+    "4_pass_after_horizon_never_labelled_1": true,
+    "5_no_t0_feature_moved_when_the_horizon_moved": true,
+    "6_spatial_relative_speed_intact": true,
+    "7_closing_speed_intact": true,
+    "8_race_distance_monotone": true,
+    "9_energy_files_unchanged": true,
+    "10_thresholds_unchanged": true,
+    "11_same_pair_events_at_least_one_horizon_apart": true,
+    "12_demoted_passes_accounted_for": true
+  },
+  "v2_speed_features_unchanged": {
+    "target_speed_at_attacker_position_kmh": true,
+    "relative_speed_same_position_kmh": true,
+    "spatial_time_gap_s": true,
+    "spatial_alignment_ok": true,
+    "closing_speed_at_start_kmh": true,
+    "closing_speed_available": true
+  },
+  "v3_reproduction_verified": true,
+  "manual_review_cases": {
+    "A_fast_pass_under_10s": 22,
+    "B_pass_15_to_20s": 12,
+    "C_pass_25_to_30s": 1,
+    "D_pass_30_to_45s_outside_horizon": 19,
+    "E_pass_after_45s_outside_horizon": 62,
+    "F_long_close_interaction": 3,
+    "G_pair_re_engages_new_under_t0_dedup": 153,
+    "H_cross_start_finish": 142,
+    "I_pit_related": 92,
+    "J_lapped_unlapped": 43
+  },
+  "leakage_controls": {
+    "feature_timestamp": "Every feature is read at t0 or earlier.",
+    "asof_direction": "backward only, never nearest and never forward",
+    "closing_speed": "least-squares slope of pair separation over [t0 - 3.0s, t0]",
+    "relative_speed": "target speed sampled where it last crossed the attacker's t0 track position, at or before t0",
+    "energy": "sample-level EstimatedEnergyIndex at t0",
+    "lookahead": "computed from the attacker's track distance at t0 using the existing lookahead_from_distance",
+    "label_uses_future": "yes, by design, and only inside [t0, t0 + 30 s]",
+    "position_change": "retained as attacker_PositionChange_audit only, never used to define the label",
+    "empirical_test": "All 19 t0 features were compared across the 520 events present in both v3 and v4. The horizon change moved 45 labels and zero features. A feature that read anything inside the outcome window would have moved when the window shrank from a median of 48 s to a fixed 30 s.",
+    "features_that_moved": []
+  },
+  "join_stats": {
+    "n_ahead_rows": 325053,
+    "n_energy_rows": 326048,
+    "ahead_duplicate_keys": 0,
+    "energy_duplicate_keys": 0,
+    "exact_sample_matches": 325053,
+    "unmatched_samples_before_asof": 0,
+    "exact_match_rate": 1.0,
+    "asof_backward_matches": 0,
+    "unmatched_samples_final": 0,
+    "lap_join_match_rate": 1.0
+  },
+  "files_created": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v4.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_audit_v4.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_changed_v3_to_v4.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\event_manual_review_v4.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\event_detection_v4_report.json"
+  ],
+  "files_preserved": [
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v1.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v2.csv",
+    "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\australian_gp_2026_overtake_events_v3.csv"
+  ],
+  "energy_hashes_before": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+  },
+  "energy_hashes_after": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913"
+  }
+}

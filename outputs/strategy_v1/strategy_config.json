@@ -1,0 +1,11 @@
+{
+  "p_hat_min": 0.45,
+  "energy_floor": 0.1,
+  "energy_adequate_if_lookahead_unusable": 0.5,
+  "deploy_share_min": 0.4,
+  "straight_is_spend_window": true,
+  "covered_min_m": 50.0,
+  "version": "strategy_v1",
+  "selection_rule": "Precommitted middle opportunity gate (0.45), low-tail energy floor (0.10), and row-local deploy share 0.40. Not maximised against overtake_success.",
+  "belgium_miami_used_for_thresholds": false
+}
