@@ -117,6 +117,6 @@ Output: `frontend/dist/` (gitignored). Production hosting should serve that buil
 
 ## Public demo
 
-**https://apexiq-rho.vercel.app**
+**frontend-zeta-pearl-9ctxk2h38z.vercel.app**
 
 The deployed site is the same historical replay as local `frontend/`. No backend is required at runtime.
