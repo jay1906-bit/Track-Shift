@@ -117,6 +117,6 @@ Output: `frontend/dist/` (gitignored). Production hosting should serve that buil
 
 ## Public demo
 
-Production deployment: see the latest Vercel production URL after release (also listed in the GitHub repository description / release notes).
+**https://apexiq-rho.vercel.app**
 
-The deployed site is the same historical replay as local `frontend/`.
+The deployed site is the same historical replay as local `frontend/`. No backend is required at runtime.
