@@ -1,0 +1,58 @@
+{
+  "winner": "gbdt",
+  "family": "HistGradientBoostingClassifier",
+  "sklearn_version": "1.9.0",
+  "seed": 42,
+  "features": [
+    "gap_at_start_m",
+    "attacker_speed_at_start_kmh",
+    "target_speed_at_attacker_position_kmh",
+    "relative_speed_same_position_kmh",
+    "closing_speed_at_start_kmh",
+    "spatial_time_gap_s",
+    "spatial_alignment_ok",
+    "closing_speed_available",
+    "track_position_frac",
+    "distance_to_next_corner_m",
+    "distance_to_next_straight_m",
+    "tyre_age",
+    "stint",
+    "EstimatedEnergyIndex",
+    "LookaheadDeployProxy",
+    "LookaheadHarvestProxy",
+    "lookahead_truncated",
+    "zone_type",
+    "compound"
+  ],
+  "hyperparameters": {
+    "max_depth": 3,
+    "max_iter": 150,
+    "learning_rate": 0.05,
+    "min_samples_leaf": 40,
+    "l2_regularization": 1.0,
+    "random_state": 42,
+    "class_weight": null
+  },
+  "preprocessing": {
+    "fit_inside_training_fold_only": true,
+    "winsorize_quantiles": [0.01, 0.99],
+    "winsorize_columns": ["relative_speed_same_position_kmh", "closing_speed_at_start_kmh"],
+    "numeric_impute": "median",
+    "categorical_impute": "most_frequent",
+    "one_hot_unknown": "ignore",
+    "standard_scaler": false
+  },
+  "calibration": "none_extra_raw_gbdt_probabilities",
+  "split": {
+    "development": [
+      "australia_2026_R",
+      "china_2026_R",
+      "japan_2026_R",
+      "canada_2026_R",
+      "monaco_2026_R",
+      "austria_2026_R",
+      "netherlands_2026_R"
+    ],
+    "locked_test": ["belgium_2026_R", "miami_2026_R"]
+  }
+}

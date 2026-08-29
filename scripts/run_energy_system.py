@@ -211,8 +211,20 @@ def main() -> dict:
     # ------------------------------------------------------------------
     _print_header("CHECKPOINT 6 — ALPHA/BETA CALIBRATION")
     cfg = calibrate_alpha_beta(lap_table)
-    print(json.dumps({k: cfg[k] for k in ["alpha", "beta", "target_median_abs_net", "calibration_set", "comment"]}, indent=2))
-    report["cp6_initial"] = {"alpha": cfg["alpha"], "beta": cfg["beta"], "calibration_set": cfg["calibration_set"]}
+    print(json.dumps(
+        {k: cfg[k] for k in [
+            "alpha", "beta", "target_median_abs_net", "flow_scale_T",
+            "median_abs_imbalance", "calibration_method", "calibration_set", "comment",
+        ]},
+        indent=2,
+    ))
+    report["cp6_initial"] = {
+        "alpha": cfg["alpha"],
+        "beta": cfg["beta"],
+        "flow_scale_T": cfg["flow_scale_T"],
+        "median_abs_imbalance": cfg["median_abs_imbalance"],
+        "calibration_set": cfg["calibration_set"],
+    }
 
     # ------------------------------------------------------------------
     # CP7 — EstimatedEnergyIndex walk
@@ -235,11 +247,17 @@ def main() -> dict:
         floor_frac = float((end_e["n_clip_low"] > 0).mean())
         frac_clip = clip_lap_fraction(end_e)
         print(f"  reduced alpha/beta by {config.CLIP_RATE_REDUCE_FACTOR}, floor-clip fraction now {floor_frac:.4f}")
+        print("  reason:", cfg.get("floor_reduction_reason"))
     cfg["clip_lap_fraction"] = frac_clip
     cfg["n_scale_reductions"] = scale_iters
+    cfg["floor_touch_lap_fraction"] = floor_frac
     save_config(cfg)
     print("saved", config.ENERGY_CONFIG_JSON)
-    print("final alpha", cfg["alpha"], "beta", cfg["beta"])
+    print("final alpha", cfg["alpha"], "beta", cfg["beta"], "T", cfg.get("flow_scale_T"))
+    if scale_iters:
+        print("floor reduction applied:", cfg.get("floor_reduction_reason"))
+    else:
+        print("floor reduction not applied; floor-touch lap fraction", floor_frac, "<=", config.CLIP_LAP_FRACTION_LIMIT)
 
     energy_laps = lap_table.merge(end_e, on=["Driver", "LapNumber"], how="left")
     energy_laps["EstimatedEnergyIndex"] = energy_laps["EstimatedEnergyIndex_end"]
@@ -273,8 +291,11 @@ def main() -> dict:
     report["cp7"] = {
         "alpha": cfg["alpha"],
         "beta": cfg["beta"],
+        "flow_scale_T": cfg.get("flow_scale_T"),
         "clip_lap_fraction": frac_clip,
         "n_scale_reductions": scale_iters,
+        "floor_touch_lap_fraction": floor_frac,
+        "floor_reduction_reason": cfg.get("floor_reduction_reason"),
         "e_min": float(energy_laps["EstimatedEnergyIndex"].min()),
         "e_max": float(energy_laps["EstimatedEnergyIndex"].max()),
     }

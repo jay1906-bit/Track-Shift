@@ -16,6 +16,34 @@ def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def occupancy_metrics(sample_e: pd.Series, end_e: pd.Series, energy_laps: pd.DataFrame) -> dict:
+    """Design-report §18.6 occupancy, reported at sample and end-of-lap level."""
+    sample_e = pd.to_numeric(sample_e, errors="coerce")
+    end_e = pd.to_numeric(end_e, errors="coerce")
+    tmp = energy_laps.sort_values(["Driver", "LapNumber"]).copy()
+    tmp["dE"] = tmp.groupby("Driver")["EstimatedEnergyIndex_end"].diff()
+    floor_touch = pd.to_numeric(energy_laps.get("n_clip_low", 0), errors="coerce").fillna(0) > 0
+    ceil_recover = pd.to_numeric(energy_laps.get("n_clip_high", 0), errors="coerce").fillna(0) > 0
+    return {
+        "sample_frac_in_0p05_0p95": float(((sample_e > 0.05) & (sample_e < 0.95)).mean()),
+        "sample_frac_ge_0p95": float((sample_e >= 0.95).mean()),
+        "sample_frac_le_0p05": float((sample_e <= 0.05).mean()),
+        "end_frac_in_0p05_0p95": float(((end_e > 0.05) & (end_e < 0.95)).mean()),
+        "end_frac_ge_0p95": float((end_e >= 0.95).mean()),
+        "end_frac_le_0p05": float((end_e <= 0.05).mean()),
+        "end_min": float(end_e.min()),
+        "end_max": float(end_e.max()),
+        "end_mean": float(end_e.mean()),
+        "end_median": float(end_e.median()),
+        "sample_min": float(sample_e.min()),
+        "sample_max": float(sample_e.max()),
+        "floor_touch_lap_fraction": float(floor_touch.mean()) if len(energy_laps) else 0.0,
+        "ceiling_recover_lap_fraction": float(ceil_recover.mean()) if len(energy_laps) else 0.0,
+        "median_abs_dE": float(tmp["dE"].abs().median()) if tmp["dE"].notna().any() else float("nan"),
+        "median_dE": float(tmp["dE"].median()) if tmp["dE"].notna().any() else float("nan"),
+    }
+
+
 def run_validation(
     lap_table: pd.DataFrame,
     samples: pd.DataFrame,
@@ -86,16 +114,24 @@ def run_validation(
     in_bounds = bool(e.between(config.E_MIN, config.E_MAX).all())
     add("energy_bounds", in_bounds, f"min={float(e.min())} max={float(e.max())}")
 
-    # 6. Not mostly pegged
+    # 6. Not pegged — design report §18.6: most of the race, most cars in (0.05, 0.95).
+    # "Most" means majority occupancy, not the weakened "<80% exactly at 0 or 1" check.
     sample_e = samples["EstimatedEnergyIndex"] if "EstimatedEnergyIndex" in samples.columns else e
-    frac_mid = float(((sample_e > 0.05) & (sample_e < 0.95)).mean())
-    frac_at_bounds = float(((sample_e <= 0.0 + 1e-12) | (sample_e >= 1.0 - 1e-12)).mean())
-    e_std = float(pd.to_numeric(sample_e, errors="coerce").std())
-    e_range = float(pd.to_numeric(sample_e, errors="coerce").max() - pd.to_numeric(sample_e, errors="coerce").min())
+    occ = occupancy_metrics(sample_e, e, energy_laps)
+    majority_sample = occ["sample_frac_in_0p05_0p95"] > 0.50
+    majority_end = occ["end_frac_in_0p05_0p95"] > 0.50
     add(
         "energy_not_mostly_pegged",
-        (frac_at_bounds < 0.80) and (e_range > 0.005),
-        f"fraction of energy samples in (0.05,0.95)={frac_mid:.3f}; at 0 or 1={frac_at_bounds:.3f}; std={e_std:.5f}; range={e_range:.5f}",
+        majority_sample and majority_end,
+        (
+            f"sample in (0.05,0.95)={occ['sample_frac_in_0p05_0p95']:.3f}; "
+            f"end-of-lap in (0.05,0.95)={occ['end_frac_in_0p05_0p95']:.3f}; "
+            f"end >=0.95={occ['end_frac_ge_0p95']:.3f}; end <=0.05={occ['end_frac_le_0p05']:.3f}; "
+            f"end min={occ['end_min']:.5f} max={occ['end_max']:.5f} mean={occ['end_mean']:.5f} "
+            f"median={occ['end_median']:.5f}; floor-touch laps={occ['floor_touch_lap_fraction']:.3f}; "
+            f"ceiling-recover laps={occ['ceiling_recover_lap_fraction']:.3f}; "
+            f"median |dE|={occ['median_abs_dE']:.5f}"
+        ),
     )
 
     # 7. Higher mean throttle → higher D_lap (calibration laps, per driver sign of correlation)
@@ -150,4 +186,10 @@ def run_validation(
     )
 
     passed = all(c["passed"] for c in checks)
-    return {"passed": passed, "n_passed": sum(c["passed"] for c in checks), "n_checks": len(checks), "checks": checks}
+    return {
+        "passed": passed,
+        "n_passed": sum(c["passed"] for c in checks),
+        "n_checks": len(checks),
+        "checks": checks,
+        "occupancy": occ,
+    }

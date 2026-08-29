@@ -1,0 +1,2325 @@
+{
+  "version": "multirace_v1",
+  "detector_version": "v4_t0_anchored_30s_horizon",
+  "phase": "data collection, event detection, feature construction, dataset validation",
+  "ml_trained": false,
+  "ml_model_selected": false,
+  "splits_created": false,
+  "strategy_engine_built": false,
+  "ui_built": false,
+  "ablation_performed": false,
+  "energy_model_modified": false,
+  "energy_files_untouched": true,
+  "australia_v4_overwritten": false,
+  "frozen_parameters": {
+    "gap_max_m": 100.0,
+    "gap_min_m": 10.0,
+    "min_persist_s": 3.0,
+    "merge_gap_s": 2.0,
+    "horizon_s": 30.0
+  },
+  "frozen_parameters_applied_to_every_race": true,
+  "every_event_scored_over_exactly_30s": true,
+  "schedule_2026": [
+    {
+      "round": 1,
+      "event_name": "Australian Grand Prix",
+      "location": "Melbourne",
+      "format": "conventional"
+    },
+    {
+      "round": 2,
+      "event_name": "Chinese Grand Prix",
+      "location": "Shanghai",
+      "format": "sprint_qualifying"
+    },
+    {
+      "round": 3,
+      "event_name": "Japanese Grand Prix",
+      "location": "Suzuka",
+      "format": "conventional"
+    },
+    {
+      "round": 4,
+      "event_name": "Miami Grand Prix",
+      "location": "Miami Gardens",
+      "format": "sprint_qualifying"
+    },
+    {
+      "round": 5,
+      "event_name": "Canadian Grand Prix",
+      "location": "Montr\u00e9al",
+      "format": "sprint_qualifying"
+    },
+    {
+      "round": 6,
+      "event_name": "Monaco Grand Prix",
+      "location": "Monte Carlo",
+      "format": "conventional"
+    },
+    {
+      "round": 7,
+      "event_name": "Barcelona Grand Prix",
+      "location": "Barcelona",
+      "format": "conventional"
+    },
+    {
+      "round": 8,
+      "event_name": "Austrian Grand Prix",
+      "location": "Spielberg",
+      "format": "conventional"
+    },
+    {
+      "round": 9,
+      "event_name": "British Grand Prix",
+      "location": "Silverstone",
+      "format": "sprint_qualifying"
+    },
+    {
+      "round": 10,
+      "event_name": "Belgian Grand Prix",
+      "location": "Spa-Francorchamps",
+      "format": "conventional"
+    },
+    {
+      "round": 11,
+      "event_name": "Hungarian Grand Prix",
+      "location": "Budapest",
+      "format": "conventional"
+    },
+    {
+      "round": 12,
+      "event_name": "Dutch Grand Prix",
+      "location": "Zandvoort",
+      "format": "sprint_qualifying"
+    },
+    {
+      "round": 13,
+      "event_name": "Italian Grand Prix",
+      "location": "Monza",
+      "format": "conventional"
+    },
+    {
+      "round": 14,
+      "event_name": "Spanish Grand Prix",
+      "location": "Madrid",
+      "format": "conventional"
+    },
+    {
+      "round": 15,
+      "event_name": "Azerbaijan Grand Prix",
+      "location": "Baku",
+      "format": "conventional"
+    },
+    {
+      "round": 16,
+      "event_name": "Bahrain Grand Prix",
+      "location": "Kuala Lumpur",
+      "format": "conventional"
+    },
+    {
+      "round": 17,
+      "event_name": "Singapore Grand Prix",
+      "location": "Marina Bay",
+      "format": "sprint_qualifying"
+    },
+    {
+      "round": 18,
+      "event_name": "United States Grand Prix",
+      "location": "Austin",
+      "format": "conventional"
+    },
+    {
+      "round": 19,
+      "event_name": "Mexico City Grand Prix",
+      "location": "Mexico City",
+      "format": "conventional"
+    },
+    {
+      "round": 20,
+      "event_name": "S\u00e3o Paulo Grand Prix",
+      "location": "S\u00e3o Paulo",
+      "format": "conventional"
+    },
+    {
+      "round": 21,
+      "event_name": "Las Vegas Grand Prix",
+      "location": "Las Vegas",
+      "format": "conventional"
+    },
+    {
+      "round": 22,
+      "event_name": "Qatar Grand Prix",
+      "location": "Lusail",
+      "format": "conventional"
+    },
+    {
+      "round": 23,
+      "event_name": "Abu Dhabi Grand Prix",
+      "location": "Yas Marina",
+      "format": "conventional"
+    }
+  ],
+  "requested_races": [
+    {
+      "slug": "australia",
+      "event_name": "Australian Grand Prix",
+      "race_id": "australia_2026_R"
+    },
+    {
+      "slug": "china",
+      "event_name": "Chinese Grand Prix",
+      "race_id": "china_2026_R"
+    },
+    {
+      "slug": "japan",
+      "event_name": "Japanese Grand Prix",
+      "race_id": "japan_2026_R"
+    },
+    {
+      "slug": "miami",
+      "event_name": "Miami Grand Prix",
+      "race_id": "miami_2026_R"
+    },
+    {
+      "slug": "canada",
+      "event_name": "Canadian Grand Prix",
+      "race_id": "canada_2026_R"
+    },
+    {
+      "slug": "monaco",
+      "event_name": "Monaco Grand Prix",
+      "race_id": "monaco_2026_R"
+    },
+    {
+      "slug": "austria",
+      "event_name": "Austrian Grand Prix",
+      "race_id": "austria_2026_R"
+    },
+    {
+      "slug": "belgium",
+      "event_name": "Belgian Grand Prix",
+      "race_id": "belgium_2026_R"
+    },
+    {
+      "slug": "netherlands",
+      "event_name": "Dutch Grand Prix",
+      "race_id": "netherlands_2026_R"
+    }
+  ],
+  "totals": {
+    "races": 9,
+    "events": 10435,
+    "labelled": 6785,
+    "positives": 1528,
+    "negatives": 5257,
+    "positive_rate": 0.22520265291083272,
+    "uncertain": 288,
+    "quarantined": 3362,
+    "event_type_counts": {
+      "ON_TRACK_PASS": 1528,
+      "CLOSE_INTERACTION_NO_PASS": 5257,
+      "PIT_RELATED": 1186,
+      "RETIREMENT_RELATED": 11,
+      "LAPPED_UNLAPPED": 621,
+      "UNCERTAIN": 288,
+      "INVALID": 1544
+    }
+  },
+  "per_race": [
+    {
+      "race_id": "australia_2026_R",
+      "circuit": "Australian Grand Prix",
+      "events": 673,
+      "labelled": 453,
+      "positives": 61,
+      "negatives": 392,
+      "positive_rate": 0.1346578366445916
+    },
+    {
+      "race_id": "austria_2026_R",
+      "circuit": "Austrian Grand Prix",
+      "events": 908,
+      "labelled": 538,
+      "positives": 23,
+      "negatives": 515,
+      "positive_rate": 0.04275092936802974
+    },
+    {
+      "race_id": "belgium_2026_R",
+      "circuit": "Belgian Grand Prix",
+      "events": 923,
+      "labelled": 675,
+      "positives": 75,
+      "negatives": 600,
+      "positive_rate": 0.1111111111111111
+    },
+    {
+      "race_id": "canada_2026_R",
+      "circuit": "Canadian Grand Prix",
+      "events": 730,
+      "labelled": 363,
+      "positives": 19,
+      "negatives": 344,
+      "positive_rate": 0.05234159779614325
+    },
+    {
+      "race_id": "china_2026_R",
+      "circuit": "Chinese Grand Prix",
+      "events": 1771,
+      "labelled": 1213,
+      "positives": 545,
+      "negatives": 668,
+      "positive_rate": 0.44929925803792253
+    },
+    {
+      "race_id": "japan_2026_R",
+      "circuit": "Japanese Grand Prix",
+      "events": 2008,
+      "labelled": 1492,
+      "positives": 545,
+      "negatives": 947,
+      "positive_rate": 0.3652815013404826
+    },
+    {
+      "race_id": "miami_2026_R",
+      "circuit": "Miami Grand Prix",
+      "events": 1103,
+      "labelled": 637,
+      "positives": 47,
+      "negatives": 590,
+      "positive_rate": 0.07378335949764521
+    },
+    {
+      "race_id": "monaco_2026_R",
+      "circuit": "Monaco Grand Prix",
+      "events": 1157,
+      "labelled": 665,
+      "positives": 19,
+      "negatives": 646,
+      "positive_rate": 0.02857142857142857
+    },
+    {
+      "race_id": "netherlands_2026_R",
+      "circuit": "Dutch Grand Prix",
+      "events": 1162,
+      "labelled": 749,
+      "positives": 194,
+      "negatives": 555,
+      "positive_rate": 0.2590120160213618
+    }
+  ],
+  "positives_per_race": {
+    "min": 19,
+    "median": 61.0,
+    "max": 545,
+    "n_races_with_zero_positives": 0
+  },
+  "min_labelled_events_per_race": 363,
+  "effective_sample_size": {
+    "total_rows": 10435,
+    "scoreable_rows": 6785,
+    "distinct_race_groups": 9,
+    "distinct_pairs": 1068,
+    "distinct_race_lap_pair_clusters": 6383,
+    "distinct_attackers": 23,
+    "events_with_a_reciprocal": 1595,
+    "scoreable_distinct_pairs": 686,
+    "scoreable_distinct_clusters": 4261
+  },
+  "manifest": {
+    "role_counts": {
+      "feature_t0": 25,
+      "audit": 23,
+      "group_key": 6,
+      "identifier": 5,
+      "episode_level": 5,
+      "label": 1
+    },
+    "validation": {
+      "n_declared": 65,
+      "n_in_dataset": 65,
+      "declared_but_missing_from_dataset": [],
+      "in_dataset_but_undeclared": [],
+      "duplicate_role_assignments": [],
+      "feature_t0_columns_that_are_not_causal": [],
+      "passed": true
+    },
+    "path": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\multirace_v1\\feature_manifest_v1.csv"
+  },
+  "leakage_audit": {
+    "result": "PASS",
+    "excluded_future_or_episode_columns": [
+      "actual_swap_delay_s",
+      "attacker_PositionChange_audit",
+      "attacker_position",
+      "event_duration_s",
+      "event_end_time",
+      "event_type",
+      "gap_min_in_episode_m",
+      "in_band_duration_s",
+      "n_samples_in_episode",
+      "pass_after_horizon",
+      "target_position",
+      "window_crosses_start_finish"
+    ],
+    "position_field_evidence": {
+      "n_checked": 6785,
+      "spine_places_attacker_ahead_rate_positives": 0.4273560209424084,
+      "spine_places_attacker_ahead_rate_negatives": 0.04660452729693742,
+      "interpretation": "At t0 the attacker is behind the target by construction, so a genuine at-t0 position must never place the attacker ahead. It does so far more often on positives than on negatives, which confirms the lap spine's Position is the end-of-lap classification and already contains the outcome."
+    }
+  },
+  "feature_quality": {
+    "n_feature_t0": 25,
+    "constant_features_on_scoreable_set": [],
+    "constant_within_race_features": [
+      "circuit_length_m",
+      "corner_count",
+      "longest_straight_m",
+      "n_long_straights_over_500m"
+    ],
+    "redundant_pairs_abs_r_ge_0_85": [
+      {
+        "a": "track_distance_at_start_m",
+        "b": "track_position_frac",
+        "pearson_r": 0.9504
+      }
+    ],
+    "per_feature": {
+      "gap_at_start_m": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 6774,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 10.00555555555502,
+          "p25": 32.24638888888891,
+          "median": 89.65916666666999,
+          "p75": 97.09416666666492,
+          "max": 99.99888888888928,
+          "mean": 67.36639830508474,
+          "std": 34.79357058582388
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 10.007222222225664,
+            "p25": 11.74812500000087,
+            "median": 17.124583333333703,
+            "p75": 54.70479166666604,
+            "max": 99.98055555555544,
+            "mean": 35.249835842059355,
+            "std": 30.612172812915528
+          },
+          "negative": {
+            "n": 5257,
+            "min": 10.00555555555502,
+            "p25": 57.679166666666674,
+            "median": 93.7924999999982,
+            "p75": 97.7411111111137,
+            "max": 99.99888888888928,
+            "mean": 76.7014006721197,
+            "std": 30.054180577419423
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "attacker_speed_at_start_kmh": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 294,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 45.0,
+          "p25": 178.0,
+          "median": 235.0,
+          "p75": 278.0,
+          "max": 350.0,
+          "mean": 224.25792188651437,
+          "std": 67.42541590097176
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 54.0,
+            "p25": 125.0,
+            "median": 190.0,
+            "p75": 262.25,
+            "max": 350.0,
+            "mean": 192.7801047120419,
+            "std": 74.67819682695198
+          },
+          "negative": {
+            "n": 5257,
+            "min": 45.0,
+            "p25": 193.0,
+            "median": 244.0,
+            "p75": 281.0,
+            "max": 349.0,
+            "mean": 233.4072665018071,
+            "std": 62.25624772645601
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "target_speed_at_attacker_position_kmh": {
+        "dtype": "float64",
+        "missing_count": 35,
+        "missing_pct": 0.5158437730287398,
+        "unique_count": 5781,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6750,
+          "min": 44.664956958393425,
+          "p25": 183.70368874290202,
+          "median": 234.64299046089047,
+          "p75": 275.55961042742695,
+          "max": 351.0,
+          "mean": 225.8706601634085,
+          "std": 63.653878684109706
+        },
+        "by_class": {
+          "positive": {
+            "n": 1522,
+            "min": 59.67741935483944,
+            "p25": 171.25324874191892,
+            "median": 219.39471930618447,
+            "p75": 269.8061536628532,
+            "max": 350.0,
+            "mean": 215.96995886827364,
+            "std": 65.7477116658342
+          },
+          "negative": {
+            "n": 5228,
+            "min": 44.664956958393425,
+            "p25": 188.3847547353964,
+            "median": 239.11072066301983,
+            "p75": 277.3352641696311,
+            "max": 351.0,
+            "mean": 228.75299898727906,
+            "std": 62.74469863982934
+          }
+        },
+        "missing_pct_positive": 0.3926701570680628,
+        "missing_pct_negative": 0.5516454251474224
+      },
+      "relative_speed_same_position_kmh": {
+        "dtype": "float64",
+        "missing_count": 35,
+        "missing_pct": 0.5158437730287398,
+        "unique_count": 5833,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6750,
+          "min": -254.0,
+          "p25": -13.730387734014059,
+          "median": 1.2892566782797417,
+          "p75": 13.136914667429352,
+          "max": 260.39637681159627,
+          "mean": -1.8207342374825624,
+          "std": 52.422886317397946
+        },
+        "by_class": {
+          "positive": {
+            "n": 1522,
+            "min": -254.0,
+            "p25": -74.57684709538222,
+            "median": -16.565689448161734,
+            "p75": 23.616552717578273,
+            "max": 257.40237455197814,
+            "mean": -23.33329658180847,
+            "std": 83.83621978245849
+          },
+          "negative": {
+            "n": 5228,
+            "min": -219.09222929936303,
+            "p25": -7.4812512880495365,
+            "median": 2.394676264513919,
+            "p75": 12.51746495455194,
+            "max": 260.39637681159627,
+            "mean": 4.44210430269801,
+            "std": 36.457683298616224
+          }
+        },
+        "missing_pct_positive": 0.3926701570680628,
+        "missing_pct_negative": 0.5516454251474224
+      },
+      "closing_speed_at_start_kmh": {
+        "dtype": "float64",
+        "missing_count": 32,
+        "missing_pct": 0.4716285924834193,
+        "unique_count": 6754,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6753,
+          "min": -243.1103106708725,
+          "p25": -10.38094970425627,
+          "median": 24.4380875125303,
+          "p75": 77.03026217019115,
+          "max": 276.12242767671813,
+          "mean": 33.28552536690319,
+          "std": 73.89970983000224
+        },
+        "by_class": {
+          "positive": {
+            "n": 1526,
+            "min": -243.1103106708725,
+            "p25": -62.327442777454955,
+            "median": -17.962016509954587,
+            "p75": 26.81804953404857,
+            "max": 276.12242767671813,
+            "mean": -18.148686435337876,
+            "std": 81.17844481717752
+          },
+          "negative": {
+            "n": 5227,
+            "min": -211.7927501798696,
+            "p25": 3.1115493727250763,
+            "median": 34.37656931664349,
+            "p75": 86.92522036637604,
+            "max": 259.39183271588735,
+            "mean": 48.30152062426302,
+            "std": 64.30254889541389
+          }
+        },
+        "missing_pct_positive": 0.13089005235602094,
+        "missing_pct_negative": 0.5706676811869889
+      },
+      "spatial_time_gap_s": {
+        "dtype": "float64",
+        "missing_count": 35,
+        "missing_pct": 0.5158437730287398,
+        "unique_count": 6746,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6750,
+          "min": 0.01224,
+          "p25": 0.61500275,
+          "median": 1.429206,
+          "p75": 2.11279325,
+          "max": 5.381,
+          "mean": 1.4880076574814813,
+          "std": 1.002235261265802
+        },
+        "by_class": {
+          "positive": {
+            "n": 1522,
+            "min": 0.01224,
+            "p25": 0.19698425,
+            "median": 0.3171395,
+            "p75": 1.1218219999999999,
+            "max": 4.204061,
+            "mean": 0.7329599356110381,
+            "std": 0.7893620636516075
+          },
+          "negative": {
+            "n": 5228,
+            "min": 0.018103,
+            "p25": 1.11310825,
+            "median": 1.6318575,
+            "p75": 2.2820545,
+            "max": 5.381,
+            "mean": 1.707820708875287,
+            "std": 0.9493776282582824
+          }
+        },
+        "missing_pct_positive": 0.3926701570680628,
+        "missing_pct_negative": 0.5516454251474224
+      },
+      "spatial_alignment_ok": {
+        "dtype": "bool",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 2,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 0.0,
+          "p25": 1.0,
+          "median": 1.0,
+          "p75": 1.0,
+          "max": 1.0,
+          "mean": 0.9948415622697127,
+          "std": 0.07164205965075508
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "max": 1.0,
+            "mean": 0.9960732984293194,
+            "std": 0.06256072251570399
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "max": 1.0,
+            "mean": 0.9944835457485258,
+            "std": 0.07407473758206272
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "closing_speed_available": {
+        "dtype": "bool",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 2,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 0.0,
+          "p25": 1.0,
+          "median": 1.0,
+          "p75": 1.0,
+          "max": 1.0,
+          "mean": 0.9952837140751658,
+          "std": 0.06851813263913835
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "max": 1.0,
+            "mean": 0.9986910994764397,
+            "std": 0.03616688198191769
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "max": 1.0,
+            "mean": 0.9942933231881301,
+            "std": 0.07533385826336982
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "track_distance_at_start_m": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 6785,
+        "portability": "CIRCUIT_SPECIFIC",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 10.945833333333333,
+          "p25": 984.8544444444444,
+          "median": 2357.6863888888884,
+          "p75": 3571.549722222222,
+          "max": 6900.638888888884,
+          "mean": 2441.451315155982,
+          "std": 1742.567505661598
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 10.945833333333333,
+            "p25": 1571.415138888889,
+            "median": 2832.3159722222213,
+            "p75": 3877.8673611111094,
+            "max": 6683.546388888889,
+            "mean": 2751.6838470767884,
+            "std": 1590.1141882532277
+          },
+          "negative": {
+            "n": 5257,
+            "min": 12.47111111111111,
+            "p25": 892.787222222222,
+            "median": 2258.621944444445,
+            "p75": 3381.6472222222237,
+            "max": 6900.638888888884,
+            "mean": 2351.279105002853,
+            "std": 1774.4341407479594
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "track_position_frac": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 6785,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 0.0017639854567068,
+          "p25": 0.18388901390482806,
+          "median": 0.4549929245642947,
+          "p75": 0.7101232883813736,
+          "max": 0.983269226329033,
+          "mean": 0.4463281584227749,
+          "std": 0.29147479608146465
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0017844253831012,
+            "p25": 0.27331388819821956,
+            "median": 0.5074194888889494,
+            "p75": 0.6812298623825609,
+            "max": 0.983269226329033,
+            "mean": 0.4816174875914079,
+            "std": 0.26544281389780067
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0017639854567068,
+            "p25": 0.1706601770586341,
+            "median": 0.4349854647807577,
+            "p75": 0.720771145112756,
+            "max": 0.976065928170634,
+            "mean": 0.4360709594557459,
+            "std": 0.2978563227659233
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "zone_type": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 3,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "top_values": {
+          "brake": 3294,
+          "straight": 2486,
+          "corner": 1005
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "distance_to_next_corner_m": {
+        "dtype": "float64",
+        "missing_count": 101,
+        "missing_pct": 1.4885777450257922,
+        "unique_count": 6685,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6684,
+          "min": 0.0214585640113682,
+          "p25": 58.46114470680113,
+          "median": 104.47478657778606,
+          "p75": 182.95574366978587,
+          "max": 1375.5125319603044,
+          "mean": 174.26676310409482,
+          "std": 208.83809591384622
+        },
+        "by_class": {
+          "positive": {
+            "n": 1505,
+            "min": 0.1543917461817727,
+            "p25": 63.65395906008871,
+            "median": 146.76851686865666,
+            "p75": 329.08840778677586,
+            "max": 1373.1916986269705,
+            "mean": 251.56879035077517,
+            "std": 277.6046106376061
+          },
+          "negative": {
+            "n": 5179,
+            "min": 0.0214585640113682,
+            "p25": 57.10575385035054,
+            "median": 99.37602579979163,
+            "p75": 158.66399679387655,
+            "max": 1375.5125319603044,
+            "mean": 151.80305369952757,
+            "std": 177.94402300833576
+          }
+        },
+        "missing_pct_positive": 1.5052356020942408,
+        "missing_pct_negative": 1.4837359710861708
+      },
+      "distance_to_next_straight_m": {
+        "dtype": "float64",
+        "missing_count": 76,
+        "missing_pct": 1.1201179071481209,
+        "unique_count": 6710,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6709,
+          "min": 0.1396899931232837,
+          "p25": 152.07435913312509,
+          "median": 245.753860626018,
+          "p75": 388.3383964278278,
+          "max": 1461.223720912618,
+          "mean": 310.4342885083924,
+          "std": 240.6222686654391
+        },
+        "by_class": {
+          "positive": {
+            "n": 1511,
+            "min": 0.1396899931232837,
+            "p25": 132.53402242580273,
+            "median": 241.74534087227084,
+            "p75": 465.52871937518256,
+            "max": 1458.603066185622,
+            "mean": 351.43983206532334,
+            "std": 311.64250506170714
+          },
+          "negative": {
+            "n": 5198,
+            "min": 0.2129097844499483,
+            "p25": 156.6707025629153,
+            "median": 246.38471785400824,
+            "p75": 365.8049219383157,
+            "max": 1461.223720912618,
+            "mean": 298.5144392751252,
+            "std": 214.2036420186115
+          }
+        },
+        "missing_pct_positive": 1.112565445026178,
+        "missing_pct_negative": 1.1223131063344112
+      },
+      "compound": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 4,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "top_values": {
+          "HARD": 3142,
+          "MEDIUM": 2809,
+          "SOFT": 833,
+          "INTERMEDIATE": 1
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "tyre_age": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 53,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 2.0,
+          "p25": 6.0,
+          "median": 11.0,
+          "p75": 18.0,
+          "max": 54.0,
+          "mean": 12.786735445836404,
+          "std": 8.815041335277344
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 2.0,
+            "p25": 5.0,
+            "median": 8.0,
+            "p75": 14.0,
+            "max": 45.0,
+            "mean": 10.556282722513089,
+            "std": 7.920989982888103
+          },
+          "negative": {
+            "n": 5257,
+            "min": 2.0,
+            "p25": 6.0,
+            "median": 12.0,
+            "p75": 19.0,
+            "max": 54.0,
+            "mean": 13.43503899562488,
+            "std": 8.955454468046996
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "stint": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 8,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 1.0,
+          "p25": 1.0,
+          "median": 2.0,
+          "p75": 2.0,
+          "max": 8.0,
+          "mean": 1.748563006632277,
+          "std": 0.9272671484424441
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 1.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 2.0,
+            "max": 8.0,
+            "mean": 1.6099476439790577,
+            "std": 0.7717714489991119
+          },
+          "negative": {
+            "n": 5257,
+            "min": 1.0,
+            "p25": 1.0,
+            "median": 2.0,
+            "p75": 2.0,
+            "max": 8.0,
+            "mean": 1.7888529579608141,
+            "std": 0.9641230492315058
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "EstimatedEnergyIndex": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 6592,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 0.0,
+          "p25": 0.7235605618353333,
+          "median": 0.9074464344745244,
+          "p75": 0.9575945634822848,
+          "max": 1.0,
+          "mean": 0.7826963099567898,
+          "std": 0.2735596491855633
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0,
+            "p25": 0.7652267503439143,
+            "median": 0.9413565230063393,
+            "p75": 0.9767974497396348,
+            "max": 1.0,
+            "mean": 0.8273887858711534,
+            "std": 0.241465863652664
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0,
+            "p25": 0.7052202597320042,
+            "median": 0.8990038674598494,
+            "p75": 0.9500201924295104,
+            "max": 1.0,
+            "mean": 0.7697059916769443,
+            "std": 0.2808946123192293
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "LookaheadDeployProxy": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 6308,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 1818.0924766968917,
+          "p25": 9787.411349746137,
+          "median": 13138.609626743815,
+          "p75": 17867.47549122496,
+          "max": 34953.114697324665,
+          "mean": 14620.674409847368,
+          "std": 7168.5035743138
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 1821.7415578660464,
+            "p25": 11680.312362981676,
+            "median": 16666.089416162955,
+            "p75": 23682.86348618928,
+            "max": 34953.114697324665,
+            "mean": 17679.16890354574,
+            "std": 7179.741042076728
+          },
+          "negative": {
+            "n": 5257,
+            "min": 1818.0924766968917,
+            "p25": 9395.905648787026,
+            "median": 12072.547733912124,
+            "p75": 16363.3708682139,
+            "max": 34579.68897251572,
+            "mean": 13731.692179227031,
+            "std": 6916.680736398006
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "LookaheadHarvestProxy": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 6276,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 0.0,
+          "p25": 11926.063070488846,
+          "median": 46010.294419155,
+          "p75": 70001.64920937658,
+          "max": 133894.9312227824,
+          "mean": 46311.87773172023,
+          "std": 34414.30752344809
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0,
+            "p25": 3241.2050566936605,
+            "median": 19151.073798893307,
+            "p75": 52543.687232644756,
+            "max": 133894.9312227824,
+            "mean": 29768.896023541347,
+            "std": 30870.39524355494
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0,
+            "p25": 24225.767134428,
+            "median": 51734.37913281954,
+            "p75": 74319.41212640397,
+            "max": 133880.4509196581,
+            "mean": 51120.261990821884,
+            "std": 33898.401535437515
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "LookaheadCoveredM": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 63,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 96.41472222222092,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.1588058626055,
+          "std": 11.532903619824248
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 96.41472222222092,
+            "p25": 400.0,
+            "median": 400.0,
+            "p75": 400.0,
+            "max": 400.00000000000045,
+            "mean": 399.67289248836533,
+            "std": 8.331746223723712
+          },
+          "negative": {
+            "n": 5257,
+            "min": 144.19999999999345,
+            "p25": 400.0,
+            "median": 400.0,
+            "p75": 400.0,
+            "max": 400.00000000000045,
+            "mean": 399.00938140680154,
+            "std": 12.304814611896884
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "lookahead_truncated": {
+        "dtype": "bool",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 2,
+        "portability": "PORTABLE",
+        "constant_within_race": false,
+        "overall": {
+          "n": 6785,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0,
+          "mean": 0.0079587324981577,
+          "std": 0.08886256186108886
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "max": 1.0,
+            "mean": 0.0058900523560209425,
+            "std": 0.07654537340973672
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "max": 1.0,
+            "mean": 0.008560015217804832,
+            "std": 0.09213227466037152
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "circuit_length_m": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 9,
+        "portability": "PORTABLE",
+        "constant_within_race": true,
+        "overall": {
+          "n": 6785,
+          "min": 3484.7408333333333,
+          "p25": 4543.174444444448,
+          "median": 5465.505555555557,
+          "p75": 6134.094166666663,
+          "max": 7069.849166666669,
+          "mean": 5387.138525915007,
+          "std": 997.8539283138691
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 3484.7408333333333,
+            "p25": 5762.717499999997,
+            "median": 5762.717499999997,
+            "p75": 6134.094166666663,
+            "max": 7069.849166666669,
+            "mean": 5697.289447534902,
+            "std": 702.6037701100356
+          },
+          "negative": {
+            "n": 5257,
+            "min": 3484.7408333333333,
+            "p25": 4543.174444444448,
+            "median": 5463.167222222221,
+            "p75": 6134.094166666663,
+            "max": 7069.849166666669,
+            "mean": 5296.990036617843,
+            "std": 1051.508349312555
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "corner_count": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 5,
+        "portability": "PORTABLE",
+        "constant_within_race": true,
+        "overall": {
+          "n": 6785,
+          "min": 10.0,
+          "p25": 14.0,
+          "median": 18.0,
+          "p75": 19.0,
+          "max": 19.0,
+          "mean": 16.37686072218128,
+          "std": 2.6717359939395724
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 10.0,
+            "p25": 16.0,
+            "median": 16.0,
+            "p75": 18.0,
+            "max": 19.0,
+            "mean": 16.541230366492147,
+            "std": 1.7959793717285626
+          },
+          "negative": {
+            "n": 5257,
+            "min": 10.0,
+            "p25": 14.0,
+            "median": 18.0,
+            "p75": 19.0,
+            "max": 19.0,
+            "mean": 16.329085029484496,
+            "std": 2.8750846357402553
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "longest_straight_m": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 9,
+        "portability": "PORTABLE",
+        "constant_within_race": true,
+        "overall": {
+          "n": 6785,
+          "min": 431.47976220214423,
+          "p25": 605.6481508931993,
+          "median": 857.3257941827605,
+          "p75": 1137.363922138832,
+          "max": 1195.733389239927,
+          "mean": 853.4052785525577,
+          "std": 260.5463166680883
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 431.47976220214423,
+            "p25": 857.3257941827605,
+            "median": 857.3257941827605,
+            "p75": 1195.733389239927,
+            "max": 1195.733389239927,
+            "mean": 935.4077956855023,
+            "std": 245.71808150987192
+          },
+          "negative": {
+            "n": 5257,
+            "min": 431.47976220214423,
+            "p25": 605.6481508931993,
+            "median": 857.3257941827605,
+            "p75": 953.4864263418576,
+            "max": 1195.733389239927,
+            "mean": 829.5704209951789,
+            "std": 259.91378234329505
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      },
+      "n_long_straights_over_500m": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "unique_count": 4,
+        "portability": "PORTABLE",
+        "constant_within_race": true,
+        "overall": {
+          "n": 6785,
+          "min": 0.0,
+          "p25": 1.0,
+          "median": 2.0,
+          "p75": 3.0,
+          "max": 3.0,
+          "mean": 1.8294767870302138,
+          "std": 1.1129930963208332
+        },
+        "by_class": {
+          "positive": {
+            "n": 1528,
+            "min": 0.0,
+            "p25": 2.0,
+            "median": 2.0,
+            "p75": 3.0,
+            "max": 3.0,
+            "mean": 2.099476439790576,
+            "std": 0.9940489530149242
+          },
+          "negative": {
+            "n": 5257,
+            "min": 0.0,
+            "p25": 1.0,
+            "median": 2.0,
+            "p75": 3.0,
+            "max": 3.0,
+            "mean": 1.7509986684420773,
+            "std": 1.1333347818442496
+          }
+        },
+        "missing_pct_positive": 0.0,
+        "missing_pct_negative": 0.0
+      }
+    }
+  },
+  "race_comparability": {
+    "per_race": {
+      "australia_2026_R": {
+        "n_scoreable": 453,
+        "positive_rate": 0.1346578366445916,
+        "compound_mix": {
+          "MEDIUM": 0.475,
+          "HARD": 0.437,
+          "SOFT": 0.088
+        },
+        "lookahead_truncated_rate": 0.002207505518763797,
+        "closing_speed_missing_rate": 0.004415011037527594,
+        "gap_at_start_m": {
+          "n": 453,
+          "min": 10.007222222225664,
+          "p25": 38.34972222222222,
+          "median": 91.618611111111,
+          "p75": 96.97166666666637,
+          "max": 99.9938888888896,
+          "mean": 70.15634719156233,
+          "std": 33.42101720137872
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 451,
+          "min": -130.76275084226037,
+          "p25": -6.135337992655586,
+          "median": 25.503690128285346,
+          "p75": 59.19853433984325,
+          "max": 174.46506907278246,
+          "mean": 31.579621577881323,
+          "std": 48.91218331197768
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 450,
+          "min": -150.0,
+          "p25": -10.03843867388976,
+          "median": 3.932138242894581,
+          "p75": 15.265006588068012,
+          "max": 150.63646953405018,
+          "mean": 1.092696810583813,
+          "std": 31.97227282205407
+        },
+        "EstimatedEnergyIndex": {
+          "n": 453,
+          "min": 0.0,
+          "p25": 0.8854943536943101,
+          "median": 0.9297642664784256,
+          "p75": 0.9610640446085584,
+          "max": 1.0,
+          "mean": 0.8487230389837416,
+          "std": 0.23190534756185224
+        },
+        "LookaheadCoveredM": {
+          "n": 453,
+          "min": 362.9666666666699,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.91824871228846,
+          "std": 1.7399777838382415
+        },
+        "tyre_age": {
+          "n": 453,
+          "min": 2.0,
+          "p25": 3.0,
+          "median": 7.0,
+          "p75": 14.0,
+          "max": 46.0,
+          "mean": 9.973509933774835,
+          "std": 8.954121278737965
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 453,
+          "min": 75.0,
+          "p25": 208.0,
+          "median": 269.0,
+          "p75": 297.0,
+          "max": 334.0,
+          "mean": 249.8852097130243,
+          "std": 59.61591725787635
+        }
+      },
+      "austria_2026_R": {
+        "n_scoreable": 538,
+        "positive_rate": 0.04275092936802974,
+        "compound_mix": {
+          "MEDIUM": 0.619,
+          "HARD": 0.307,
+          "SOFT": 0.074
+        },
+        "lookahead_truncated_rate": 0.0018587360594795538,
+        "closing_speed_missing_rate": 0.0037174721189591076,
+        "gap_at_start_m": {
+          "n": 538,
+          "min": 10.02944444444529,
+          "p25": 86.95395833333359,
+          "median": 95.20194444444445,
+          "p75": 97.90034722222099,
+          "max": 99.99888888888928,
+          "mean": 81.79754337050804,
+          "std": 28.205887084073797
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 536,
+          "min": -75.51081721031971,
+          "p25": 6.685432070968359,
+          "median": 44.989867739124705,
+          "p75": 129.79656684860953,
+          "max": 259.39183271588735,
+          "mean": 66.8704912132954,
+          "std": 73.10556277436199
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 534,
+          "min": -78.39146578583643,
+          "p25": -5.491121123288572,
+          "median": 3.0,
+          "p75": 8.998810294107777,
+          "max": 66.21127946127797,
+          "mean": 2.2659601067386967,
+          "std": 16.156136236220572
+        },
+        "EstimatedEnergyIndex": {
+          "n": 538,
+          "min": 0.0,
+          "p25": 0.6680977943009175,
+          "median": 0.9081605831671846,
+          "p75": 0.9415421888760807,
+          "max": 1.0,
+          "mean": 0.7491610804925203,
+          "std": 0.3023998298796002
+        },
+        "LookaheadCoveredM": {
+          "n": 538,
+          "min": 392.61555555555424,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.9862742668319,
+          "std": 0.3183660064127926
+        },
+        "tyre_age": {
+          "n": 538,
+          "min": 2.0,
+          "p25": 5.25,
+          "median": 11.0,
+          "p75": 15.75,
+          "max": 32.0,
+          "mean": 11.048327137546469,
+          "std": 6.405122410968087
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 538,
+          "min": 58.0,
+          "p25": 222.0,
+          "median": 266.0,
+          "p75": 296.0,
+          "max": 325.0,
+          "mean": 252.58550185873605,
+          "std": 53.45703589792102
+        }
+      },
+      "belgium_2026_R": {
+        "n_scoreable": 675,
+        "positive_rate": 0.1111111111111111,
+        "compound_mix": {
+          "HARD": 0.621,
+          "MEDIUM": 0.311,
+          "SOFT": 0.068
+        },
+        "lookahead_truncated_rate": 0.056296296296296296,
+        "closing_speed_missing_rate": 0.016296296296296295,
+        "gap_at_start_m": {
+          "n": 675,
+          "min": 10.00555555555502,
+          "p25": 33.59236111111068,
+          "median": 92.79861111111131,
+          "p75": 97.82249999999476,
+          "max": 99.98527777777711,
+          "mean": 69.04192222222224,
+          "std": 35.19591691764265
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 664,
+          "min": -81.11813817093272,
+          "p25": -4.240705094051933,
+          "median": 20.6634560566726,
+          "p75": 73.47935474040568,
+          "max": 197.7459812468408,
+          "mean": 38.61247226869099,
+          "std": 57.626710960094016
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 670,
+          "min": -80.0,
+          "p25": -10.234843859413651,
+          "median": 2.0,
+          "p75": 10.682613692269946,
+          "max": 78.91636363636181,
+          "mean": -0.08836223463070589,
+          "std": 21.450785513472614
+        },
+        "EstimatedEnergyIndex": {
+          "n": 675,
+          "min": 0.0,
+          "p25": 0.8022414708932806,
+          "median": 0.8944083370915092,
+          "p75": 0.9576555978665873,
+          "max": 1.0,
+          "mean": 0.8113774894429561,
+          "std": 0.23988541549991782
+        },
+        "LookaheadCoveredM": {
+          "n": 675,
+          "min": 169.21027777778454,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 393.6480769547327,
+          "std": 29.985725492121713
+        },
+        "tyre_age": {
+          "n": 675,
+          "min": 2.0,
+          "p25": 7.0,
+          "median": 12.0,
+          "p75": 17.0,
+          "max": 30.0,
+          "mean": 12.515555555555556,
+          "std": 6.667671536532825
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 675,
+          "min": 74.0,
+          "p25": 194.0,
+          "median": 247.0,
+          "p75": 287.0,
+          "max": 348.0,
+          "mean": 238.14074074074074,
+          "std": 62.49816174898601
+        }
+      },
+      "canada_2026_R": {
+        "n_scoreable": 363,
+        "positive_rate": 0.05234159779614325,
+        "compound_mix": {
+          "SOFT": 0.579,
+          "MEDIUM": 0.35,
+          "HARD": 0.069,
+          "INTERMEDIATE": 0.003
+        },
+        "lookahead_truncated_rate": 0.005509641873278237,
+        "closing_speed_missing_rate": 0.013774104683195593,
+        "gap_at_start_m": {
+          "n": 363,
+          "min": 10.022500000000036,
+          "p25": 88.41736111111152,
+          "median": 94.89499999999909,
+          "p75": 98.04458333333447,
+          "max": 99.98194444444516,
+          "mean": 81.72819329660238,
+          "std": 28.838194455443663
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 358,
+          "min": -97.12971171739272,
+          "p25": 5.963075785774842,
+          "median": 52.10122577167854,
+          "p75": 116.84893781317541,
+          "max": 188.7665184787199,
+          "mean": 59.77482900640107,
+          "std": 63.61805268713873
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 360,
+          "min": -81.4666784742461,
+          "p25": -7.987233745887018,
+          "median": 2.4729418889332635,
+          "p75": 10.47984726782368,
+          "max": 78.3839939024389,
+          "mean": 0.7295273292103192,
+          "std": 17.345979267092886
+        },
+        "EstimatedEnergyIndex": {
+          "n": 363,
+          "min": 0.0,
+          "p25": 0.8643965529497224,
+          "median": 0.9151643390833262,
+          "p75": 0.9432183652190103,
+          "max": 1.0,
+          "mean": 0.8230335775951749,
+          "std": 0.23422388632860822
+        },
+        "LookaheadCoveredM": {
+          "n": 363,
+          "min": 240.42416666667032,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.54119528619526,
+          "std": 8.38253564920378
+        },
+        "tyre_age": {
+          "n": 363,
+          "min": 2.0,
+          "p25": 6.0,
+          "median": 11.0,
+          "p75": 19.0,
+          "max": 48.0,
+          "mean": 13.928374655647383,
+          "std": 10.133110998660733
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 363,
+          "min": 54.0,
+          "p25": 216.0,
+          "median": 252.0,
+          "p75": 283.0,
+          "max": 339.0,
+          "mean": 241.63911845730027,
+          "std": 55.991162594855076
+        }
+      },
+      "china_2026_R": {
+        "n_scoreable": 1213,
+        "positive_rate": 0.44929925803792253,
+        "compound_mix": {
+          "HARD": 0.789,
+          "MEDIUM": 0.191,
+          "SOFT": 0.02
+        },
+        "lookahead_truncated_rate": 0.0016488046166529267,
+        "closing_speed_missing_rate": 0.00247320692497939,
+        "gap_at_start_m": {
+          "n": 1213,
+          "min": 10.020833333332575,
+          "p25": 16.6680555555547,
+          "median": 51.31472222222146,
+          "p75": 92.96666666666532,
+          "max": 99.98944444444442,
+          "mean": 54.38455367775034,
+          "std": 34.473000616372474
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 1210,
+          "min": -243.1103106708725,
+          "p25": -35.151653472301035,
+          "median": 9.94660242852267,
+          "p75": 71.81154390038918,
+          "max": 276.12242767671813,
+          "mean": 16.096138398061928,
+          "std": 92.21306143003831
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 1208,
+          "min": -254.0,
+          "p25": -36.58017102608865,
+          "median": -0.8113045686161229,
+          "p75": 25.355132778272534,
+          "max": 260.39637681159627,
+          "mean": -4.80263059320525,
+          "std": 83.2942847353945
+        },
+        "EstimatedEnergyIndex": {
+          "n": 1213,
+          "min": 0.0,
+          "p25": 0.6260833729762972,
+          "median": 0.9019304218482874,
+          "p75": 0.9603902717557044,
+          "max": 1.0,
+          "mean": 0.7509209211790904,
+          "std": 0.28866151816544633
+        },
+        "LookaheadCoveredM": {
+          "n": 1213,
+          "min": 96.41472222222092,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.7492548319135,
+          "std": 8.716665834517123
+        },
+        "tyre_age": {
+          "n": 1213,
+          "min": 2.0,
+          "p25": 5.0,
+          "median": 11.0,
+          "p75": 20.0,
+          "max": 46.0,
+          "mean": 13.471558120362737,
+          "std": 9.813116296475124
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 1213,
+          "min": 61.0,
+          "p25": 147.0,
+          "median": 216.0,
+          "p75": 273.0,
+          "max": 350.0,
+          "mean": 207.99752679307502,
+          "std": 74.3696890805939
+        }
+      },
+      "japan_2026_R": {
+        "n_scoreable": 1492,
+        "positive_rate": 0.3652815013404826,
+        "compound_mix": {
+          "MEDIUM": 0.54,
+          "HARD": 0.46
+        },
+        "lookahead_truncated_rate": 0.0013404825737265416,
+        "closing_speed_missing_rate": 0.0,
+        "gap_at_start_m": {
+          "n": 1492,
+          "min": 10.006944444442524,
+          "p25": 15.740277777780191,
+          "median": 59.26916666666597,
+          "p75": 95.53229166666802,
+          "max": 99.9941666666667,
+          "mean": 57.501733318439065,
+          "std": 35.35518629798802
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 1492,
+          "min": -219.48965505260503,
+          "p25": -27.82477129224684,
+          "median": 12.623769224473683,
+          "p75": 61.326594907138436,
+          "max": 233.61587845113365,
+          "mean": 15.158609636963204,
+          "std": 75.50181256510591
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 1484,
+          "min": -219.09222929936303,
+          "p25": -30.20722377232228,
+          "median": 1.0527695417790142,
+          "p75": 20.238506054131015,
+          "max": 223.43303571428044,
+          "mean": -4.082739603050132,
+          "std": 65.28391615708178
+        },
+        "EstimatedEnergyIndex": {
+          "n": 1492,
+          "min": 0.0,
+          "p25": 0.8039584857393871,
+          "median": 0.9378417617433782,
+          "p75": 0.9698567116282018,
+          "max": 1.0,
+          "mean": 0.8346305581413832,
+          "std": 0.22698476146821864
+        },
+        "LookaheadCoveredM": {
+          "n": 1492,
+          "min": 363.9388888888834,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.96920352993743,
+          "std": 0.9678763394997412
+        },
+        "tyre_age": {
+          "n": 1492,
+          "min": 2.0,
+          "p25": 6.0,
+          "median": 10.0,
+          "p75": 15.0,
+          "max": 36.0,
+          "mean": 11.509383378016086,
+          "std": 7.626547786645702
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 1492,
+          "min": 68.0,
+          "p25": 180.0,
+          "median": 234.0,
+          "p75": 276.0,
+          "max": 340.0,
+          "mean": 224.15415549597856,
+          "std": 65.08494446593687
+        }
+      },
+      "miami_2026_R": {
+        "n_scoreable": 637,
+        "positive_rate": 0.07378335949764521,
+        "compound_mix": {
+          "MEDIUM": 0.575,
+          "HARD": 0.364,
+          "SOFT": 0.061
+        },
+        "lookahead_truncated_rate": 0.004709576138147566,
+        "closing_speed_missing_rate": 0.007849293563579277,
+        "gap_at_start_m": {
+          "n": 637,
+          "min": 10.007500000001071,
+          "p25": 47.13083333333334,
+          "median": 93.3530555555567,
+          "p75": 97.90638888888908,
+          "max": 99.99805555555122,
+          "mean": 73.83736045700323,
+          "std": 33.26019762804564
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 632,
+          "min": -138.32844690349077,
+          "p25": 4.491242099437294,
+          "median": 32.680209973038124,
+          "p75": 123.17594463619493,
+          "max": 225.57320121082765,
+          "mean": 60.91194740003971,
+          "std": 73.87137982997902
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 634,
+          "min": -121.0,
+          "p25": -9.805484512922284,
+          "median": 1.1214353943157533,
+          "p75": 13.99598360655726,
+          "max": 223.0659090909068,
+          "mean": 2.8177709805025826,
+          "std": 26.282530112401965
+        },
+        "EstimatedEnergyIndex": {
+          "n": 637,
+          "min": 0.0,
+          "p25": 0.6231463061338034,
+          "median": 0.8715054802070491,
+          "p75": 0.9419852235219032,
+          "max": 1.0,
+          "mean": 0.7323813175254018,
+          "std": 0.30307052890897807
+        },
+        "LookaheadCoveredM": {
+          "n": 637,
+          "min": 144.19999999999345,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.0569099947671,
+          "std": 14.489924209208237
+        },
+        "tyre_age": {
+          "n": 637,
+          "min": 2.0,
+          "p25": 5.0,
+          "median": 14.0,
+          "p75": 20.0,
+          "max": 50.0,
+          "mean": 13.998430141287285,
+          "std": 9.012482471492762
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 637,
+          "min": 62.0,
+          "p25": 186.0,
+          "median": 241.0,
+          "p75": 298.0,
+          "max": 344.0,
+          "mean": 232.93563579277864,
+          "std": 72.15394924476118
+        }
+      },
+      "monaco_2026_R": {
+        "n_scoreable": 665,
+        "positive_rate": 0.02857142857142857,
+        "compound_mix": {
+          "MEDIUM": 0.568,
+          "SOFT": 0.275,
+          "HARD": 0.156
+        },
+        "lookahead_truncated_rate": 0.0,
+        "closing_speed_missing_rate": 0.0030075187969924814,
+        "gap_at_start_m": {
+          "n": 665,
+          "min": 10.025833333333594,
+          "p25": 92.08555555555677,
+          "median": 95.83444444444442,
+          "p75": 97.92333333333545,
+          "max": 99.95611111111293,
+          "mean": 88.53314619883042,
+          "std": 21.130264052696855
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 663,
+          "min": -72.42241327477846,
+          "p25": 11.33866747292841,
+          "median": 42.268144126067476,
+          "p75": 75.70420153755944,
+          "max": 157.75608334549685,
+          "mean": 44.375481398653044,
+          "std": 40.037390905878475
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 662,
+          "min": -79.29110962566858,
+          "p25": -4.901380791506888,
+          "median": 1.0790055953369944,
+          "p75": 6.9909558069145845,
+          "max": 91.26936090225469,
+          "mean": 1.0010084621113435,
+          "std": 15.945832032997581
+        },
+        "EstimatedEnergyIndex": {
+          "n": 665,
+          "min": 0.00034587420195866586,
+          "p25": 0.47407686425403717,
+          "median": 0.8042289660050779,
+          "p75": 0.9078794237310096,
+          "max": 1.0,
+          "mean": 0.6688522041105,
+          "std": 0.303762170672982
+        },
+        "LookaheadCoveredM": {
+          "n": 665,
+          "min": 399.9999999999998,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.0000000000002,
+          "mean": 400.0,
+          "std": 7.938364483596509e-14
+        },
+        "tyre_age": {
+          "n": 665,
+          "min": 2.0,
+          "p25": 8.0,
+          "median": 14.0,
+          "p75": 24.0,
+          "max": 54.0,
+          "mean": 17.021052631578947,
+          "std": 11.693739009522496
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 665,
+          "min": 45.0,
+          "p25": 173.0,
+          "median": 201.0,
+          "p75": 256.0,
+          "max": 280.0,
+          "mean": 199.0421052631579,
+          "std": 58.20258063996435
+        }
+      },
+      "netherlands_2026_R": {
+        "n_scoreable": 749,
+        "positive_rate": 0.2590120160213618,
+        "compound_mix": {
+          "HARD": 0.475,
+          "SOFT": 0.335,
+          "MEDIUM": 0.19
+        },
+        "lookahead_truncated_rate": 0.006675567423230975,
+        "closing_speed_missing_rate": 0.0026702269692923898,
+        "gap_at_start_m": {
+          "n": 749,
+          "min": 10.021944444444216,
+          "p25": 21.34388888888907,
+          "median": 81.40861111111113,
+          "p75": 96.7475000000004,
+          "max": 99.9736111111124,
+          "mean": 63.220943480195835,
+          "std": 35.8447226511819
+        },
+        "closing_speed_at_start_kmh": {
+          "n": 747,
+          "min": -198.49516728625727,
+          "p25": -12.816121414951194,
+          "median": 16.997486420574827,
+          "p75": 56.90418359848725,
+          "max": 220.82768928455076,
+          "mean": 23.619574090907502,
+          "std": 69.9437060704353
+        },
+        "relative_speed_same_position_kmh": {
+          "n": 748,
+          "min": -213.7554219242902,
+          "p25": -18.508543727009933,
+          "median": 0.14023046594923722,
+          "p75": 11.183113695090652,
+          "max": 180.45158811475412,
+          "mean": -6.395575644544957,
+          "std": 53.81596082008269
+        },
+        "EstimatedEnergyIndex": {
+          "n": 749,
+          "min": 0.0,
+          "p25": 0.8493945843459816,
+          "median": 0.9209920059522516,
+          "p75": 0.9673505212283928,
+          "max": 1.0,
+          "mean": 0.8133294872053682,
+          "std": 0.2789763337914163
+        },
+        "LookaheadCoveredM": {
+          "n": 749,
+          "min": 290.1316666666744,
+          "p25": 400.0,
+          "median": 400.0,
+          "p75": 400.0,
+          "max": 400.00000000000045,
+          "mean": 399.65535417593827,
+          "std": 5.063651097316292
+        },
+        "tyre_age": {
+          "n": 749,
+          "min": 2.0,
+          "p25": 7.0,
+          "median": 11.0,
+          "p75": 16.0,
+          "max": 34.0,
+          "mean": 12.073431241655541,
+          "std": 6.729788643742867
+        },
+        "attacker_speed_at_start_kmh": {
+          "n": 749,
+          "min": 85.0,
+          "p25": 158.0,
+          "median": 207.0,
+          "p75": 268.0,
+          "max": 349.0,
+          "mean": 209.02403204272363,
+          "std": 67.60467786933944
+        }
+      }
+    },
+    "largest_median_shifts": [
+      {
+        "feature": "relative_speed_same_position_kmh",
+        "min_race_median": -0.8113045686161229,
+        "max_race_median": 3.932138242894581,
+        "spread": 4.743442811510704,
+        "relative_spread": 4.229795877073357
+      },
+      {
+        "feature": "closing_speed_at_start_kmh",
+        "min_race_median": 9.94660242852267,
+        "max_race_median": 52.10122577167854,
+        "spread": 42.154623343155876,
+        "relative_spread": 1.6528832937297422
+      },
+      {
+        "feature": "tyre_age",
+        "min_race_median": 7.0,
+        "max_race_median": 14.0,
+        "spread": 7.0,
+        "relative_spread": 0.6363636363057851
+      },
+      {
+        "feature": "gap_at_start_m",
+        "min_race_median": 51.31472222222146,
+        "max_race_median": 95.83444444444442,
+        "spread": 44.51972222222295,
+        "relative_spread": 0.4797455661102303
+      },
+      {
+        "feature": "attacker_speed_at_start_kmh",
+        "min_race_median": 201.0,
+        "max_race_median": 269.0,
+        "spread": 68.0,
+        "relative_spread": 0.28215767634737693
+      },
+      {
+        "feature": "EstimatedEnergyIndex",
+        "min_race_median": 0.8042289660050779,
+        "max_race_median": 0.9378417617433782,
+        "spread": 0.13361279573830032,
+        "relative_spread": 0.14712463639988074
+      },
+      {
+        "feature": "LookaheadCoveredM",
+        "min_race_median": 400.0,
+        "max_race_median": 400.0,
+        "spread": 0.0,
+        "relative_spread": 0.0
+      }
+    ]
+  },
+  "detector_health": [
+    {
+      "race_id": "australia_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 5465.505555555557,
+      "median_lap_length_m": 5233.2886111111175,
+      "n_outlier_laps": null,
+      "raw_max_over_median": null,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.241,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "china_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 5762.717499999997,
+      "median_lap_length_m": 5408.6625,
+      "n_outlier_laps": 52,
+      "raw_max_over_median": 1.653866315789207,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.0,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "japan_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 6134.094166666663,
+      "median_lap_length_m": 5772.07111111111,
+      "n_outlier_laps": 12,
+      "raw_max_over_median": 1.1029261786256588,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.159,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "miami_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 5463.167222222221,
+      "median_lap_length_m": 5346.285138888887,
+      "n_outlier_laps": null,
+      "raw_max_over_median": null,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.001,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "canada_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 4543.174444444448,
+      "median_lap_length_m": 4333.601111111113,
+      "n_outlier_laps": null,
+      "raw_max_over_median": null,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.0,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "monaco_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 3484.7408333333333,
+      "median_lap_length_m": 3286.473888888889,
+      "n_outlier_laps": 0,
+      "raw_max_over_median": 1.060328166645339,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.199,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "austria_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 4567.890277777777,
+      "median_lap_length_m": 4299.582777777778,
+      "n_outlier_laps": null,
+      "raw_max_over_median": null,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.001,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "belgium_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 7069.849166666669,
+      "median_lap_length_m": 6949.684166666667,
+      "n_outlier_laps": null,
+      "raw_max_over_median": null,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.04,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    },
+    {
+      "race_id": "netherlands_2026_R",
+      "join_exact_match_rate": 1.0,
+      "race_distance_negative_steps": 0,
+      "circuit_length_m": 4348.972500000004,
+      "median_lap_length_m": 4236.5016666666625,
+      "n_outlier_laps": null,
+      "raw_max_over_median": null,
+      "horizon_fixed": true,
+      "min_same_pair_separation_s": 30.001,
+      "n_unmapped_targets": 0,
+      "energy_missing": 0
+    }
+  ],
+  "ml_readiness": {
+    "ready": true,
+    "blockers": [],
+    "sample_size_band": "over_400_positives"
+  },
+  "files": {
+    "pooled": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\multirace_v1\\overtake_events_pooled_v1.csv",
+    "ml_safe": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\multirace_v1\\overtake_events_ml_safe_v1.csv",
+    "audit": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\multirace_v1\\overtake_events_audit_pooled_v1.csv",
+    "manifest_csv": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\multirace_v1\\feature_manifest_v1.csv",
+    "manifest_json": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\multirace_v1\\feature_manifest_v1.json",
+    "per_race_dir": "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\data\\processed\\multirace_v1\\races"
+  },
+  "energy_hashes_before": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913",
+    "events_v4": "056327e1b729639049fbab32208a90c19cd4ec94981fe4501ce178137e99b9fb"
+  },
+  "energy_hashes_after": {
+    "energy_v1": "00e5ef48624797c88624589121167bd428661ad2496dcb826a9e2f56a6c2bb2e",
+    "trackaware": "213ca6b5eaa6beff3a52a06fcd3d383874869a3e5d0a65d84937236422c3ec04",
+    "zones": "87f1b5018c995b3a5b834df6033139d4c302cd53a2a1b519a6323b1c19d792b3",
+    "lap_proxies": "563899712ad4a95123e85be54c4b81a7688cfabfd6f0af0078b6fca7588f0020",
+    "energy_config": "be79d3a1cbb05f4a93a55b196e2cfd739278d7ebe9b2788526cf1810f5829dd4",
+    "raw_laps": "63f3ef518a0dd082bbebb975a2d39201d0a296f2e699ad07c3e2ceca2b55fb35",
+    "clean_laps": "6ca4d63c1242873c075be34cacb0e19b493be57c3596c896935f92b40faf5913",
+    "events_v4": "056327e1b729639049fbab32208a90c19cd4ec94981fe4501ce178137e99b9fb"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "race_id": "monaco_2026_R",
+  "event_name": "Monaco Grand Prix",
+  "lap_cleaning": {
+    "raw_rows": 1452,
+    "deleted_removed": 25,
+    "missing_laptime_removed": 37,
+    "clean_rows": 1390
+  },
+  "n_drivers": 21,
+  "winsorize": {
+    "DeployProxy": {
+      "p995": 75.83333333333333,
+      "n_clipped": 1786
+    },
+    "HarvestProxy": {
+      "p995": 1233.3333333333333,
+      "n_clipped": 2088
+    }
+  },
+  "n_samples": 427238,
+  "n_lap_rows": 1390,
+  "n_thin_laps": 0,
+  "n_lap_errors": 0,
+  "energy": {
+    "alpha": 0.0002611738321926217,
+    "beta": 4.7729427650657186e-05,
+    "flow_scale_T": 0.47429196292560205,
+    "n_calibration_laps": 1136,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.08992805755395683,
+    "clip_lap_fraction": 0.3539568345323741,
+    "sample_energy_missing": 0,
+    "sample_energy_min": 0.0,
+    "sample_energy_max": 1.0
+  },
+  "circuit_length_measurement": {
+    "method": "max per-lap Distance among laps <= Q75 + 3*IQR",
+    "n_laps": 1390,
+    "q25_lap_length_m": 3277.6310416666674,
+    "median_lap_length_m": 3286.473888888889,
+    "q75_lap_length_m": 3295.495902777778,
+    "iqr_m": 65.72947777777779,
+    "outlier_cap_m": 3492.6843361111114,
+    "raw_max_lap_length_m": 3484.7408333333333,
+    "n_outlier_laps": 0,
+    "outlier_laps": [],
+    "circuit_length_m": 3484.7408333333333,
+    "raw_max_over_median": 1.060328166645339,
+    "used_over_median": 1.060328166645339
+  },
+  "circuit_info_distance_source": "fallback_lap_1",
+  "circuit": {
+    "circuit_length_m": 3484.7408333333333,
+    "corner_count": 19,
+    "n_zones": 42,
+    "longest_straight_m": 431.47976220214423,
+    "n_long_straights_over_500m": 0,
+    "mean_straight_m": 165.37151711372763
+  },
+  "n_unassigned_zone_samples": 0,
+  "n_ahead_samples": 425848,
+  "join": {
+    "n_ahead_rows": 425848,
+    "n_energy_rows": 427238,
+    "ahead_duplicate_keys": 0,
+    "energy_duplicate_keys": 0,
+    "exact_sample_matches": 425848,
+    "unmatched_samples_before_asof": 0,
+    "exact_match_rate": 1.0,
+    "asof_backward_matches": 0,
+    "unmatched_samples_final": 0,
+    "lap_join_match_rate": 1.0
+  },
+  "race_distance_negative_steps": 0,
+  "lap_length_m": {
+    "min": 3216.8597222222234,
+    "median": 3286.473888888889,
+    "max": 3484.7408333333333
+  },
+  "n_episodes": 1157,
+  "target_mapping": {
+    "n_car_numbers": 21,
+    "n_events_with_unmapped_target": 0
+  },
+  "event_type_counts": {
+    "ON_TRACK_PASS": 19,
+    "CLOSE_INTERACTION_NO_PASS": 646,
+    "PIT_RELATED": 187,
+    "RETIREMENT_RELATED": 0,
+    "LAPPED_UNLAPPED": 159,
+    "UNCERTAIN": 10,
+    "INVALID": 136
+  },
+  "n_events": 1157,
+  "n_labelled": 665,
+  "n_positive": 19,
+  "n_negative": 646,
+  "positive_rate": 0.02857142857142857,
+  "horizon_s_effective": {
+    "min": 30.0,
+    "max": 30.0,
+    "all_equal_to_horizon": true
+  },
+  "event_duration_s": {
+    "min": 3.0,
+    "median": 8.559,
+    "p75": 16.8,
+    "max": 1808.327
+  },
+  "cross_start_finish": {
+    "n": 324,
+    "fraction": 0.28003457216940364
+  },
+  "min_same_pair_separation_s": 30.199,
+  "closing_speed_missing_rate": 0.03889369057908384,
+  "closing_speed_missing_by_class": {
+    "positive": {
+      "n": 19,
+      "closing_speed_missing_rate": 0.0,
+      "spatial_alignment_ok_rate": 1.0
+    },
+    "negative": {
+      "n": 646,
+      "closing_speed_missing_rate": 0.0030959752321981426,
+      "spatial_alignment_ok_rate": 0.9953560371517027
+    }
+  },
+  "lookahead_truncated_rate": 0.019878997407087293,
+  "energy_missing": 0,
+  "in_horizon_pass_delay_s": {
+    "median": 11.16,
+    "max": 26.12
+  },
+  "pass_after_horizon": 42,
+  "invalid_reasons": {
+    "race state not green at t0 (TrackStatus=4, freeze=True)": 45,
+    "no causal target sample at t0": 37,
+    "race state not green at t0 (TrackStatus=12, freeze=False)": 27,
+    "race state not green at t0 (TrackStatus=412, freeze=True)": 12,
+    "race state not green at t0 (TrackStatus=124, freeze=True)": 9,
+    "race state not green at t0 (TrackStatus=41, freeze=True)": 6
+  },
+  "frozen_parameters": {
+    "gap_max_m": 100.0,
+    "gap_min_m": 10.0,
+    "min_persist_s": 3.0,
+    "merge_gap_s": 2.0,
+    "horizon_s": 30.0,
+    "horizon_anchor": "t0"
+  },
+  "timings_s": {
+    "load_session_s": 4.5,
+    "telemetry_s": 52.7,
+    "energy_s": 9.9,
+    "driver_ahead_s": 442.8
+  },
+  "elapsed_s": 556.3,
+  "energy_config": {
+    "NOT_F1_CONSTANTS": true,
+    "comment": "alpha and beta are simulation scale parameters. They are not battery capacity, MGU-K limits, ERS limits, electrical efficiency, or actual SOC parameters. The previous formula scaled each flow to 0.03 individually. The corrected formula scales the median absolute NET imbalance to approximately 0.03, matching the stated design objective.",
+    "target_median_abs_net": 0.03,
+    "flow_scale_T": 0.47429196292560205,
+    "median_abs_imbalance": 0.06325217871066019,
+    "calibration_method": "T = 0.03 / median_cal(|H_lap/median(H_lap) - D_lap/median(D_lap)|); alpha = T / median(D_lap); beta = T / median(H_lap)",
+    "d_min_ms2": 1.0,
+    "a_clip_ms2": [
+      -20.0,
+      15.0
+    ],
+    "dt_gap_seconds": 1.0,
+    "yellow_factor": 0.3,
+    "winsor_quantile": 0.995,
+    "e0": 1.0,
+    "calibration_set": {
+      "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
+      "n_laps": 1136,
+      "median_D_lap": 1816.001086111111,
+      "median_H_lap": 9937.097222222223,
+      "median_abs_imbalance": 0.06325217871066019,
+      "mean_imbalance": 0.0010807374412504765,
+      "median_imbalance": 0.0018570011593885827
+    },
+    "alpha": 0.0002611738321926217,
+    "beta": 4.7729427650657186e-05,
+    "alpha_reduced": false,
+    "beta_scale_applied": 1.0,
+    "floor_reduction_reason": null,
+    "clip_lap_fraction": 0.3539568345323741,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.08992805755395683
+  }
+}

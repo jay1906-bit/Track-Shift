@@ -17,7 +17,10 @@ def calibration_mask(lap_table: pd.DataFrame) -> pd.Series:
 
 
 def calibrate_alpha_beta(lap_table: pd.DataFrame) -> dict:
-    mask = calibration_mask(lap_table)
+    if "calibration_set" in lap_table.columns:
+        mask = lap_table["calibration_set"].astype(bool)
+    else:
+        mask = calibration_mask(lap_table)
     cal = lap_table.loc[mask].copy()
     if cal.empty:
         raise RuntimeError("Calibration set is empty.")
@@ -29,17 +32,36 @@ def calibrate_alpha_beta(lap_table: pd.DataFrame) -> dict:
         raise RuntimeError(
             f"median H_lap is not usable: {h_med}. Harvest pipeline is broken; do not invent beta."
         )
-    target = config.TARGET_MEDIAN_ABS_NET
-    alpha = target / d_med
-    beta = target / h_med
+    target_net = config.TARGET_MEDIAN_ABS_NET
+    imbalance = (cal["H_lap"] / h_med) - (cal["D_lap"] / d_med)
+    median_abs_imbalance = float(imbalance.abs().median())
+    if not np.isfinite(median_abs_imbalance) or median_abs_imbalance <= 0:
+        raise RuntimeError(
+            f"median |H/medianH - D/medianD| is not usable: {median_abs_imbalance}"
+        )
+    # T scales the typical relative NET imbalance to target_net.
+    # Previous formula used T = target_net, which scaled each flow to 0.03
+    # instead of the median absolute net change.
+    flow_scale_T = target_net / median_abs_imbalance
+    alpha = flow_scale_T / d_med
+    beta = flow_scale_T / h_med
     return {
         "NOT_F1_CONSTANTS": True,
         "comment": (
             "alpha and beta are simulation scale parameters. "
             "They are not battery capacity, MGU-K limits, ERS limits, "
-            "electrical efficiency, or actual SOC parameters."
+            "electrical efficiency, or actual SOC parameters. "
+            "The previous formula scaled each flow to 0.03 individually. "
+            "The corrected formula scales the median absolute NET imbalance "
+            "to approximately 0.03, matching the stated design objective."
         ),
-        "target_median_abs_net": target,
+        "target_median_abs_net": target_net,
+        "flow_scale_T": float(flow_scale_T),
+        "median_abs_imbalance": median_abs_imbalance,
+        "calibration_method": (
+            "T = 0.03 / median_cal(|H_lap/median(H_lap) - D_lap/median(D_lap)|); "
+            "alpha = T / median(D_lap); beta = T / median(H_lap)"
+        ),
         "d_min_ms2": config.D_MIN_MS2,
         "a_clip_ms2": list(config.A_CLIP_MS2),
         "dt_gap_seconds": config.DT_GAP_SECONDS,
@@ -51,11 +73,15 @@ def calibrate_alpha_beta(lap_table: pd.DataFrame) -> dict:
             "n_laps": int(len(cal)),
             "median_D_lap": d_med,
             "median_H_lap": h_med,
+            "median_abs_imbalance": median_abs_imbalance,
+            "mean_imbalance": float(imbalance.mean()),
+            "median_imbalance": float(imbalance.median()),
         },
         "alpha": float(alpha),
         "beta": float(beta),
         "alpha_reduced": False,
         "beta_scale_applied": 1.0,
+        "floor_reduction_reason": None,
     }
 
 
@@ -65,6 +91,12 @@ def apply_scale(cfg: dict, factor: float) -> dict:
     out["beta"] = float(cfg["beta"] * factor)
     out["alpha_reduced"] = True
     out["beta_scale_applied"] = float(cfg.get("beta_scale_applied", 1.0) * factor)
+    out["flow_scale_T"] = float(cfg.get("flow_scale_T", 0.0) * factor)
+    out["floor_reduction_reason"] = (
+        "floor-touch lap fraction exceeded 0.20; "
+        "applied existing joint 0.5 reduction to both alpha and beta "
+        "(design report §17 step 4). Not a new reduction factor."
+    )
     return out
 
 

@@ -1,0 +1,97 @@
+{
+  "requested": [
+    {
+      "race_id": "australia_2026_R",
+      "event_name": "Australian Grand Prix"
+    },
+    {
+      "race_id": "china_2026_R",
+      "event_name": "Chinese Grand Prix"
+    },
+    {
+      "race_id": "japan_2026_R",
+      "event_name": "Japanese Grand Prix"
+    },
+    {
+      "race_id": "miami_2026_R",
+      "event_name": "Miami Grand Prix"
+    },
+    {
+      "race_id": "canada_2026_R",
+      "event_name": "Canadian Grand Prix"
+    },
+    {
+      "race_id": "monaco_2026_R",
+      "event_name": "Monaco Grand Prix"
+    },
+    {
+      "race_id": "austria_2026_R",
+      "event_name": "Austrian Grand Prix"
+    },
+    {
+      "race_id": "belgium_2026_R",
+      "event_name": "Belgian Grand Prix"
+    },
+    {
+      "race_id": "netherlands_2026_R",
+      "event_name": "Dutch Grand Prix"
+    }
+  ],
+  "processed": [
+    {
+      "race_id": "australia_2026_R",
+      "event_name": "Australian Grand Prix",
+      "events": 673,
+      "elapsed_s": 344.1
+    },
+    {
+      "race_id": "china_2026_R",
+      "event_name": "Chinese Grand Prix",
+      "events": 1771,
+      "elapsed_s": 350.8
+    },
+    {
+      "race_id": "japan_2026_R",
+      "event_name": "Japanese Grand Prix",
+      "events": 2008,
+      "elapsed_s": 419.5
+    },
+    {
+      "race_id": "miami_2026_R",
+      "event_name": "Miami Grand Prix",
+      "events": 1103,
+      "elapsed_s": 358.7
+    },
+    {
+      "race_id": "canada_2026_R",
+      "event_name": "Canadian Grand Prix",
+      "events": 730,
+      "elapsed_s": 412.1
+    },
+    {
+      "race_id": "monaco_2026_R",
+      "event_name": "Monaco Grand Prix",
+      "events": 1157,
+      "elapsed_s": 556.3
+    },
+    {
+      "race_id": "austria_2026_R",
+      "event_name": "Austrian Grand Prix",
+      "events": 908,
+      "elapsed_s": 480.4
+    },
+    {
+      "race_id": "belgium_2026_R",
+      "event_name": "Belgian Grand Prix",
+      "events": 923,
+      "elapsed_s": 436.8
+    },
+    {
+      "race_id": "netherlands_2026_R",
+      "event_name": "Dutch Grand Prix",
+      "events": 1162,
+      "elapsed_s": 572.8
+    }
+  ],
+  "failed": []
+}

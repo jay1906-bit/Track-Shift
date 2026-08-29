@@ -40,22 +40,48 @@
     "n_samples": 326048
   },
   "cp6_initial": {
-    "alpha": 7.822458038879233e-06,
-    "beta": 3.689532379100818e-06,
+    "alpha": 6.836853577404478e-05,
+    "beta": 3.224663209394368e-05,
+    "flow_scale_T": 0.26220096842030605,
+    "median_abs_imbalance": 0.11441605338356431,
     "calibration_set": {
       "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
       "n_laps": 829,
-      "median_D_lap": 3835.1116555555554,
-      "median_H_lap": 8131.1117283950625
+      "median_D_lap": 3835.111655555555,
+      "median_H_lap": 8131.1117283950625,
+      "median_abs_imbalance": 0.11441605338356431,
+      "mean_imbalance": 0.0020954733018544816,
+      "median_imbalance": -0.002496062666276
     }
   },
   "cp7": {
-    "alpha": 7.822458038879233e-06,
-    "beta": 3.689532379100818e-06,
-    "clip_lap_fraction": 0.34472361809045227,
+    "alpha": 6.836853577404478e-05,
+    "beta": 3.224663209394368e-05,
+    "flow_scale_T": 0.26220096842030605,
+    "clip_lap_fraction": 0.42512562814070354,
     "n_scale_reductions": 0,
-    "e_min": 0.6776415125149866,
-    "e_max": 0.9980897579198108
+    "floor_touch_lap_fraction": 0.08040201005025126,
+    "floor_reduction_reason": null,
+    "e_min": 0.0,
+    "e_max": 0.9833044225552383,
+    "occupancy": {
+      "sample_frac_in_0p05_0p95": 0.6107873687309844,
+      "sample_frac_ge_0p95": 0.32570664442045344,
+      "sample_frac_le_0p05": 0.06350598684856218,
+      "end_frac_in_0p05_0p95": 0.6572864321608041,
+      "end_frac_ge_0p95": 0.24321608040201004,
+      "end_frac_le_0p05": 0.09949748743718594,
+      "end_min": 0.0,
+      "end_max": 0.9833044225552383,
+      "end_mean": 0.7232057782301631,
+      "end_median": 0.9030479791971445,
+      "sample_min": 0.0,
+      "sample_max": 1.0,
+      "floor_touch_lap_fraction": 0.08040201005025126,
+      "ceiling_recover_lap_fraction": 0.34472361809045227,
+      "median_abs_dE": 0.011970529186755341,
+      "median_dE": -0.001446566199221011
+    }
   },
   "cp8": {
     "passed": true,
@@ -85,17 +111,17 @@
       {
         "name": "energy_bounds",
         "passed": true,
-        "detail": "min=0.6776415125149866 max=0.9980897579198108"
+        "detail": "min=0.0 max=0.9833044225552383"
       },
       {
         "name": "energy_not_mostly_pegged",
         "passed": true,
-        "detail": "fraction of energy samples in (0.05,0.95)=0.201; at 0 or 1=0.016; std=0.05100; range=0.32684"
+        "detail": "sample in (0.05,0.95)=0.611; end-of-lap in (0.05,0.95)=0.657; end >=0.95=0.243; end <=0.05=0.099; end min=0.00000 max=0.98330 mean=0.72321 median=0.90305; floor-touch laps=0.080; ceiling-recover laps=0.345; median |dE|=0.01197"
       },
       {
         "name": "throttle_vs_D_lap",
         "passed": true,
-        "detail": "mean per-driver corr(mean_throttle, D_lap) on calibration laps=0.7840303977871391"
+        "detail": "mean per-driver corr(mean_throttle, D_lap) on calibration laps=0.7840303977871392"
       },
       {
         "name": "clean_laps_995",
@@ -132,7 +158,25 @@
         "passed": true,
         "detail": "max |D_lap| freeze=0.0; max |H_lap| freeze=0.0"
       }
-    ]
+    ],
+    "occupancy": {
+      "sample_frac_in_0p05_0p95": 0.6107873687309844,
+      "sample_frac_ge_0p95": 0.32570664442045344,
+      "sample_frac_le_0p05": 0.06350598684856218,
+      "end_frac_in_0p05_0p95": 0.6572864321608041,
+      "end_frac_ge_0p95": 0.24321608040201004,
+      "end_frac_le_0p05": 0.09949748743718594,
+      "end_min": 0.0,
+      "end_max": 0.9833044225552383,
+      "end_mean": 0.7232057782301631,
+      "end_median": 0.9030479791971445,
+      "sample_min": 0.0,
+      "sample_max": 1.0,
+      "floor_touch_lap_fraction": 0.08040201005025126,
+      "ceiling_recover_lap_fraction": 0.34472361809045227,
+      "median_abs_dE": 0.011970529186755341,
+      "median_dE": -0.001446566199221011
+    }
   },
   "cp8_figures": [
     "C:\\Users\\jayasri\\OneDrive\\Desktop\\Track-Shift\\outputs\\figures\\cp8_reference_deploy_harvest.png",

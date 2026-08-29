@@ -8,13 +8,71 @@ import pandas as pd
 from . import config
 
 
+def _circuit_corners(session) -> tuple[pd.DataFrame, str]:
+    """Corner markers with along-track Distance.
+
+    FastF1 fills Distance from the fastest lap's merged telemetry. That raises
+    when the fastest lap has empty position data (Monaco 2026 ANT lap 76).
+    The detector is not involved; this only recovers CircuitInfo so zone_type
+    and lookahead can be built.
+    """
+    from fastf1.mvapi.data import get_circuit_info as mv_get_circuit_info
+
+    circuit_key = session.session_info["Meeting"]["Circuit"]["Key"]
+    if circuit_key == 149 and session.session_info["Meeting"]["Circuit"].get("ShortName") == "Mugello":
+        circuit_key = 146
+    info = mv_get_circuit_info(year=int(session.event.year), circuit_key=int(circuit_key))
+    if info is None:
+        return pd.DataFrame(columns=["X", "Y", "Number", "Letter", "Angle", "Distance"]), "unavailable"
+
+    def _try(lap, source: str) -> str | None:
+        try:
+            pos = lap.get_pos_data()
+        except Exception:
+            return None
+        if pos is None or pos.empty or "Date" not in pos.columns:
+            return None
+        try:
+            info.add_marker_distance(reference_lap=lap)
+        except Exception:
+            return None
+        if info.corners["Distance"].notna().any():
+            return source
+        return None
+
+    try:
+        source = _try(session.laps.pick_fastest(), "fastest_lap")
+        if source:
+            return info.corners.copy(), source
+    except Exception:
+        pass
+
+    n = 0
+    for _, lap in session.laps.iterlaps():
+        n += 1
+        source = _try(lap, f"fallback_lap_{n}")
+        if source:
+            return info.corners.copy(), source
+        if n >= 200:
+            break
+    return info.corners.copy(), "distance_missing"
+
+
 def build_zone_table(session, track_length_m: float) -> pd.DataFrame:
-    corners = session.get_circuit_info().corners.copy()
-    corners = corners.sort_values("Distance").reset_index(drop=True)
+    corners, distance_source = _circuit_corners(session)
+    if "Distance" in corners.columns:
+        corners = corners.dropna(subset=["Distance"])
+    corners = corners.sort_values("Distance").reset_index(drop=True) if len(corners) else corners
     L = float(track_length_m)
     segments = []
     cursor = 0.0
     straight_i = 1
+    if corners.empty:
+        segments.append(_seg("straight_01", "straight", 0.0, L, None))
+        zones = pd.DataFrame(segments)
+        zones["length_m"] = zones["end_m"] - zones["start_m"]
+        zones.attrs["corner_distance_source"] = distance_source
+        return zones
     for _, crow in corners.iterrows():
         cdist = float(crow["Distance"])
         cnum = int(crow["Number"])
@@ -51,6 +109,7 @@ def build_zone_table(session, track_length_m: float) -> pd.DataFrame:
     zones = pd.DataFrame(segments)
     zones["length_m"] = zones["end_m"] - zones["start_m"]
     zones = zones.loc[zones["length_m"] > 1e-6].reset_index(drop=True)
+    zones.attrs["corner_distance_source"] = distance_source
     return zones
 
 

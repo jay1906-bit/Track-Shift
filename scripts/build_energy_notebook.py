@@ -214,8 +214,11 @@ Calibration set: green (`TrackStatus==1` only), non-box, `IsAccurate=True`, not 
 - median D_lap: `{cfg['calibration_set']['median_D_lap']:.6f}`
 - median H_lap: `{cfg['calibration_set']['median_H_lap']:.6f}`
 - target median |net|: `{cfg['target_median_abs_net']}`
+- flow-scale T: `{cfg.get('flow_scale_T', float('nan'))}`
+- median |imbalance|: `{cfg.get('median_abs_imbalance', float('nan'))}`
 - **alpha = `{cfg['alpha']}`**
 - **beta = `{cfg['beta']}`**
+- method: `{cfg.get('calibration_method', 'alpha=T/median(D); beta=T/median(H)')}`
 - d_min = `{cfg['d_min_ms2']}` m/s²
 - a clip = `{cfg['a_clip_ms2']}` m/s²
 

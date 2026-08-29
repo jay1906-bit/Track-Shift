@@ -1,0 +1,294 @@
+{
+  "race_id": "china_2026_R",
+  "event_name": "Chinese Grand Prix",
+  "lap_cleaning": {
+    "raw_rows": 920,
+    "deleted_removed": 5,
+    "missing_laptime_removed": 16,
+    "clean_rows": 899
+  },
+  "n_drivers": 18,
+  "winsorize": {
+    "DeployProxy": {
+      "p995": 92.22222222222221,
+      "n_clipped": 1675
+    },
+    "HarvestProxy": {
+      "p995": 1319.319058641971,
+      "n_clipped": 1699
+    }
+  },
+  "n_samples": 339666,
+  "n_lap_rows": 899,
+  "n_thin_laps": 0,
+  "n_lap_errors": 0,
+  "energy": {
+    "alpha": 8.454148039743478e-05,
+    "beta": 3.53146457900963e-05,
+    "flow_scale_T": 0.3134271547661596,
+    "n_calibration_laps": 735,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.10011123470522804,
+    "clip_lap_fraction": 0.39154616240266965,
+    "sample_energy_missing": 0,
+    "sample_energy_min": 0.0,
+    "sample_energy_max": 1.0
+  },
+  "circuit_length_measurement": {
+    "method": "max per-lap Distance among laps <= Q75 + 3*IQR",
+    "n_laps": 899,
+    "q25_lap_length_m": 5385.577916666665,
+    "median_lap_length_m": 5408.6625,
+    "q75_lap_length_m": 5446.110833333336,
+    "iqr_m": 108.17325000000001,
+    "outlier_cap_m": 5770.630583333336,
+    "raw_max_lap_length_m": 8945.204722222243,
+    "n_outlier_laps": 52,
+    "outlier_laps": [
+      {
+        "driver": "ALO",
+        "lap": 15,
+        "length_m": 5822.852222222221
+      },
+      {
+        "driver": "BEA",
+        "lap": 2,
+        "length_m": 5953.127222222227
+      },
+      {
+        "driver": "BEA",
+        "lap": 3,
+        "length_m": 5933.407777777774
+      },
+      {
+        "driver": "BEA",
+        "lap": 4,
+        "length_m": 6174.541666666664
+      },
+      {
+        "driver": "GAS",
+        "lap": 1,
+        "length_m": 5935.42555555555
+      },
+      {
+        "driver": "GAS",
+        "lap": 2,
+        "length_m": 6022.435833333328
+      },
+      {
+        "driver": "GAS",
+        "lap": 3,
+        "length_m": 5947.19416666667
+      },
+      {
+        "driver": "GAS",
+        "lap": 6,
+        "length_m": 6106.906944444434
+      },
+      {
+        "driver": "GAS",
+        "lap": 7,
+        "length_m": 5982.418055555563
+      },
+      {
+        "driver": "GAS",
+        "lap": 8,
+        "length_m": 5843.110555555557
+      },
+      {
+        "driver": "GAS",
+        "lap": 15,
+        "length_m": 5982.458333333333
+      },
+      {
+        "driver": "GAS",
+        "lap": 18,
+        "length_m": 6012.951666666668
+      },
+      {
+        "driver": "GAS",
+        "lap": 19,
+        "length_m": 6048.088333333341
+      },
+      {
+        "driver": "GAS",
+        "lap": 21,
+        "length_m": 6199.699166666658
+      },
+      {
+        "driver": "GAS",
+        "lap": 22,
+        "length_m": 6152.321111111113
+      },
+      {
+        "driver": "GAS",
+        "lap": 23,
+        "length_m": 5968.948888888891
+      },
+      {
+        "driver": "GAS",
+        "lap": 24,
+        "length_m": 6264.973055555555
+      },
+      {
+        "driver": "GAS",
+        "lap": 25,
+        "length_m": 6099.0075
+      },
+      {
+        "driver": "GAS",
+        "lap": 28,
+        "length_m": 6038.99472222222
+      },
+      {
+        "driver": "GAS",
+        "lap": 30,
+        "length_m": 5852.992777777791
+      }
+    ],
+    "circuit_length_m": 5762.717499999997,
+    "raw_max_over_median": 1.653866315789207,
+    "used_over_median": 1.0654607308183857
+  },
+  "circuit": {
+    "circuit_length_m": 5762.717499999997,
+    "corner_count": 16,
+    "n_zones": 42,
+    "longest_straight_m": 1195.733389239927,
+    "n_long_straights_over_500m": 2,
+    "mean_straight_m": 324.63018908835727
+  },
+  "n_unassigned_zone_samples": 0,
+  "n_ahead_samples": 338767,
+  "join": {
+    "n_ahead_rows": 338767,
+    "n_energy_rows": 339666,
+    "ahead_duplicate_keys": 0,
+    "energy_duplicate_keys": 0,
+    "exact_sample_matches": 338767,
+    "unmatched_samples_before_asof": 0,
+    "exact_match_rate": 1.0,
+    "asof_backward_matches": 0,
+    "unmatched_samples_final": 0,
+    "lap_join_match_rate": 1.0
+  },
+  "race_distance_negative_steps": 0,
+  "lap_length_m": {
+    "min": 3890.0238888888825,
+    "median": 5408.6625,
+    "max": 8945.204722222243
+  },
+  "n_episodes": 1771,
+  "target_mapping": {
+    "n_car_numbers": 18,
+    "n_events_with_unmapped_target": 0
+  },
+  "event_type_counts": {
+    "ON_TRACK_PASS": 545,
+    "CLOSE_INTERACTION_NO_PASS": 668,
+    "PIT_RELATED": 84,
+    "RETIREMENT_RELATED": 0,
+    "LAPPED_UNLAPPED": 23,
+    "UNCERTAIN": 83,
+    "INVALID": 368
+  },
+  "n_events": 1771,
+  "n_labelled": 1213,
+  "n_positive": 545,
+  "n_negative": 668,
+  "positive_rate": 0.44929925803792253,
+  "horizon_s_effective": {
+    "min": 30.0,
+    "max": 30.0,
+    "all_equal_to_horizon": true
+  },
+  "event_duration_s": {
+    "min": 3.0,
+    "median": 6.56,
+    "p75": 10.76,
+    "max": 575.082
+  },
+  "cross_start_finish": {
+    "n": 489,
+    "fraction": 0.2761151891586674
+  },
+  "min_same_pair_separation_s": 30.0,
+  "closing_speed_missing_rate": 0.029926595143986448,
+  "closing_speed_missing_by_class": {
+    "positive": {
+      "n": 545,
+      "closing_speed_missing_rate": 0.001834862385321101,
+      "spatial_alignment_ok_rate": 0.9963302752293578
+    },
+    "negative": {
+      "n": 668,
+      "closing_speed_missing_rate": 0.0029940119760479044,
+      "spatial_alignment_ok_rate": 0.9955089820359282
+    }
+  },
+  "lookahead_truncated_rate": 0.007340485601355167,
+  "energy_missing": 0,
+  "in_horizon_pass_delay_s": {
+    "median": 7.76,
+    "max": 29.92
+  },
+  "pass_after_horizon": 354,
+  "invalid_reasons": {
+    "race state not green at t0 (TrackStatus=12, freeze=False)": 131,
+    "race state not green at t0 (TrackStatus=41, freeze=True)": 80,
+    "no causal target sample at t0": 51,
+    "race state not green at t0 (TrackStatus=21, freeze=False)": 51,
+    "race state not green at t0 (TrackStatus=4, freeze=True)": 46,
+    "race state not green at t0 (TrackStatus=124, freeze=True)": 8,
+    "race state not green at t0 (TrackStatus=1, freeze=True)": 1
+  },
+  "frozen_parameters": {
+    "gap_max_m": 100.0,
+    "gap_min_m": 10.0,
+    "min_persist_s": 3.0,
+    "merge_gap_s": 2.0,
+    "horizon_s": 30.0,
+    "horizon_anchor": "t0"
+  },
+  "timings_s": {
+    "load_session_s": 3.0,
+    "telemetry_s": 38.3,
+    "energy_s": 9.2,
+    "driver_ahead_s": 241.9
+  },
+  "elapsed_s": 350.8,
+  "energy_config": {
+    "NOT_F1_CONSTANTS": true,
+    "comment": "alpha and beta are simulation scale parameters. They are not battery capacity, MGU-K limits, ERS limits, electrical efficiency, or actual SOC parameters. The previous formula scaled each flow to 0.03 individually. The corrected formula scales the median absolute NET imbalance to approximately 0.03, matching the stated design objective.",
+    "target_median_abs_net": 0.03,
+    "flow_scale_T": 0.3134271547661596,
+    "median_abs_imbalance": 0.09571602059299,
+    "calibration_method": "T = 0.03 / median_cal(|H_lap/median(H_lap) - D_lap/median(D_lap)|); alpha = T / median(D_lap); beta = T / median(H_lap)",
+    "d_min_ms2": 1.0,
+    "a_clip_ms2": [
+      -20.0,
+      15.0
+    ],
+    "dt_gap_seconds": 1.0,
+    "yellow_factor": 0.3,
+    "winsor_quantile": 0.995,
+    "e0": 1.0,
+    "calibration_set": {
+      "definition": "green (TrackStatus==1 only), non-box, IsAccurate=True, not thin, not freeze",
+      "n_laps": 735,
+      "median_D_lap": 3707.377175,
+      "median_H_lap": 8875.273919753081,
+      "median_abs_imbalance": 0.09571602059299,
+      "mean_imbalance": -0.017461658353792934,
+      "median_imbalance": 0.0006160692180268157
+    },
+    "alpha": 8.454148039743478e-05,
+    "beta": 3.53146457900963e-05,
+    "alpha_reduced": false,
+    "beta_scale_applied": 1.0,
+    "floor_reduction_reason": null,
+    "clip_lap_fraction": 0.39154616240266965,
+    "n_scale_reductions": 0,
+    "floor_touch_lap_fraction": 0.10011123470522804
+  }
+}
